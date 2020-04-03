@@ -2,6 +2,7 @@ package com.example.jhump;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class User implements Serializable {
     private String name;
@@ -13,14 +14,14 @@ public class User implements Serializable {
     //TOASTS
     private ArrayList<Item> listing;
 
-    public User(String name, String email, String password, String number, Item listing) {
+    public User(String name, String email, String password, String number, ArrayList<Item> listing) {
         this.name = name;
         this.email = email;
         this.password = password;
         if(number != null) {
             this.number = number;
         }
-        this.listing.add(listing);
+        this.listing = listing;
     }
 
     public String getPassword() {

@@ -29,6 +29,7 @@ import static android.app.Activity.RESULT_OK;
 public class CreateListings extends Fragment {
     private Button newItem;
     private Button cancel;
+    private List<Bitmap> pics;
     //whereever displaying, use:
     // ImageView picture;
     //imageview.setImageBitmap(b);
@@ -54,9 +55,8 @@ public class CreateListings extends Fragment {
         newItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //will be creating rest of Item here
                 //below is to get pics from gallery
-                //was previously createlistings.this before class was made into a frag
+                //was previously createlistings.this before class was made into a frag <---for Chioma
                 if (ActivityCompat.checkSelfPermission(getActivity(),
                         Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
@@ -66,16 +66,25 @@ public class CreateListings extends Fragment {
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.setType("image/*");
                 startActivityForResult(intent, 1);
+                String seller;
+                String condition;
+                String category;
+                String description;
+                double price;
+                //are we allowing to create a new listing that is already marked as sold?
+                Item addItem = new Item(pics, seller, condition, category, description, price, false);
+
             }
         });
         return root;
     }
 
+    //for launching user gallery to select multiple images
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && requestCode == 1) {
-            List<Bitmap> pics = new ArrayList<>();
+            pics = new ArrayList<>();
             ClipData clipData = data.getClipData();
             if (clipData != null) {
                 for (int i = 0; i < clipData.getItemCount(); i++) {

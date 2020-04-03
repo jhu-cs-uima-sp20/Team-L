@@ -1,5 +1,8 @@
 package com.example.jhump;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -80,6 +83,15 @@ public class NavigationDrawer extends AppCompatActivity
             transaction.replace(R.id.nav_host_fragment, myListings);
             transaction.addToBackStack(null);
             transaction.commit();
+        } else if (id == R.id.profile) {
+
+        } else if (id == R.id.signOut) {
+            SharedPreferences userInfo = getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
+            userInfo.edit().putBoolean("logged", false).apply();
+            //upload all settings to database
+            //clear all saved info up to this point
+            Intent backToMain = new Intent(NavigationDrawer.this, MainActivity.class);
+            startActivity(backToMain);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

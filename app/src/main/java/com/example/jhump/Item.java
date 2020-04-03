@@ -4,9 +4,10 @@ import android.graphics.Bitmap;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Item implements Serializable {
-    private ArrayList<Bitmap> picture;
+    private List<Bitmap> picture;
     private String seller;
     private String condition;
     private String category;
@@ -22,10 +23,10 @@ public class Item implements Serializable {
     picture = new BufferedImage
     }
     */
-    public Item(Bitmap picture, String seller, String condition,
+    public Item(List<Bitmap> picture, String seller, String condition,
                 String category, String description, double price, boolean sold) {
         this.seller = seller;
-        this.picture.add(picture);
+        this.picture = picture;
         this.condition = condition;
         this.category = category;
         this.price = price;
@@ -55,7 +56,7 @@ public class Item implements Serializable {
 
     public double getPrice() {return this.price;}
 
-    public ArrayList<Bitmap> getPicture() {
+    public List<Bitmap> getPicture() {
         return this.picture;
     }
 

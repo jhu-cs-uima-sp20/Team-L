@@ -19,4 +19,6 @@
     <string name="all_listings">All Listings</string>
     <string name="create_listing">Create Listing</string>
     <string name="my_listings">My Listings</string>
+    <string name="my_profile">My Profile</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

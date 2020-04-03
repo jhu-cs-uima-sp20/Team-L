@@ -11,46 +11,32 @@
         android:id="@+id/itemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="28dp"
         android:text="TextView"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.272"
+        app:layout_constraintHorizontal_bias="0.344"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/seller"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="TextView"
-        app:layout_constraintTop_toBottomOf="@+id/itemName"
-        tools:layout_editor_absoluteX="92dp" />
 
     <TextView
         android:id="@+id/condition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="231dp"
-        android:layout_marginLeft="231dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="4dp"
         android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/price"
+        tools:layout_editor_absoluteX="116dp" />
 
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="231dp"
-        android:layout_marginLeft="231dp"
-        android:layout_marginTop="88dp"
-        android:text="TextView"
-        android:textColor="green"
-         />
+        android:layout_marginTop="8dp"
+        android:text="Price: TextView"
+        android:textColor="#219807"
+        app:layout_constraintTop_toBottomOf="@+id/seller"
+        tools:layout_editor_absoluteX="116dp" />
 
     <View
         android:id="@+id/divider"
@@ -59,14 +45,26 @@
         android:layout_marginTop="8dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/condition" />
 
+    <TextView
+        android:id="@+id/seller"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="TextView"
+        app:layout_constraintTop_toBottomOf="@+id/itemName"
+        tools:layout_editor_absoluteX="116dp" />
+
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="58dp"
-        android:layout_height="93dp"
+        android:layout_width="73dp"
+        android:layout_height="106dp"
         app:srcCompat="@drawable/ic_menu_gallery"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="28dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
