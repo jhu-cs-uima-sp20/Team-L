@@ -91,7 +91,7 @@ public class NavigationDrawer extends AppCompatActivity
             //upload all settings to database
             //clear all saved info up to this point
             Intent backToMain = new Intent(NavigationDrawer.this, MainActivity.class);
-            sta rtActivity(backToMain);
+            startActivity(backToMain);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

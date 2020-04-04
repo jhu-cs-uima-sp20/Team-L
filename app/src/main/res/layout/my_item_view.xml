@@ -84,7 +84,7 @@
         android:layout_height="33dp"
         android:layout_marginTop="100dp"
         android:text="EDIT"
-        android:textSize="10"
+        android:textSize="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.688"
         app:layout_constraintStart_toStartOf="parent"

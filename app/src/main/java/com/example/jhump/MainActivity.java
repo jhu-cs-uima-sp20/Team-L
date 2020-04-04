@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             This update when database is initiated*/
 
         }
-
+        //TODO fix the error here
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

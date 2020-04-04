@@ -1,26 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent "
+    android:layout_height="match_parent"
     tools:context=".CreateListings">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/New_Listing"
+        android:layout_width="131dp"
+        android:layout_height="52dp"
+        android:layout_marginTop="36dp"
+        android:text="New Listing"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="POST" />
+        android:background="#57AFE8"
+        android:text="POST"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="227dp"
+        tools:layout_editor_absoluteY="589dp" />
 
     <Button
         android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CANCEL" />
+        android:background="#57AFE8"
+        android:text="CANCEL"
+        android:textColor="#FFFFFF"
+        tools:layout_editor_absoluteX="86dp"
+        tools:layout_editor_absoluteY="589dp" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/listing"
+        android:layout_width="325dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="50dp"
+        android:ems="10"
+        android:hint="Listing Name *"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/New_Listing" />
+
+    <EditText
+        android:id="@+id/price"
+        android:layout_width="325dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="110dp"
+        android:ems="10"
+        android:hint="Price *"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/New_Listing" />
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="325dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="368dp"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/New_Listing" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="325dp"
+        android:layout_height="42dp"
+
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price" />
+
+    <Spinner
+        android:id="@+id/spinner2"
+        android:layout_width="325dp"
+        android:layout_height="42dp"
+
+        android:layout_marginTop="104dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

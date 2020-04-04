@@ -72,7 +72,7 @@ public class CreateListings extends Fragment {
                 String description;
                 double price;
                 //are we allowing to create a new listing that is already marked as sold?
-                Item addItem = new Item(pics, seller, condition, category, description, price, false);
+                //Item addItem = new Item(pics, seller, condition, category, description, price, false);
 
             }
         });

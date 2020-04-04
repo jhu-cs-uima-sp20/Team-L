@@ -1,0 +1,97 @@
+commit cde4f690b555ede13c7e8b2b8044913cc8e20951
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Fri Apr 3 13:38:15 2020 -0400
+
+    Fixed item view.
+    
+    Signed-off-by: cnwosu3 <cnwosu3@jhu.edu>
+
+commit b515f8d9e77fde24e3371f70d46979012275ef07
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Fri Apr 3 05:33:28 2020 -0400
+
+    Basic signup java class, working on how to implement Users
+    
+    Signed-off-by: cnwosu3 <cnwosu3@jhu.edu>
+
+commit f285d4d98b68b7030e357585a2ff5e049800da6d
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Wed Apr 1 18:28:54 2020 -0400
+
+    Basic collection view, java base classes, and drawer nearly done
+    
+    Signed-off-by: cnwosu3 <cnwosu3@jhu.edu>
+
+commit 1263b4051a540b6f0f28b20c54ba06d2423aba87
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Tue Mar 31 20:07:22 2020 -0400
+
+    Established git
+    
+    Signed-off-by: cnwosu3 <cnwosu3@jhu.edu>
+
+commit a6d3087a516a1f252708daca37f812f740ade3d2
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Tue Mar 31 17:53:38 2020 -0400
+
+    Delete gradlew.bat
+
+commit 25b6e50d9c33a2ab40213a7c991619d264a948db
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Tue Mar 31 17:53:25 2020 -0400
+
+    Delete gradle.properties
+
+commit 31242737827bdcab6e87d974212cc72320dec423
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Tue Mar 31 17:53:11 2020 -0400
+
+    Delete gradlew
+
+commit d643b858a56621456f485efc0b305aa52a1f199f
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Tue Mar 31 17:52:38 2020 -0400
+
+    Delete local.properties
+
+commit 0f2ec57b216c3098899ff63bcb2b2f8ff293c199
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Tue Mar 31 17:52:25 2020 -0400
+
+    Delete build.gradle
+
+commit 50fa6108311e5140badbce2ca9d5a6e69bd72922
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Tue Mar 31 17:50:46 2020 -0400
+
+    Delete settings.gradle
+
+commit 5ddf168b1008e9152304392873cbdaa916505223
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Tue Mar 31 17:50:26 2020 -0400
+
+    Delete JHUMP.iml
+
+commit cb90eb413dbd1e37949cb821160055e59370fe40
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Tue Mar 31 17:49:24 2020 -0400
+
+    Delete JHUMP.zip
+
+commit 2f3fd55b8d30c99ee322914b1405b8dbd9c0fdd2
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Tue Mar 31 17:48:54 2020 -0400
+
+    Add files via upload
+
+commit 8d291509dea414f356aaf9630bce46f444a61cac
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Tue Mar 31 17:48:24 2020 -0400
+
+    Delete .gitignore
+
+commit 139c7c11919f4369ff928eed09682550407ca700
+Author: nchioma2 <60823017+nchioma2@users.noreply.github.com>
+Date:   Tue Mar 31 17:43:21 2020 -0400
+
+    Add files via upload
