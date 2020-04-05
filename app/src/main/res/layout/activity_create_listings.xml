@@ -100,7 +100,7 @@
         app:layout_constraintTop_toBottomOf="@+id/New_Listing" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/condition"
         android:layout_width="325dp"
         android:layout_height="42dp"
 
@@ -111,7 +111,7 @@
         app:layout_constraintTop_toBottomOf="@+id/price" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/category"
         android:layout_width="325dp"
         android:layout_height="42dp"
         android:layout_marginTop="120dp"
@@ -133,5 +133,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price" />
+
+    <ImageButton
+        android:id="@+id/pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="148dp"
+        android:src="@drawable/ic_menu_gallery"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.812"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
