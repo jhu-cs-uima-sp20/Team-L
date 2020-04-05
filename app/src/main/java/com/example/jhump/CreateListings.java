@@ -30,6 +30,7 @@ public class CreateListings extends Fragment {
     private Button newItem;
     private Button cancel;
     private List<Bitmap> pics;
+    private Button gallery;
     //whereever displaying, use:
     // ImageView picture;
     //imageview.setImageBitmap(b);
@@ -40,6 +41,11 @@ public class CreateListings extends Fragment {
         View root = inflater.inflate(R.layout.fragment_create_listings, container, false);
         newItem = root.findViewById(R.id.post);
         cancel = root.findViewById(R.id.cancel);
+        gallery = root.findViewById(R.id.pic);
+        String condition = root.findViewById(R.id.condition);
+        String category = root.findViewById(R.id.category);
+        String description = root.findViewById(R.id.description);
+        double price = root.findViewById(R.id.price);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +58,7 @@ public class CreateListings extends Fragment {
             }
         });
 
-        newItem.setOnClickListener(new View.OnClickListener() {
+        gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //below is to get pics from gallery
@@ -66,14 +72,16 @@ public class CreateListings extends Fragment {
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.setType("image/*");
                 startActivityForResult(intent, 1);
-                String seller;
-                String condition;
-                String category;
-                String description;
-                double price;
+            }
+        });
+
+        newItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String seller = ;
+
                 //are we allowing to create a new listing that is already marked as sold?
                 //Item addItem = new Item(pics, seller, condition, category, description, price, false);
-
             }
         });
         return root;
