@@ -17,7 +17,7 @@ public class SignIn extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         //if email not in database, toast
         //if email is in database, call password
-        //if password doesnt match, toast
+        //if password doesn't match, toast
         //EVENTUALLY, forget password
         //delete account from database?
         //back button also needed on this page, not in design doc
