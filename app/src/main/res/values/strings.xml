@@ -21,4 +21,9 @@
     <string name="my_listings">My Listings</string>
     <string name="my_profile">My Profile</string>
     <string name="sign_out">Sign Out</string>
+    <string name="phone_number_optional">Phone Number (Optional)</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="jsmith12_jhu_edu">jsmith12@jhu.edu</string>
+    <string name="hidden_password">***********</string>
+    <string name="your_jhu_email">Your JHU Email</string>
 </resources>
