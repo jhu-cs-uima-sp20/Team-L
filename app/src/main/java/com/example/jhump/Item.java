@@ -7,13 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Item implements Serializable {
+    private String name;
     private List<Bitmap> picture;
     private String seller;
     private String condition;
     private String category;
     private double price;
     private String description;
-    private boolean sold = false;
+    private boolean sold;
     //layout must say us.dollars
     //arrayList of BufferedImages
     //pass in user data
@@ -23,8 +24,9 @@ public class Item implements Serializable {
     picture = new BufferedImage
     }
     */
-    public Item(List<Bitmap> picture, String seller, String condition,
+    public Item(String name, List<Bitmap> picture, String seller, String condition,
                 String category, String description, double price, boolean sold) {
+        this.name = name;
         this.seller = seller;
         this.picture = picture;
         this.condition = condition;
@@ -33,6 +35,8 @@ public class Item implements Serializable {
         this.description = description;
         this.sold = sold;
     }
+
+    public String getName() { return this.name; }
 
     public boolean isSold() {
         return sold;
