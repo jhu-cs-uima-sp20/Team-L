@@ -8,15 +8,15 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/allListings"
-            android:icon="@drawable/ic_menu_camera"
+            android:fontFamily="@font/varela_round"
             android:title="@string/all_listings" />
         <item
             android:id="@+id/createListings"
-            android:icon="@drawable/ic_menu_gallery"
+            android:fontFamily="@font/varela_round"
             android:title="@string/create_listing" />
         <item
             android:id="@+id/myListings"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:fontFamily="@font/varela_round"
             android:title="@string/my_listings" />
     </group>
 
@@ -25,11 +25,11 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/profile"
-            android:icon="@drawable/ic_menu_camera"
+            android:fontFamily="@font/varela_round"
             android:title="@string/my_profile" />
         <item
             android:id="@+id/signOut"
-            android:icon="@drawable/ic_menu_gallery"
+            android:fontFamily="@font/varela_round"
             android:title="@string/sign_out" />
     </group>
 </menu>
