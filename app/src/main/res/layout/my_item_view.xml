@@ -59,7 +59,7 @@
         tools:layout_editor_absoluteX="116dp" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/facebook"
         android:layout_width="73dp"
         android:layout_height="106dp"
         app:srcCompat="@drawable/ic_menu_gallery"

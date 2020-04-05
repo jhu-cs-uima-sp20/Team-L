@@ -45,7 +45,7 @@
         android:text="Price: TextView"
         android:textColor="#219807"
         app:layout_constraintEnd_toStartOf="@+id/sold"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/facebook"
         app:layout_constraintTop_toBottomOf="@+id/seller" />
 
     <View
@@ -70,11 +70,11 @@
         android:layout_marginRight="67dp"
         android:text="TextView"
         app:layout_constraintEnd_toStartOf="@+id/sold"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintStart_toEndOf="@+id/facebook"
         app:layout_constraintTop_toBottomOf="@+id/itemName" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/facebook"
         android:layout_width="73dp"
         android:layout_height="106dp"
         android:layout_marginStart="16dp"
