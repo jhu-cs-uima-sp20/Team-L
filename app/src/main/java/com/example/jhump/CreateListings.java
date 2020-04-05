@@ -7,8 +7,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -17,7 +19,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -34,6 +40,9 @@ public class CreateListings extends Fragment {
     //whereever displaying, use:
     // ImageView picture;
     //imageview.setImageBitmap(b);
+    //do we want subject?
+    private Spinner category;
+    private Spinner condition;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -42,10 +51,51 @@ public class CreateListings extends Fragment {
         newItem = root.findViewById(R.id.post);
         cancel = root.findViewById(R.id.cancel);
         gallery = root.findViewById(R.id.pic);
-        String condition = root.findViewById(R.id.condition);
-        String category = root.findViewById(R.id.category);
-        String description = root.findViewById(R.id.description);
-        double price = root.findViewById(R.id.price);
+        category = root.findViewById(R.id.category);
+        condition = root.findViewById(R.id.condition);
+        final String[] categoryItem = new String[1];
+        final String[] conditionItem = new String[1];
+        ArrayList<String> cat = new ArrayList<>();
+        cat.add("Textbook");
+        cat.add("I-Clicker");
+        cat.add("Lab Equipment");
+        ArrayList<String> con = new ArrayList<>();
+        con.add("Gently Used");
+        con.add("New");
+        con.add("Used");
+        con.add("Damaged");
+        ArrayAdapter<String> catAdapt = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, cat);
+        ArrayAdapter<String> conAdapt = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, con);
+        condition.setAdapter(conAdapt);
+        category.setAdapter(catAdapt);
+        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                categoryItem[0] = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                categoryItem[0] = "Textbook";
+                //or throw TOAST?
+            }
+        });
+
+        condition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                conditionItem[0] = parent.getItemAtPosition(position).toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                categoryItem[0] = "Used";
+                //or throw TOAST?
+            }
+        });
+        String itemName = ((TextView) root.findViewById(R.id.listing)).getText().toString();
+        String description = ((TextView) root.findViewById(R.id.description)).getText().toString();
+        double price = Double.parseDouble(((TextView) root.findViewById(R.id.price)).getText().toString());
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,15 +128,16 @@ public class CreateListings extends Fragment {
         newItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String seller = ;
-
+                //throw toast if nothing is input
+                String seller;
                 //are we allowing to create a new listing that is already marked as sold?
-                //Item addItem = new Item(pics, seller, condition, category, description, price, false);
+                //Item addItem = new Item(name, pics, seller, conditionItem, categoryItem, description, price, false);
             }
         });
         return root;
     }
 
+    //should launch camera later on
     //for launching user gallery to select multiple images
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
