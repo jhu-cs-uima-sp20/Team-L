@@ -23,7 +23,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/condition" />
 
     <TextView
         android:id="@+id/New_Listing"
@@ -90,12 +90,12 @@
         android:id="@+id/description"
         android:layout_width="325dp"
         android:layout_height="117dp"
-        android:layout_marginTop="335dp"
+        android:layout_marginTop="392dp"
         android:ems="10"
         android:hint="Description"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.534"
+        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/New_Listing" />
 
@@ -105,6 +105,17 @@
         android:layout_height="42dp"
 
         android:layout_marginTop="40dp"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price" />
+
+    <Spinner
+        android:id="@+id/subject"
+        android:layout_width="325dp"
+        android:layout_height="42dp"
+
+        android:layout_marginTop="180dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

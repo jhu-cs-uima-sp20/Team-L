@@ -16,14 +16,9 @@ public class Item implements Serializable {
     private String description;
     private boolean sold;
     //layout must say us.dollars
-    //arrayList of BufferedImages
     //pass in user data
     //are all mandated? If not, store temp values
-    /*try {
-    File file = new File();
-    picture = new BufferedImage
-    }
-    */
+
     public Item(String name, List<Bitmap> picture, String seller, String condition,
                 String category, String description, double price, boolean sold) {
         this.name = name;
@@ -62,6 +57,10 @@ public class Item implements Serializable {
 
     public List<Bitmap> getPicture() {
         return this.picture;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setSeller(String seller) {
