@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         userLogin = getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
         //need a boolean for now to skip signin/signup pages
@@ -46,9 +44,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(listings);
             /*this is just for now, we should update the listings when they sign in since they could have accessed
             app from separate device and want the listings on this device.
-            This update when database is initiated*/
-
+            This update when database is initiated */
         }
+
+
+        /*
         //TODO fix the error here
         //TODO create xml with signIn/signUp options, which should fix the error here
         signIn.setOnClickListener(new View.OnClickListener() {
@@ -67,22 +67,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        //If logged in, go to AllListings activity fragment
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        all_listings = new AllListings();
-        my_listings = new MyListings();
-        my_profile = new MyProfile();
-
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.nav_host_fragment, all_listings).commit();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+         */
 
     }
 
