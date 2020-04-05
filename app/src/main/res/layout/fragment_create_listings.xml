@@ -10,6 +10,22 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="282dp"
+        android:layout_marginRight="282dp"
+        android:text="Category *"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <TextView
         android:id="@+id/New_Listing"
         android:layout_width="131dp"
         android:layout_height="52dp"
@@ -24,21 +40,27 @@
         android:id="@+id/post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="84dp"
+        android:layout_marginRight="84dp"
+        android:layout_marginBottom="84dp"
         android:background="#57AFE8"
         android:text="POST"
         android:textColor="#FFFFFF"
-        tools:layout_editor_absoluteX="227dp"
-        tools:layout_editor_absoluteY="589dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginLeft="84dp"
+        android:layout_marginBottom="84dp"
         android:background="#57AFE8"
         android:text="CANCEL"
         android:textColor="#FFFFFF"
-        tools:layout_editor_absoluteX="86dp"
-        tools:layout_editor_absoluteY="589dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/listing"
@@ -67,8 +89,8 @@
     <EditText
         android:id="@+id/description"
         android:layout_width="325dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="368dp"
+        android:layout_height="117dp"
+        android:layout_marginTop="335dp"
         android:ems="10"
         android:hint="Description"
         android:inputType="textPersonName"
@@ -82,7 +104,8 @@
         android:layout_width="325dp"
         android:layout_height="42dp"
 
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
+        android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price" />
@@ -91,8 +114,22 @@
         android:id="@+id/spinner2"
         android:layout_width="325dp"
         android:layout_height="42dp"
+        android:layout_marginTop="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price" />
 
-        android:layout_marginTop="104dp"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="283dp"
+        android:layout_marginRight="283dp"
+        android:text="Condtion *"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price" />
