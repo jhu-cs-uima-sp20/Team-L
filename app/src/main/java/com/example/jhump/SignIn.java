@@ -30,6 +30,10 @@ public class SignIn extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Email does not exist", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                /*if (!email.getText().toString() is not in User class) {
+                    Toast.makeText(getApplicationContext(), "Sign Up. Email does not exist.", Toast.LENGTH_SHORT).show();
+                    return;
+                }*/
             }
         });
     }

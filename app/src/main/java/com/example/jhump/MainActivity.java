@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
         //TODO fix the error here
+        //TODO create xml with signIn/signUp options, which should fix the error here
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
