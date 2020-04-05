@@ -26,13 +26,15 @@ public class NavigationDrawer extends AppCompatActivity
     private Fragment myListings;
     private FragmentTransaction transaction;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_navigation_drawer);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -46,7 +48,7 @@ public class NavigationDrawer extends AppCompatActivity
 
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.nav_host_fragment, allListings).commit();
+                .add(R.id.fragment_container, allListings).commit();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
 
@@ -96,18 +98,21 @@ public class NavigationDrawer extends AppCompatActivity
 
         if (id == R.id.allListings) {
             getSupportActionBar().setTitle("All Listings");
-            transaction.replace(R.id.nav_host_fragment, allListings);
+            transaction.replace(R.id.fragment_container, allListings);
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.createListings) {
             getSupportActionBar().setTitle("Create Listing");
-            transaction.replace(R.id.nav_host_fragment, createListings);
+            /*
+            transaction.replace(R.id.fragment_container, createListings);
             transaction.addToBackStack(null);
             transaction.commit();
 
+             */
+
         } else if (id == R.id.myListings) {
             getSupportActionBar().setTitle("My Listings");
-            transaction.replace(R.id.nav_host_fragment, myListings);
+            transaction.replace(R.id.fragment_container, myListings);
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.profile) {

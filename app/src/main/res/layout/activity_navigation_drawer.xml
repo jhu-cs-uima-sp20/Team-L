@@ -23,7 +23,6 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_navigation_drawer"
         app:menu="@menu/activity_navigation_drawer_drawer"
-        android:theme="@style/menu_text_style"
         android:fontFamily="@font/varela_round"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

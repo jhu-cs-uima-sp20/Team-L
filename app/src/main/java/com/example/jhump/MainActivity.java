@@ -39,13 +39,21 @@ public class MainActivity extends AppCompatActivity
         //here is also where we'd want to connect to database with user information for signin
         //so populate item and user Item listing after sign in
 
+        System.out.println("\n hello");
+
+        Intent listings = new Intent(MainActivity.this, NavigationDrawer.class);
+        startActivity(listings);
+
+        /*
         if (userLogin.getBoolean("logged", false)) {
+            System.out.println("\n apple");
             Intent listings = new Intent(MainActivity.this, NavigationDrawer.class);
             startActivity(listings);
             /*this is just for now, we should update the listings when they sign in since they could have accessed
             app from separate device and want the listings on this device.
-            This update when database is initiated */
+            This update when database is initiated
         }
+        */
 
 
         /*
