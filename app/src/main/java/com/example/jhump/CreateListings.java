@@ -47,13 +47,13 @@ public class CreateListings extends AppCompatActivity {
                 intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                 intent.setType("image/*");
                 startActivityForResult(intent, 1);
-                String seller = "default val";
-                String condition = ;
-                String category;
-                String description;
-                double price;
-                //are we allowing to create a new listing that is already marked as sold?
-                Item addItem = new Item(pics, seller, condition, category, description, price, false);
+                String listing_name = findViewById(R.id.listing).toString();
+                String seller = "default";
+                String condition = "default";
+                String category = "default";
+                String description = findViewById(R.id.description).toString();
+                double price = Double.parseDouble(findViewById(R.id.price).toString());
+                Item addItem = new Item(listing_name , pics, seller, condition, category, description, price, false);
 
             }
         });
