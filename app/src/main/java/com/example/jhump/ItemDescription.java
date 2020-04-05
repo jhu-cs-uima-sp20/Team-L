@@ -78,7 +78,7 @@ public class ItemDescription extends Fragment {
         price = root.findViewById(R.id.price);
         name = root.findViewById(R.id.name);
         Button contact = root.findViewById(R.id.condition);
-        Item item;
+        Item item = new Item();
         //show sold? or not sold?
         seller.setText(item.getSeller());
         condition.setText(item.getCondition());

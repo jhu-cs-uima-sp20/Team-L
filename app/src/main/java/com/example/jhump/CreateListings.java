@@ -47,7 +47,7 @@ public class CreateListings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View root = inflater.inflate(R.layout.fragment_create_listings, container, false);
+        View root = inflater.inflate(R.layout.activity_create_listings, container, false);
         newItem = root.findViewById(R.id.post);
         cancel = root.findViewById(R.id.cancel);
         gallery = root.findViewById(R.id.pic);
