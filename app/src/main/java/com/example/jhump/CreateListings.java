@@ -41,8 +41,7 @@ public class CreateListings extends Fragment {
     // ImageView picture;
     //imageview.setImageBitmap(b);
     //do we want subject?
-    private Spinner category;
-    private Spinner condition;
+    private Spinner category, condition, subject;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,8 +50,12 @@ public class CreateListings extends Fragment {
         newItem = root.findViewById(R.id.post);
         cancel = root.findViewById(R.id.cancel);
         gallery = root.findViewById(R.id.pic);
+        String itemName = ((TextView) root.findViewById(R.id.listing)).getText().toString();
+        String description = ((TextView) root.findViewById(R.id.description)).getText().toString();
+        double price = Double.parseDouble(((TextView) root.findViewById(R.id.price)).getText().toString());
         category = root.findViewById(R.id.category);
         condition = root.findViewById(R.id.condition);
+        subject = root.findViewById(R.id.condition);
         final String[] categoryItem = new String[1];
         final String[] conditionItem = new String[1];
         ArrayList<String> cat = new ArrayList<>();
@@ -64,8 +67,19 @@ public class CreateListings extends Fragment {
         con.add("New");
         con.add("Used");
         con.add("Damaged");
+        final ArrayList<String> bookSubject = new ArrayList<>();
+        bookSubject.add("Science");
+        bookSubject.add("Math");
+        bookSubject.add("Writing");
+        bookSubject.add("Literature");
+        bookSubject.add("History");
+        bookSubject.add("Art");
+        final ArrayList<String> labEquip = new ArrayList<>();
+        labEquip.add("Chem Writing Notebook");
+        labEquip.add("Orgo Model Kit");
         ArrayAdapter<String> catAdapt = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, cat);
         ArrayAdapter<String> conAdapt = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, con);
+        ArrayAdapter<String> subAdapt = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, new ArrayList<String>());
         condition.setAdapter(conAdapt);
         category.setAdapter(catAdapt);
         category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -81,6 +95,26 @@ public class CreateListings extends Fragment {
             }
         });
 
+        if(categoryItem[0].equals("Textbook")) {
+            subAdapt = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, bookSubject);
+        }
+
+        if(categoryItem[0].equals("Lab Equipment")) {
+            subAdapt = new ArrayAdapter<>(getActivity(), R.layout.support_simple_spinner_dropdown_item, labEquip);
+        }
+
+        subject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         condition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -93,9 +127,6 @@ public class CreateListings extends Fragment {
                 //or throw TOAST?
             }
         });
-        String itemName = ((TextView) root.findViewById(R.id.listing)).getText().toString();
-        String description = ((TextView) root.findViewById(R.id.description)).getText().toString();
-        double price = Double.parseDouble(((TextView) root.findViewById(R.id.price)).getText().toString());
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,10 +139,10 @@ public class CreateListings extends Fragment {
             }
         });
 
+        //below is to get pics from gallery
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //below is to get pics from gallery
                 //was previously createlistings.this before class was made into a frag <---for Chioma
                 if (ActivityCompat.checkSelfPermission(getActivity(),
                         Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
