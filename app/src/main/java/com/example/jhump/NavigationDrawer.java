@@ -39,7 +39,7 @@ public class NavigationDrawer extends AppCompatActivity
         toggle.syncState();
 
         allListings = new AllListings();
-        createListings = new CreateListings();
+        //createListings = new CreateListings();
         myListings = new MyListings();
 
 
