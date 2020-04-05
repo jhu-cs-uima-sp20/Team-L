@@ -78,7 +78,7 @@ public class ItemDescription extends Fragment {
         price = root.findViewById(R.id.price);
         name = root.findViewById(R.id.name);
         Button contact = root.findViewById(R.id.condition);
-        Item item = new Item();
+        /*Item item;
         //show sold? or not sold?
         seller.setText(item.getSeller());
         condition.setText(item.getCondition());
@@ -86,7 +86,7 @@ public class ItemDescription extends Fragment {
         description.setText(item.getDescription());
         price.setText("$" + item.getPrice());
         name.setText(item.getName());
-
+*/
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
