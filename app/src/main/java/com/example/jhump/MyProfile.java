@@ -1,6 +1,8 @@
 package com.example.jhump;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -10,12 +12,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MyProfile extends Fragment {
+    protected ItemAdapter itemAdapter;
+    protected ArrayList<Item> items;
+    ListView listView;
+    List<Bitmap> imageList;
 
     public MyProfile() {
         // Required empty public constructor
@@ -38,6 +48,21 @@ public class MyProfile extends Fragment {
                 startActivity(i);
             }
         });
+
+        items = new ArrayList<>();
+        listView = view.findViewById(R.id.my_profile_listings);
+        itemAdapter = new ItemAdapter(getActivity(), R.layout.listing_item_layout, items);
+        listView.setAdapter(itemAdapter);
+        registerForContextMenu(listView);
+
+        //hard coded listing for speed demo.
+        Bitmap itemPic = BitmapFactory.decodeResource(getResources(), R.drawable.discrete_math_cover);
+        imageList = new ArrayList<>();
+        imageList.add(itemPic);
+        Item newItem = new Item("Discrete Mathematics", imageList, "Sold by you", "Good",
+                "Textbooks", "Calculus 1 textbook.", 20.0, false);
+        itemAdapter.add(newItem);
+        itemAdapter.notifyDataSetChanged();
 
         return view;
     }

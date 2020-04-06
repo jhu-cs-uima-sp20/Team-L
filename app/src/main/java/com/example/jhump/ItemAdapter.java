@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,10 +38,12 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         TextView listingNameView = itemView.findViewById(R.id.listing_name);
         TextView priceView = itemView.findViewById(R.id.listing_price);
         TextView sellerView = itemView.findViewById(R.id.listing_seller);
+        ImageView imageView = itemView.findViewById(R.id.listing_image);
 
         listingNameView.setText(item.getName());
-        priceView.setText(Double.toString(item.getPrice()));
+        priceView.setText("$" + Double.toString(item.getPrice()) + "0");
         sellerView.setText(item.getSeller());
+        imageView.setImageBitmap(item.getPicture().get(0));
 
         return itemView;
     }
