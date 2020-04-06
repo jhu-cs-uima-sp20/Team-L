@@ -44,6 +44,11 @@ public class AllListings extends Fragment {
 
         registerForContextMenu(listingList);
 
+        double price = 50;
+
+        Item test = new Item("Listing Name", null, "Seller Name", "new", "Textbook", "", price, false);
+        NavigationDrawer.listingItem.add(test);
+
         NavigationDrawer.aa.notifyDataSetChanged();
 
         // program a short click on the list item
