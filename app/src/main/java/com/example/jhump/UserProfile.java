@@ -20,7 +20,7 @@ public class UserProfile extends Fragment {
         // Required empty public constructor
     }
 
-    /*
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class UserProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_user_profile, container, false);
 
         //OnClickListener for Facebook icon, which opens URL to user's Facebook page.
-        view.findViewById(R.id.facebook_user_profile).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.item_image).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = "https://www.facebook.com/alison.lee.9440"; //Hardcoded Facebook link, for now.
@@ -44,5 +44,4 @@ public class UserProfile extends Fragment {
 
 
     }
-    */
 }

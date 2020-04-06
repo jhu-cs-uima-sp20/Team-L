@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 
 /**
@@ -27,7 +28,8 @@ public class MyProfile extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
 
         //OnClickListener for Facebook icon, which opens URL to user's Facebook page.
-        view.findViewById(R.id.facebook_user_profile).setOnClickListener(new View.OnClickListener() {
+        ImageView facebook = (ImageView) view.findViewById(R.id.facebook_my_profile);
+        facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = "https://www.facebook.com/alison.lee.9440"; //Hardcoded Facebook link, for now.
