@@ -49,6 +49,14 @@ public class MyProfile extends Fragment {
             }
         });
 
+        ImageView editButton = view.findViewById(R.id.edit_button);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), EditProfile.class);
+                startActivity(intent);
+            }
+        });
+
         items = new ArrayList<>();
         listView = view.findViewById(R.id.my_profile_listings);
         itemAdapter = new ItemAdapter(getActivity(), R.layout.listing_item_layout, items);
