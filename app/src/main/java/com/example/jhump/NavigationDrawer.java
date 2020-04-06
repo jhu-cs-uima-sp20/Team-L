@@ -19,6 +19,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import android.os.Build;
 import android.view.MenuItem;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -28,9 +31,15 @@ public class NavigationDrawer extends AppCompatActivity
     private Fragment myListings;
     private FragmentTransaction transaction;
 
+    public static ItemAdapter aa;
+    public static ArrayList<Item> listingItem;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        listingItem = new ArrayList<Item>();
+        aa = new ItemAdapter(this, R.layout.listing_item_layout, listingItem);
 
         setContentView(R.layout.activity_navigation_drawer);
         Toolbar toolbar = findViewById(R.id.toolbar);
