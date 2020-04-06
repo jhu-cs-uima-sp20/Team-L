@@ -136,10 +136,14 @@ public class MainActivity extends AppCompatActivity
             // Commit the transaction
             transaction.commit();
 
-        } else if (id == R.id.profile) {
+        }  else if (id == R.id.signOut) {
 
-        } else if (id == R.id.signOut) {
-
+        }
+        else if (id == R.id.profile) {
+            getSupportActionBar().setTitle("My Profile");
+            transaction.replace(R.id.fragment_container, new MyProfile());
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
