@@ -15,7 +15,7 @@
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:layout_marginTop="100dp"
-            android:contentDescription="profile picture"
+            android:contentDescription="@string/profile_picture"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -24,7 +24,7 @@
             app:srcCompat="@drawable/anon_user" />
 
         <ImageView
-            android:id="@+id/facebook_my_profile"
+            android:id="@+id/facebook_user_profile"
             android:layout_width="62dp"
             android:layout_height="62dp"
             android:layout_marginStart="16dp"
@@ -36,20 +36,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/facebook_icon" />
-
-        <ImageView
-            android:id="@+id/edit_button"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginTop="100dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:src="@drawable/ic_launcher_background"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/profile_picture"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/edit_icon" />
 
         <TextView
             android:id="@+id/my_profile_name"
@@ -74,22 +60,22 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="105dp"
-            android:layout_marginTop="16dp"
+            android:layout_height="97dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@+id/my_profile_listings"
+            app:layout_constraintTop_toTopOf="@+id/my_profile_listings"></LinearLayout>
+
+        <ListView
+            android:id="@+id/my_profile_listings"
+            android:layout_width="411dp"
+            android:layout_height="430dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email">
 
-            <ListView
-                android:id="@+id/my_profile_listings"
-                android:layout_width="411dp"
-                android:layout_height="430dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="1dp">
-
-            </ListView>
-        </LinearLayout>
+        </ListView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

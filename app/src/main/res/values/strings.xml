@@ -14,7 +14,6 @@
 
     <string name="home_second">Home Second</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="all_listings">All Listings</string>
     <string name="create_listing">Create Listing</string>
@@ -34,4 +33,5 @@
     <string name="seller">Seller:</string>
     <string name="description">Description:</string>
     <string name="listed_price">Listed Price:</string>
+    <string name="profile_picture">Profile Picture</string>
 </resources>

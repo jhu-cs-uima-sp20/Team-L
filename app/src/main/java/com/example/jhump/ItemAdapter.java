@@ -8,12 +8,13 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemAdapter extends ArrayAdapter<Item> {
     private int resource;
 
-    public ItemAdapter(Context ctx, int res, List<Item> items)
+    public ItemAdapter(Context ctx, int res, ArrayList<Item> items)
     {
         super(ctx, res, items);
         resource = res;
