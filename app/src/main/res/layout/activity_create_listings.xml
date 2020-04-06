@@ -90,7 +90,7 @@
         android:id="@+id/description"
         android:layout_width="325dp"
         android:layout_height="117dp"
-        android:layout_marginTop="392dp"
+        android:layout_marginTop="372dp"
         android:ems="10"
         android:hint="Description"
         android:inputType="textPersonName"
@@ -105,17 +105,6 @@
         android:layout_height="42dp"
 
         android:layout_marginTop="40dp"
-        android:spinnerMode="dropdown"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/price" />
-
-    <Spinner
-        android:id="@+id/subject"
-        android:layout_width="325dp"
-        android:layout_height="42dp"
-
-        android:layout_marginTop="180dp"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -149,11 +138,11 @@
         android:id="@+id/pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="148dp"
+        android:layout_marginBottom="276dp"
         android:src="@drawable/ic_menu_gallery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.812"
+        app:layout_constraintHorizontal_bias="0.887"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
