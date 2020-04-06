@@ -3,6 +3,8 @@ package com.example.jhump;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -34,8 +36,6 @@ public class NavigationDrawer extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -43,14 +43,14 @@ public class NavigationDrawer extends AppCompatActivity
         toggle.syncState();
 
         allListings = new AllListings();
-
         myListings = new MyListings();
-
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, allListings).commit();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        navigationView.setItemTextColor(ColorStateList.valueOf(Color.WHITE));
 
         //View header = navigationView.getHeaderView(0);
         //TextView name = header.findViewById(R.id.myName);
@@ -95,7 +95,6 @@ public class NavigationDrawer extends AppCompatActivity
 
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.allListings) {
             getSupportActionBar().setTitle("All Listings");
             transaction.replace(R.id.fragment_container, allListings);
@@ -109,9 +108,7 @@ public class NavigationDrawer extends AppCompatActivity
             transaction.replace(R.id.fragment_container, createListings);
             transaction.addToBackStack(null);
             transaction.commit();
-
              */
-
         } else if (id == R.id.myListings) {
             getSupportActionBar().setTitle("My Listings");
             transaction.replace(R.id.fragment_container, myListings);
@@ -126,6 +123,12 @@ public class NavigationDrawer extends AppCompatActivity
             //clear all saved info up to this point
             Intent backToMain = new Intent(NavigationDrawer.this, MainActivity.class);
             startActivity(backToMain);
+        }
+        else if (id == R.id.profile) {
+            getSupportActionBar().setTitle("My Profile");
+            transaction.replace(R.id.fragment_container, new MyProfile());
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
