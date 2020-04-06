@@ -29,6 +29,7 @@ public class NavigationDrawer extends AppCompatActivity
     private Fragment allListings;
     private Fragment createListings;
     private Fragment myListings;
+    private Fragment myProfile;
     private FragmentTransaction transaction;
 
     public static ItemAdapter aa;
@@ -53,6 +54,7 @@ public class NavigationDrawer extends AppCompatActivity
 
         allListings = new AllListings();
         myListings = new MyListings();
+        myProfile = new MyProfile();
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, allListings).commit();
@@ -124,7 +126,9 @@ public class NavigationDrawer extends AppCompatActivity
             transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.profile) {
-
+            getSupportActionBar().setTitle("My Profile");
+            transaction.replace(R.id.fragment_container, myProfile);
+            transaction.commit();
         } else if (id == R.id.signOut) {
             SharedPreferences userInfo = getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
             userInfo.edit().putBoolean("logged", false).apply();

@@ -24,7 +24,6 @@ import java.util.ArrayList;
 public class AllListings extends Fragment {
 
     private ListView listingList;
-    public static ArrayList<Item> listingItem;
     private Context context;
 
     public AllListings() {
@@ -40,7 +39,7 @@ public class AllListings extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_all_listings, container, false);
 
         listingList = (ListView)view.findViewById(R.id.all_listings_list);
-        NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, listingItem);
+        NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, NavigationDrawer.listingItem);
         listingList.setAdapter(NavigationDrawer.aa);
 
         registerForContextMenu(listingList);
