@@ -1,26 +1,15 @@
 package com.example.jhump;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.Manifest;
-import android.app.Activity;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,12 +17,14 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 public class CreateListings extends AppCompatActivity {
     private Button newItem;
@@ -49,6 +40,7 @@ public class CreateListings extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_listings);
         newItem = findViewById(R.id.post);
         cancel = findViewById(R.id.cancel);
         gallery = findViewById(R.id.pic);
@@ -67,70 +59,70 @@ public class CreateListings extends AppCompatActivity {
         con.add("Damaged");
         ArrayAdapter<String> catAdapt = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, cat);
         ArrayAdapter<String> conAdapt = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, con);
-        condition.setAdapter(conAdapt);
-        category.setAdapter(catAdapt);
-        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                categoryItem[0] = parent.getItemAtPosition(position).toString();
-            }
+        //condition.setAdapter(conAdapt);
+        //category.setAdapter(catAdapt);
+//        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                categoryItem[0] = parent.getItemAtPosition(position).toString();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                categoryItem[0] = "Textbook";
+//                //or throw TOAST?
+//            }
+//        });
+//
+//        condition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                conditionItem[0] = parent.getItemAtPosition(position).toString();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//                categoryItem[0] = "Used";
+//                //or throw TOAST?
+//            }
+//        });
+//
+//        cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                categoryItem[0] = "Textbook";
-                //or throw TOAST?
-            }
-        });
+//        gallery.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //below is to get pics from gallery
+//                //was previously createlistings.this before class was made into a frag <---for Chioma
+//                Context context = getApplicationContext();
+//                if (ActivityCompat.checkSelfPermission(context,
+//                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                    ActivityCompat.requestPermissions(CreateListings.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+//                    return;
+//                }
+//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//                intent.setType("image/*");
+//                startActivityForResult(intent, 1);
+//            }
+//        });
 
-        condition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                conditionItem[0] = parent.getItemAtPosition(position).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                categoryItem[0] = "Used";
-                //or throw TOAST?
-            }
-        });
-        String itemName = ((TextView) findViewById(R.id.listing)).getText().toString();
-        String description = ((TextView) findViewById(R.id.description)).getText().toString();
-        double price = Double.parseDouble(((TextView) findViewById(R.id.price)).getText().toString());
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        gallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //below is to get pics from gallery
-                //was previously createlistings.this before class was made into a frag <---for Chioma
-                Context context = getApplicationContext();
-                if (ActivityCompat.checkSelfPermission(context,
-                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(CreateListings.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
-                    return;
-                }
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                intent.setType("image/*");
-                startActivityForResult(intent, 1);
-            }
-        });
-
-        newItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //throw toast if nothing is input
-                String seller;
-                //are we allowing to create a new listing that is already marked as sold?
-                //Item addItem = new Item(name, pics, seller, conditionItem, categoryItem, description, price, false);
-            }
-        });
+//        newItem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //throw toast if nothing is input
+//                String seller = "default";
+//                String itemName = ((TextView) findViewById(R.id.listing)).getText().toString();
+//                String description = ((TextView) findViewById(R.id.description)).getText().toString();
+//                double price = Double.parseDouble(((TextView) findViewById(R.id.price)).getText().toString());
+//                Item addItem = new Item(itemName, pics, seller, conditionItem[1], categoryItem[1], description, price, false);
+//            }
+//        });
     }
 
     //should launch camera later on
@@ -140,6 +132,7 @@ public class CreateListings extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && requestCode == 1) {
             pics = new ArrayList<>();
+            assert data != null;
             ClipData clipData = data.getClipData();
             if (clipData != null) {
                 for (int i = 0; i < clipData.getItemCount(); i++) {
@@ -155,6 +148,7 @@ public class CreateListings extends AppCompatActivity {
             } else {
                 Uri imageURI = data.getData();
                 try {
+                    assert imageURI != null;
                     InputStream is = this.getContentResolver().openInputStream(imageURI);
                     Bitmap bitmap = BitmapFactory.decodeStream(is);
                     pics.add(bitmap);

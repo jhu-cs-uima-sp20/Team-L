@@ -43,7 +43,7 @@ public class NavigationDrawer extends AppCompatActivity
         toggle.syncState();
 
         allListings = new AllListings();
-        //createListings = new CreateListings();
+
         myListings = new MyListings();
 
 
@@ -103,6 +103,8 @@ public class NavigationDrawer extends AppCompatActivity
             transaction.commit();
         } else if (id == R.id.createListings) {
             getSupportActionBar().setTitle("Create Listing");
+            Intent intent = new Intent(this, CreateListings.class);
+            startActivity(intent);
             /*
             transaction.replace(R.id.fragment_container, createListings);
             transaction.addToBackStack(null);
