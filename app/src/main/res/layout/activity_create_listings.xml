@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".CreateListings">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <TextView
         android:id="@+id/textView3"
@@ -40,6 +39,7 @@
         android:id="@+id/post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="73dp"
         android:layout_marginEnd="84dp"
         android:layout_marginRight="84dp"
         android:layout_marginBottom="84dp"
@@ -47,7 +47,8 @@
         android:text="POST"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <Button
         android:id="@+id/cancel"
@@ -55,12 +56,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
         android:layout_marginLeft="84dp"
+        android:layout_marginTop="73dp"
         android:layout_marginBottom="84dp"
         android:background="#57AFE8"
         android:text="CANCEL"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
 
     <EditText
         android:id="@+id/listing"
@@ -78,18 +81,19 @@
         android:id="@+id/price"
         android:layout_width="325dp"
         android:layout_height="42dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="100dp"
         android:ems="10"
         android:hint="Price *"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.534"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/New_Listing" />
 
     <EditText
         android:id="@+id/description"
-        android:layout_width="325dp"
-        android:layout_height="117dp"
+        android:layout_width="332dp"
+        android:layout_height="65dp"
         android:layout_marginTop="372dp"
         android:ems="10"
         android:hint="Description"
@@ -138,11 +142,33 @@
         android:id="@+id/pic"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="276dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="288dp"
         android:src="@drawable/ic_menu_gallery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.887"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="119dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginLeft="46dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginBottom="17dp"
+        android:text="Add Pictures *"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/description"
+        app:layout_constraintEnd_toStartOf="@+id/pic"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
