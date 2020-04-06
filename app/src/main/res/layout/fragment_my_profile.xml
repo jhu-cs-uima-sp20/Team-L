@@ -24,7 +24,7 @@
             app:srcCompat="@drawable/anon_user" />
 
         <ImageView
-            android:id="@+id/facebook"
+            android:id="@+id/facebook_my_profile"
             android:layout_width="62dp"
             android:layout_height="62dp"
             android:layout_marginStart="16dp"
