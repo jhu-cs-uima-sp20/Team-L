@@ -54,6 +54,7 @@ public class NavigationDrawer extends AppCompatActivity
 
         allListings = new AllListings();
         myListings = new MyListings();
+        createListings = new CreateListings();
         myProfile = new MyProfile();
 
         getSupportFragmentManager().beginTransaction()
@@ -113,13 +114,12 @@ public class NavigationDrawer extends AppCompatActivity
             transaction.commit();
         } else if (id == R.id.createListings) {
             getSupportActionBar().setTitle("Create Listing");
-            Intent intent = new Intent(this, CreateListings.class);
-            startActivity(intent);
-            /*
+//            Intent intent = new Intent(this, CreateListings.class);
+//            startActivity(intent);
             transaction.replace(R.id.fragment_container, createListings);
             transaction.addToBackStack(null);
             transaction.commit();
-             */
+
         } else if (id == R.id.myListings) {
             getSupportActionBar().setTitle("My Listings");
             transaction.replace(R.id.fragment_container, myListings);

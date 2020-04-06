@@ -54,9 +54,9 @@ public class CreateListings extends Fragment {
         listingName = root.findViewById(R.id.listing);
         price = root.findViewById(R.id.price);
         description = root.findViewById(R.id.description);
-        Item newItem = new Item(listingName.getText().toString(), pics,"John Doe",
-                "new" , "textbook", description.getText().toString(),
-                Double.parseDouble(price.getText().toString()), false );
+        //Item newItem = new Item(listingName.getText().toString(), pics,"John Doe",
+          //      "new" , "textbook", description.getText().toString(),
+            //    Double.parseDouble(price.getText().toString()), false );
         return root;
     }
 //        final String[] categoryItem = new String[1];
