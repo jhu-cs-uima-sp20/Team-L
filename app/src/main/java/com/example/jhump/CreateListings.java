@@ -1,13 +1,6 @@
 package com.example.jhump;
 
-import android.Manifest;
-import android.content.ClipData;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,19 +11,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateListings extends Fragment {
+public class CreateListings extends Fragment implements View.OnClickListener{
     private Button post;
     private Button cancel;
     private List<Bitmap> pics;
@@ -47,18 +35,39 @@ public class CreateListings extends Fragment {
         View root = inflater.inflate(R.layout.activity_create_listings, container, false);
         post = root.findViewById(R.id.post);
         cancel = root.findViewById(R.id.cancel);
-        gallery = root.findViewById(R.id.pic);
-        category = root.findViewById(R.id.category);
-        condition = root.findViewById(R.id.condition);
 
-        listingName = root.findViewById(R.id.listing);
-        price = root.findViewById(R.id.price);
-        description = root.findViewById(R.id.description);
-        //Item newItem = new Item(listingName.getText().toString(), pics,"John Doe",
-          //      "new" , "textbook", description.getText().toString(),
-            //    Double.parseDouble(price.getText().toString()), false );
-        return root;
-    }
+        condition = root.findViewById(R.id.condition);
+        category = root.findViewById(R.id.category);
+        ArrayAdapter<CharSequence> catAdapt = ArrayAdapter.createFromResource(getContext(), R.array.cat_spinner ,android.R.layout.simple_spinner_item);
+        catAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        category.setAdapter(catAdapt);
+        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                String text = parent.getItemAtPosition(i).toString();
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(parent.getContext(), "Select Category", Toast.LENGTH_LONG).show();
+            }
+        });
+        ArrayAdapter<CharSequence> conAdapt = ArrayAdapter.createFromResource(getContext(), R.array.con_spinner ,android.R.layout.simple_spinner_item);
+        conAdapt.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        condition.setAdapter(conAdapt);
+        condition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
+                String text = parent.getItemAtPosition(i).toString();
+
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(parent.getContext(), "Select Condition", Toast.LENGTH_LONG).show();
+            }
+        });
+        post.setOnClickListener(this);
+        cancel.setOnClickListener(this);
 //        final String[] categoryItem = new String[1];
 //        final String[] conditionItem = new String[1];
 //        ArrayList<String> cat = new ArrayList<>();
@@ -70,10 +79,48 @@ public class CreateListings extends Fragment {
 //        con.add("New");
 //        con.add("Used");
 //        con.add("Damaged");
-//        ArrayAdapter<String> catAdapt = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, cat);
+
 //        ArrayAdapter<String> conAdapt = new ArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item, con);
-        //condition.setAdapter(conAdapt);
-        //category.setAdapter(catAdapt);
+//        condition.setAdapter(conAdapt);
+//        category.setAdapter(catAdapt);
+        return root;
+    }
+
+    public boolean checkAllInput(EditText listingName, ImageButton gallery, Spinner condition,
+                                 Spinner category, EditText description, EditText price) {
+        String listing = listingName.getText().toString();
+        //gallery idk how to do?
+        //Spinner
+        return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.post:
+                //seller is hardcoded for now!
+                listingName = view.findViewById(R.id.listing);
+                gallery = view.findViewById(R.id.pic);
+                condition = view.findViewById(R.id.condition);
+                category = view.findViewById(R.id.category);
+                description = view.findViewById(R.id.description);
+                price = view.findViewById(R.id.price);
+                if (!checkAllInput(listingName, gallery, condition, category, description, price)) {
+                    CharSequence text = "Please complete all required fields.";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast toast = Toast.makeText(getActivity(), text, duration);
+                    toast.show();
+                    return;
+                }
+                Item newItem = new Item(listingName.getText().toString(), pics,"John Doe",
+                        "new" , "textbook", description.getText().toString(),
+                        Double.parseDouble(price.getText().toString()), false );
+
+            //case R.id.cancel:
+                //where should this go to? like maybe
+        }
+    }
+//
 //        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -125,17 +172,7 @@ public class CreateListings extends Fragment {
 //            }
 //        });
 
-//        newItem.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //throw toast if nothing is input
-//                String seller = "default";
-//                String itemName = ((TextView) findViewById(R.id.listing)).getText().toString();
-//                String description = ((TextView) findViewById(R.id.description)).getText().toString();
-//                double price = Double.parseDouble(((TextView) findViewById(R.id.price)).getText().toString());
-//                Item addItem = new Item(itemName, pics, seller, "new", "textbook", description, price, false);
-//            }
-//        });
+//
 
 
     //should launch camera later on
