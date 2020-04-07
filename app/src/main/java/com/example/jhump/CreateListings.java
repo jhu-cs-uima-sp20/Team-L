@@ -41,6 +41,8 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     private EditText listingName;
     private EditText price;
     private EditText description;
+    private String textCon;
+    private String textCat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,7 +64,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-                String text = parent.getItemAtPosition(i).toString();
+                textCat = parent.getItemAtPosition(i).toString();
 
             }
             @Override
@@ -76,7 +78,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         condition.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int i, long l) {
-                String text = parent.getItemAtPosition(i).toString();
+                textCon = parent.getItemAtPosition(i).toString();
 
             }
             @Override
@@ -128,7 +130,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                     return;
                 }
                 Item newItem = new Item(listingName.getText().toString(), pics,"John Doe",
-                        "new" , "textbook", description.getText().toString(),
+                        textCon , textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
                 NavigationDrawer.aa.add(newItem);
                 transaction.replace(R.id.fragment_container, new AllListings());
