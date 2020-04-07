@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".EditProfile"></activity>
+        <activity android:name=".ItemDescription"></activity>
         <activity android:name=".SignUp" />
         <activity android:name=".SignIn" />
         <activity

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -47,7 +48,12 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         View root = inflater.inflate(R.layout.activity_create_listings, container, false);
         post = root.findViewById(R.id.post);
         cancel = root.findViewById(R.id.cancel);
-
+        listingName = root.findViewById(R.id.listing);
+        gallery = root.findViewById(R.id.pic);
+        condition = root.findViewById(R.id.condition);
+        category = root.findViewById(R.id.category);
+        description = root.findViewById(R.id.description);
+        price = root.findViewById(R.id.price);
         condition = root.findViewById(R.id.condition);
         category = root.findViewById(R.id.category);
         ArrayAdapter<CharSequence> catAdapt = ArrayAdapter.createFromResource(getContext(), R.array.cat_spinner ,android.R.layout.simple_spinner_item);
@@ -99,26 +105,22 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         return root;
     }
 
-    public boolean checkAllInput(EditText listingName, ImageButton gallery, Spinner condition,
-                                 Spinner category, EditText price) {
+    public boolean checkAllInput(EditText listingName, EditText price) {
         String listing = listingName.getText().toString();
+        String check_price = listingName.getText().toString();
         //gallery idk how to do?
         //Spinner
-        return true;
+        return (!listing.isEmpty() && !(check_price.isEmpty()));
+        //return true;
     }
 
     @Override
     public void onClick(View view) {
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         switch (view.getId()) {
             case R.id.post:
                 //seller is hardcoded for now!
-                listingName = view.findViewById(R.id.listing);
-                gallery = view.findViewById(R.id.pic);
-                condition = view.findViewById(R.id.condition);
-                category = view.findViewById(R.id.category);
-                description = view.findViewById(R.id.description);
-                price = view.findViewById(R.id.price);
-                if (!checkAllInput(listingName, gallery, condition, category, price)) {
+                if (!checkAllInput(listingName, price)) {
                     CharSequence text = "Please complete all required fields.";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(getActivity(), text, duration);
@@ -128,9 +130,16 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 Item newItem = new Item(listingName.getText().toString(), pics,"John Doe",
                         "new" , "textbook", description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
-
-            //case R.id.cancel:
-                //where should this go to? like maybe
+                NavigationDrawer.aa.add(newItem);
+                transaction.replace(R.id.fragment_container, new AllListings());
+                transaction.addToBackStack(null);
+                transaction.commit();
+                break;
+            case R.id.cancel:
+                transaction.replace(R.id.fragment_container, new AllListings());
+                transaction.addToBackStack(null);
+                transaction.commit();
+                break;
         }
     }
 
