@@ -42,7 +42,8 @@ public class ItemDescription extends AppCompatActivity {
 
         sellerView.setText("John Doe");
         nameView.setText(listing);
-        priceView.setText(Double.toString(price));
+        //priceView.setText(Double.toString(price));
+        priceView.setText("Price: 20");
         descriptionView.setText(description);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
