@@ -45,4 +45,5 @@
     <string name="description">Description:</string>
     <string name="listed_price">Listed Price:</string>
     <string name="profile_picture">Profile Picture</string>
+    <string name="item_name">Item Name</string>
 </resources>

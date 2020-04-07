@@ -138,6 +138,7 @@ public class NavigationDrawer extends AppCompatActivity
             //clear all saved info up to this point
             Intent backToMain = new Intent(NavigationDrawer.this, MainActivity.class);
             startActivity(backToMain);
+            //remove back button
         }
         else if (id == R.id.profile) {
             getSupportActionBar().setTitle("My Profile");

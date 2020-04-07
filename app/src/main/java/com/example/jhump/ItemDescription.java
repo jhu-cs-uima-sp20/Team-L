@@ -3,31 +3,30 @@ package com.example.jhump;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.Timer;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ItemDescription#newInstance} factory method to
- * create an instance of this fragment.
- */
+
+
 public class ItemDescription extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
 
+
+    private ViewPager view;
+    private int dotCount;
+    private ImageView[] dots;
+    private LinearLayout slideDots;
     private TextView seller;
     private TextView condition;
     private TextView category;
@@ -39,15 +38,14 @@ public class ItemDescription extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ItemDescription.
-     */
-    // TODO: Rename and change types and number of parameters
+    /** TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
     public static ItemDescription newInstance(String param1, String param2) {
         ItemDescription fragment = new ItemDescription();
         Bundle args = new Bundle();
@@ -56,14 +54,10 @@ public class ItemDescription extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+**/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -71,6 +65,46 @@ public class ItemDescription extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_item_description, container, false);
+        view = (ViewPager) root.findViewById(R.id.viewPager);
+        slideDots = root.findViewById(R.id.SliderDots);
+        ViewPageAdapter vpa = new ViewPageAdapter(getContext());
+        view.setAdapter(vpa);
+        dotCount = vpa.getCount();
+        dots = new ImageView[dotCount];
+        for(int i = 0; i < dotCount; i++) {
+            dots[i] = new ImageView(getContext());
+            dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.nonactive_dot));
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+            params.setMargins(8, 0, 8, 0);
+
+            slideDots.addView(dots[i], params);
+            //getApplicationcontext
+        }
+        dots[0].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_dot));
+        view.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                for (int i = 0; i < dotCount; i++) {
+                    dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.nonactive_dot));
+                }
+
+                dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.active_dot));
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
         seller = root.findViewById(R.id.seller);
         condition = root.findViewById(R.id.condition);
         category = root.findViewById(R.id.category);
