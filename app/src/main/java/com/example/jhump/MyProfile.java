@@ -72,6 +72,13 @@ public class MyProfile extends Fragment {
         itemAdapter.add(newItem);
         itemAdapter.notifyDataSetChanged();
 
+        /*listView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), ItemDetail.class);
+                startActivity(intent);
+            }
+        });*/
+
         return view;
     }
 }

@@ -59,6 +59,7 @@ public class AllListings extends Fragment {
                 intent.putExtra("category", item.getCategory());
                 intent.putExtra("condition", item.getCondition());
                 intent.putExtra("description", item.getDescription());
+                intent.putExtra("price", item.getPrice());
                 intent.putExtra("sold", item.isSold());
                 intent.putExtra("position", position);
                 startActivity(intent);

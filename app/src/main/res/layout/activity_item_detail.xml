@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ItemDetail">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageView6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/edit_profile_screenshot"
-        tools:layout_editor_absoluteX="150dp"
-        tools:layout_editor_absoluteY="206dp" />
+        app:srcCompat="@drawable/item_detail_screenshot"
+        tools:layout_editor_absoluteX="113dp"
+        tools:layout_editor_absoluteY="226dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

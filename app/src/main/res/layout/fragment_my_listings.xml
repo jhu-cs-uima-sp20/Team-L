@@ -27,5 +27,11 @@
         android:scrollbars="vertical"
         android:soundEffectsEnabled="true" />
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="match_parent"
+        android:layout_height="743dp"
+        android:src="@drawable/my_listings_screenshot" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
