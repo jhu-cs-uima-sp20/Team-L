@@ -34,16 +34,23 @@ public class ItemDescription extends AppCompatActivity {
         description = intent.getStringExtra("deadline");
         price = intent.getDoubleExtra("price", 0);
         position = intent.getIntExtra("position", 0);
-
+        condition = intent.getStringExtra("condition");
+        category = intent.getStringExtra("category");
         TextView nameView = findViewById(R.id.itemName);
         TextView priceView = findViewById(R.id.price);
         TextView descriptionView = findViewById(R.id.description);
         TextView sellerView = findViewById(R.id.seller);
+        TextView conView = findViewById(R.id.condition);
+        TextView catView = findViewById(R.id.category);
 
-        sellerView.setText("John Doe");
+        sellerView.setText("Seller: John Doe");
         nameView.setText(listing);
-        //priceView.setText(Double.toString(price));
-        priceView.setText("Price: 20");
+        String temp = "Condition: " +condition;
+        conView.setText(temp);
+        temp = "Category: " + category;
+        catView.setText(temp);
+        temp = "Price: " + Double.toString(price);
+        priceView.setText(temp);
         descriptionView.setText(description);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
