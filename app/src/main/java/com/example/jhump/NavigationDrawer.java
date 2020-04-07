@@ -130,6 +130,7 @@ public class NavigationDrawer extends AppCompatActivity
         } else if (id == R.id.profile) {
             getSupportActionBar().setTitle("My Profile");
             transaction.replace(R.id.fragment_container, myProfile);
+            transaction.addToBackStack(null);
             transaction.commit();
         } else if (id == R.id.signOut) {
             SharedPreferences userInfo = getSharedPreferences("userInfo", Activity.MODE_PRIVATE);

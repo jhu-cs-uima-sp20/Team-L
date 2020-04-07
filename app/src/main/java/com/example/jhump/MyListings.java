@@ -1,6 +1,7 @@
 package com.example.jhump;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -9,61 +10,50 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MyListings#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MyListings extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public MyListings() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MyListings.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MyListings newInstance(String param1, String param2) {
-        MyListings fragment = new MyListings();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public ArrayList<Item> myItems;
+    public ItemAdapter adapter;
+    private ListView listingList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        SharedPreferences sharedPref = getContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        //SharedPreferences sharedPref = getContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         String defaultName = "John Doe";
         View root = inflater.inflate(R.layout.fragment_my_listings, container, false);
+        myItems = new ArrayList<>();
+        for(Item item: NavigationDrawer.listingItem) {
+            if(item.getSeller().compareTo(defaultName) == 0) {
+                myItems.add(item);
+            }
+        }
+        listingList = (ListView)root.findViewById(R.id.my_listings_list);
+        adapter = new ItemAdapter(getActivity(), R.layout.listing_item_layout, myItems);
+        listingList.setAdapter(adapter);
+        registerForContextMenu(listingList);
+        adapter.notifyDataSetChanged();
+
+        listingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(), ItemDescription.class);
+                Item item = myItems.get(position);
+                intent.putExtra("listing", item.getName());
+                intent.putExtra("seller", item.getSeller());
+                intent.putExtra("category", item.getCategory());
+                intent.putExtra("condition", item.getCondition());
+                intent.putExtra("description", item.getDescription());
+                intent.putExtra("sold", item.isSold());
+                intent.putExtra("position", position);
+                startActivity(intent);
+            }
+        });
         return root;
     }
 }

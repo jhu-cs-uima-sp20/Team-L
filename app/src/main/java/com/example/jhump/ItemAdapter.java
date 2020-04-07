@@ -43,7 +43,8 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         listingNameView.setText(item.getName());
         priceView.setText("$" + Double.toString(item.getPrice()) + "0");
         sellerView.setText(item.getSeller());
-        imageView.setImageBitmap(item.getPicture().get(0));
+        // i needed to comment this out to get the add pictures to work on create listings -josh
+        //imageView.setImageBitmap(item.getPicture().get(0));
 
         return itemView;
     }

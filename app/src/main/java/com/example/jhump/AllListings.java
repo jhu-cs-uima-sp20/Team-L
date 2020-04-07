@@ -1,6 +1,7 @@
 package com.example.jhump;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -41,21 +42,26 @@ public class AllListings extends Fragment {
         listingList = (ListView)view.findViewById(R.id.all_listings_list);
         NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, NavigationDrawer.listingItem);
         listingList.setAdapter(NavigationDrawer.aa);
-
         registerForContextMenu(listingList);
 
-        double price = 50;
-
-        Item test = new Item("Listing Name", null, "Seller Name", "new", "Textbook", "", price, false);
-        NavigationDrawer.listingItem.add(test);
-
+        //double price = 50;
+        //Item test = new Item("Listing Name", null, "Seller Name", "new", "Textbook", "", price, false);
+        //NavigationDrawer.listingItem.add(test);
         NavigationDrawer.aa.notifyDataSetChanged();
 
         // program a short click on the list item
         listingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Snackbar.make(view, "Selected #" + id, Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(getActivity(), ItemDescription.class);
+                Item item = NavigationDrawer.listingItem.get(position);
+                intent.putExtra("listing", item.getName());
+                intent.putExtra("seller", item.getSeller());
+                intent.putExtra("category", item.getCategory());
+                intent.putExtra("condition", item.getCondition());
+                intent.putExtra("description", item.getDescription());
+                intent.putExtra("sold", item.isSold());
+                intent.putExtra("position", position);
+                startActivity(intent);
             }
         });
 

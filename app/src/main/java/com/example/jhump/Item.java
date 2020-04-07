@@ -53,7 +53,9 @@ public class Item implements Serializable {
         return description;
     }
 
-    public double getPrice() {return this.price;}
+    public double getPrice() {
+        return this.price;
+    }
 
     public List<Bitmap> getPicture() {
         return this.picture;
