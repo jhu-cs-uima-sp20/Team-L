@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -57,6 +58,7 @@ public class NavigationDrawer extends AppCompatActivity
         createListings = new CreateListings();
         myProfile = new MyProfile();
 
+        getSupportActionBar().setTitle("All Listings");
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.fragment_container, allListings).commit();
 
