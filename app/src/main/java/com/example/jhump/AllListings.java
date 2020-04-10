@@ -18,6 +18,7 @@ import android.widget.SearchView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -56,8 +57,8 @@ public class AllListings extends Fragment {
         listingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), ItemDescription.class);
-
-                Item item = NavigationDrawer.listingItem.get(position);
+              //  Item item = (Item) parent.getItemAtPosition(position);
+                //Item item = NavigationDrawer.listingItem.get(position);
                /* intent.putExtra("listing", item.getName());
                 intent.putExtra("seller", item.getSeller());
                 intent.putExtra("category", item.getCategory());
@@ -68,13 +69,12 @@ public class AllListings extends Fragment {
                 intent.putExtra("position", position);
 
                 ArrayList<Bitmap> b = (ArrayList<Bitmap>) item.getPicture();
-              */  intent.putExtra("item", item);
-
+                //intent.putExtra("item", item);
+*/
 
                 startActivity(intent);
             }
         });
-
         return view;
     }
 

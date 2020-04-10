@@ -34,13 +34,10 @@ public class ItemDescription extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_description);
-        //the code written is to implement an image slider with moving dots which has
-        //already been set for activity_item_description, change design in this file or copy
-        //items over to other file -chioma
         this.setTitle("Item Description");
 
         Intent intent = getIntent();
-        Item item = (Item) getIntent().getSerializableExtra("item");
+    /*    Item item = (Item) getIntent().getSerializableExtra("item");
         seller = item.getSeller();
         listing = item.getName();
         description = item.getDescription();
@@ -49,12 +46,6 @@ public class ItemDescription extends AppCompatActivity {
         condition = item.getCondition();
         category = item.getCategory();
         //pics = intent.getParcelableArrayListExtra("pics");
-
-
-
-
-
-
 
 
         /*seller = intent.getStringExtra("seller");
