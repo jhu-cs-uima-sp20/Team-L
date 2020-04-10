@@ -1,6 +1,8 @@
 package com.example.jhump;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +45,11 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         listingNameView.setText(item.getName());
         priceView.setText("$" + Double.toString(item.getPrice()) + "0");
         sellerView.setText(item.getSeller());
-        // i needed to comment this out to get the add pictures to work on create listings -josh
-        //imageView.setImageBitmap(item.getPicture().get(0));
+        //picture is sideways and square-looking but there
+        //change width/height
+        imageView.setImageBitmap(Bitmap.createScaledBitmap(item.getPicture().get(0), 120, 120, false));
 
         return itemView;
     }
+
 }

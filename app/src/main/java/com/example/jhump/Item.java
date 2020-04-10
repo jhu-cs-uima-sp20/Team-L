@@ -1,6 +1,8 @@
 package com.example.jhump;
 
 import android.graphics.Bitmap;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -29,6 +31,17 @@ public class Item implements Serializable {
         this.price = price;
         this.description = description;
         this.sold = sold;
+    }
+
+    protected Item(Parcel in) {
+        name = in.readString();
+        picture = in.createTypedArrayList(Bitmap.CREATOR);
+        seller = in.readString();
+        condition = in.readString();
+        category = in.readString();
+        price = in.readDouble();
+        description = in.readString();
+        sold = in.readByte() != 0;
     }
 
     public String getName() { return this.name; }
@@ -94,9 +107,5 @@ public class Item implements Serializable {
         this.picture.add(pic);
     }
 
-    @Override
-    public String toString() {
-        return "";
-    }
 
 }

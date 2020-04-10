@@ -2,15 +2,18 @@ package com.example.jhump;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.google.android.material.snackbar.Snackbar;
 
@@ -38,7 +41,7 @@ public class AllListings extends Fragment {
         // Inflate the layout for this fragment
         //NavigationDrawer navigationDrawer = (NavigationDrawer) getActivity();
         View view =  inflater.inflate(R.layout.fragment_all_listings, container, false);
-
+        //this.setTitle("All Listings");
         listingList = (ListView)view.findViewById(R.id.all_listings_list);
         NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, NavigationDrawer.listingItem);
         listingList.setAdapter(NavigationDrawer.aa);
@@ -53,8 +56,9 @@ public class AllListings extends Fragment {
         listingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), ItemDescription.class);
+
                 Item item = NavigationDrawer.listingItem.get(position);
-                intent.putExtra("listing", item.getName());
+               /* intent.putExtra("listing", item.getName());
                 intent.putExtra("seller", item.getSeller());
                 intent.putExtra("category", item.getCategory());
                 intent.putExtra("condition", item.getCondition());
@@ -62,6 +66,11 @@ public class AllListings extends Fragment {
                 intent.putExtra("price", item.getPrice());
                 intent.putExtra("sold", item.isSold());
                 intent.putExtra("position", position);
+
+                ArrayList<Bitmap> b = (ArrayList<Bitmap>) item.getPicture();
+              */  intent.putExtra("item", item);
+
+
                 startActivity(intent);
             }
         });
@@ -74,4 +83,5 @@ public class AllListings extends Fragment {
         super.onCreate(savedInstanceState);
 
     }
+
 }
