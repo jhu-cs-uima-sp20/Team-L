@@ -1,2 +1,17 @@
 No logins necessary for app.
 Login functionality is in second sprint.
+
+1st sprint recap:
+- created all necessary activities and fragments
+- created classes to represent items that will be sold and users of the app
+- created all relationships between activities and fragments (switching to the appropriate activity/fragment
+  when clicking a button or image, etc.)
+- created a custom array adapter for our ListViews
+- starting to implement more specific features like filters, savedpreferences, connecting the lists in 
+  MyListings with MyProfile, and more
+  
+Second sprint general plan:
+- implement database
+- polish as necessary any 1st sprint work
+    - eliminate bugs in CreateListing, AllListings
+- generally make the app more dynamic
