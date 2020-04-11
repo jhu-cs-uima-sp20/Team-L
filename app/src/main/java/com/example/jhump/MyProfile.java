@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class MyProfile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
+        final View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
 
         //OnClickListener for Facebook icon, which opens URL to user's Facebook page.
         ImageView facebook = (ImageView) view.findViewById(R.id.facebook_my_profile);
@@ -54,6 +55,9 @@ public class MyProfile extends Fragment {
         editButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditProfile.class);
+                TextView editButton = view.findViewById(R.id.email);
+                intent.putExtra("email", editButton.getText());
+                intent.putExtra("phone number", "");
                 startActivity(intent);
             }
         });
