@@ -9,6 +9,14 @@ Login functionality is in second sprint.
 - created a custom array adapter for our ListViews
 - starting to implement more specific features like filters, savedpreferences, connecting the lists in 
   MyListings with MyProfile, and more
+
+General state of app:
+All the necessary activities and fragments are present. For each, bare bones functionality is present.
+All layouts are more or less complete.
+Particularly need to work on making any functionality relating to lists.
+Also need to add a little bit to how activities and fragments communicate with each other, since
+there is a lot of interdependent data. We found this a little tricky to work with since there's so 
+much to keep track of. This and the database will be the main focus for our next sprint.
   
 Second sprint general plan:
 - implement database
