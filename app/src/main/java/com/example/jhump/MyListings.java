@@ -28,7 +28,7 @@ public class MyListings extends Fragment {
         //SharedPreferences sharedPref = getContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         String defaultName = "John Doe";
         View root = inflater.inflate(R.layout.fragment_my_listings, container, false);
-        getActivity().getActionBar().setTitle("My Listings");
+        //getActivity().getActionBar().setTitle("My Listings");
         myItems = new ArrayList<>();
         for(Item item: NavigationDrawer.listingItem) {
             if(item.getSeller().compareTo(defaultName) == 0) {
