@@ -17,16 +17,6 @@ import java.util.List;
 
 
 public class ItemDescription extends AppCompatActivity {
-
-
-
-    private String seller;
-    private String listing;
-    private double price;
-    private String description;
-    private String condition;
-    private String category;
-    private int position;
     private ArrayList<Bitmap> pics;
     private ViewPager viewPager;
 
@@ -37,46 +27,23 @@ public class ItemDescription extends AppCompatActivity {
         this.setTitle("Item Description");
 
         Intent intent = getIntent();
-    /*    Item item = (Item) getIntent().getSerializableExtra("item");
-        seller = item.getSeller();
-        listing = item.getName();
-        description = item.getDescription();
-        price = item.getPrice();
-        position = getIntent().getIntExtra("position", 0);
-        condition = item.getCondition();
-        category = item.getCategory();
-        //pics = intent.getParcelableArrayListExtra("pics");
-
-
-        /*seller = intent.getStringExtra("seller");
-        listing = intent.getStringExtra("name");
-        description = intent.getStringExtra("deadline");
-        price = intent.getDoubleExtra("price", 0);
-        position = intent.getIntExtra("position", 0);
-        condition = intent.getStringExtra("condition");
-        category = intent.getStringExtra("category");
-        //pics = intent.getParcelableArrayListExtra("pics");
-
-
-         */
         viewPager = findViewById(R.id.viewPager);
         Button contact = findViewById(R.id.contact);
-        TextView nameView = findViewById(R.id.itemName);
+        TextView nameView = findViewById(R.id.name);
         TextView priceView = findViewById(R.id.price);
         TextView descriptionView = findViewById(R.id.description);
         TextView sellerView = findViewById(R.id.seller);
         TextView conView = findViewById(R.id.condition);
         TextView catView = findViewById(R.id.category);
+        TextView subjectView = findViewById(R.id.subject);
 
-        sellerView.setText("Seller: John Doe");
-        nameView.setText(listing);
-        String temp = "Condition: " +condition;
-        conView.setText(temp);
-        temp = "Category: " + category;
-        catView.setText(temp);
-        temp = "Price: $" + Double.toString(price);
-        priceView.setText(temp);
-        descriptionView.setText(description);
+        sellerView.setText("Seller: " + intent.getStringExtra("item seller"));
+        nameView.setText(intent.getStringExtra("item_name"));
+        conView.setText("Condition: " + intent.getStringExtra("condition"));
+        catView.setText("Category: " + intent.getStringExtra("category"));
+        priceView.setText("Price: $" + intent.getDoubleExtra("price", 20));
+        descriptionView.setText("Description: " + intent.getStringExtra("description"));
+        subjectView.setText("Subject: " + intent.getStringExtra("subject"));
 
 
       /*  ViewPageAdapter vpa = new ViewPageAdapter(this, pics);

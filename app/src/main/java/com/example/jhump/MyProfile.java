@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -68,16 +69,26 @@ public class MyProfile extends Fragment {
         imageList = new ArrayList<>();
         imageList.add(itemPic);
         Item newItem = new Item("Discrete Mathematics", imageList, "Sold by you", "Good",
-                "Textbooks", "Calculus 1 textbook.", 20.0, false);
+                "Textbooks", "Discrete math textbook.", 20.0, false);
         itemAdapter.add(newItem);
         itemAdapter.notifyDataSetChanged();
 
-        /*listView.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), ItemDetail.class);
-                startActivity(intent);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
+                if (pos >= 0) {
+                    Intent intent = new Intent(getActivity(), ItemDescription.class);
+                    intent.putExtra("item seller", items.get(pos).getSeller());
+                    intent.putExtra("item name", items.get(pos).getName());
+                    intent.putExtra("condition", items.get(pos).getCondition());
+                    intent.putExtra("category", items.get(pos).getCategory());
+                    intent.putExtra("price", items.get(pos).getPrice());
+                    intent.putExtra("description", items.get(pos).getDescription());
+                    intent.putExtra("subject", "mathematics");
+                    startActivity(intent);
+                }
             }
-        });*/
+        });
 
         return view;
     }
