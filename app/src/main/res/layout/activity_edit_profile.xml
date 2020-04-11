@@ -6,10 +6,111 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:srcCompat="@drawable/edit_profile_screenshot"
-        tools:layout_editor_absoluteX="150dp"
-        tools:layout_editor_absoluteY="206dp" />
+        android:id="@+id/edit_profile_picture"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_marginTop="60dp"
+        android:contentDescription="profile picture"
+        android:src="@drawable/anon_user"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/edit_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="John Doe"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_picture" />
+
+    <TextView
+        android:id="@+id/edit_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Email:"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_name" />
+
+    <TextView
+        android:id="@+id/edit_phone_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:text="Phone Number:"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_email" />
+
+    <EditText
+        android:id="@+id/email_editText"
+        android:layout_width="184dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintStart_toEndOf="@+id/edit_email"
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile_name" />
+
+    <EditText
+        android:id="@+id/email_editText2"
+        android:layout_width="184dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        app:layout_constraintStart_toEndOf="@+id/edit_phone_number"
+        app:layout_constraintTop_toBottomOf="@+id/email_editText" />
+
+    <ImageView
+        android:id="@+id/change_profile_picture"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignLeft="@id/edit_profile_picture"
+        android:layout_alignTop="@id/edit_profile_picture"
+        android:layout_alignRight="@id/edit_profile_picture"
+        android:layout_alignBottom="@id/edit_profile_picture"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_profile_picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edit_profile_picture"
+        app:srcCompat="@drawable/edit_icon" />
+
+    <Button
+        android:id="@+id/edit_profile_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginBottom="32dp"
+        android:text="Cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/edit_profile_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginBottom="32dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edit_profile_cancel" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
