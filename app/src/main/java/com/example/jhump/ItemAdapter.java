@@ -47,9 +47,8 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         listingNameView.setText(item.getName());
         priceView.setText("$" + Double.toString(item.getPrice()) + "0");
         sellerView.setText(item.getSeller());
-        //picture is sideways and square-looking but there
         //change width/height
-        imageView.setImageBitmap(Bitmap.createScaledBitmap(item.getPicture().get(0), 120, 120, false));
+        imageView.setImageBitmap(Bitmap.createScaledBitmap(item.getPicture().get(0), 80, 100, false));
 
         return itemView;
     }

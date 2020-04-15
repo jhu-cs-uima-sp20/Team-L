@@ -161,7 +161,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                     try {
                         InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
                         Bitmap bitmap = BitmapFactory.decodeStream(is);
-                        pics.add(bitmap);
+                        pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }

@@ -1,6 +1,7 @@
 package com.example.jhump;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -39,6 +40,7 @@ public class NavigationDrawer extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         listingItem = new ArrayList<Item>();
         aa = new ItemAdapter(this, R.layout.listing_item_layout, listingItem);

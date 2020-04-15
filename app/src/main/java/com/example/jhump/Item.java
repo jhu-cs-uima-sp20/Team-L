@@ -8,14 +8,14 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Item implements Serializable {
-    private String name;
+public class Item implements Parcelable {
+    private String name = "";
     private List<Bitmap> picture;
-    private String seller;
-    private String condition;
-    private String category;
-    private double price;
-    private String description;
+    private String seller = "";
+    private String condition = "";
+    private String category = "";
+    private double price = 0.0;
+    private String description = "";
     private boolean sold;
     //layout must say us.dollars
     //pass in user data
@@ -43,6 +43,18 @@ public class Item implements Serializable {
         description = in.readString();
         sold = in.readByte() != 0;
     }
+
+    public static final Creator<Item> CREATOR = new Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 
     public String getName() { return this.name; }
 
@@ -108,4 +120,20 @@ public class Item implements Serializable {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeTypedList(picture);
+        dest.writeString(seller);
+        dest.writeString(condition);
+        dest.writeString(category);
+        dest.writeDouble(price);
+        dest.writeString(description);
+        dest.writeByte((byte) (sold ? 1 : 0));
+    }
 }
