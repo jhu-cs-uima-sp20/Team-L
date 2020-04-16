@@ -8,12 +8,16 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,7 +25,7 @@ import java.util.Objects;
 
 
 public class ItemDescription extends AppCompatActivity {
-    private ViewPager viewPager;
+    private ImageView viewPager;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -61,7 +65,21 @@ public class ItemDescription extends AppCompatActivity {
         //byte[] bt = intent.getByteArrayExtra("pics");
         //pic.add((BitmapFactory.decodeByteArray(bt, 0, bt.length)));
         //ViewPageAdapter vpa = new ViewPageAdapter(ItemDescription.this, pic);
-        //viewPager.setAdapter(vpa);
+        String filename = getIntent().getStringExtra("pics");
+        Bitmap bit = null;
+        FileInputStream is = null;
+        try {
+            is = this.openFileInput(filename);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        bit = BitmapFactory.decodeStream(is);
+        try {
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        viewPager.setImageBitmap(bit);
 
 
         //should we place a pic that shows only if this item is sold?

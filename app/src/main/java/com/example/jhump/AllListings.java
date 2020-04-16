@@ -17,7 +17,9 @@ import android.widget.ListView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -74,10 +76,23 @@ public class AllListings extends Fragment {
                 }
 
                 intent.putStringArrayListExtra("picLocation", pics);*/
+                String filename = "bitmap.jpg";
+                FileOutputStream stream = null;
+                try {
+                    stream = getActivity().openFileOutput(filename, Context.MODE_PRIVATE);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
 
                 //ByteArrayOutputStream bStream = new ByteArrayOutputStream();
-                //item.getPicture().get(0).compress(Bitmap.CompressFormat.PNG, 100, bStream);
-                //intent.putExtra("pics", bStream.toByteArray());
+                item.getPicture().get(0).compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                item.getPicture().get(0).recycle();
+                intent.putExtra("pics", filename /*bStream.toByteArray()*/);
 
                 startActivity(intent);
             }
