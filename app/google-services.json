@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "549870522418",
+    "firebase_url": "https://jhump-uima.firebaseio.com",
+    "project_id": "jhump-uima",
+    "storage_bucket": "jhump-uima.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:549870522418:android:aa96d132f34ebae8066c2b",
+        "android_client_info": {
+          "package_name": "com.example.jhump"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "549870522418-9ut19vk3apfqjti8qsutmc9anidokol0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAcdsZRv8JRr-hd3QrQO_UkROk-vYr9J4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "549870522418-9ut19vk3apfqjti8qsutmc9anidokol0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

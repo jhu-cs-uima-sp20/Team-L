@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,16 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -43,11 +50,13 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     private EditText description;
     private String textCon;
     private String textCat;
+    FirebaseFirestore db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_create_listings, container, false);
+        db = FirebaseFirestore.getInstance();
         post = root.findViewById(R.id.post);
         cancel = root.findViewById(R.id.cancel);
         listingName = root.findViewById(R.id.listing);
@@ -118,6 +127,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
+        final String TAG = "itemList";
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         switch (view.getId()) {
             case R.id.post:
@@ -132,6 +142,20 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 Item newItem = new Item(listingName.getText().toString(), pics,"John Doe",
                         textCon , textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
+                db.collection("items")
+                        .add(newItem)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error adding document", e);
+                            }
+                        });
                 NavigationDrawer.aa.add(newItem);
                 transaction.replace(R.id.fragment_container, new AllListings());
                 transaction.addToBackStack(null);
@@ -172,7 +196,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                     assert imageURI != null;
                     InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
                     Bitmap bitmap = BitmapFactory.decodeStream(is);
-                    pics.add(bitmap);
+                    pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
