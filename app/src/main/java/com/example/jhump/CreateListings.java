@@ -27,9 +27,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -50,13 +49,12 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     private EditText description;
     private String textCon;
     private String textCat;
-    FirebaseFirestore db;
-
+    FirebaseDatabase db;
+    DatabaseReference dbref;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_create_listings, container, false);
-        db = FirebaseFirestore.getInstance();
         post = root.findViewById(R.id.post);
         cancel = root.findViewById(R.id.cancel);
         listingName = root.findViewById(R.id.listing);
@@ -139,23 +137,11 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                     toast.show();
                     return;
                 }
+                db = FirebaseDatabase.getInstance();
                 Item newItem = new Item(listingName.getText().toString(), pics,"John Doe",
                         textCon , textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
-                db.collection("items")
-                        .add(newItem)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                            }
-                        });
+                dbref.child("items").child(newItem.getName()).setValue(newItem);
                 NavigationDrawer.aa.add(newItem);
                 transaction.replace(R.id.fragment_container, new AllListings());
                 transaction.addToBackStack(null);

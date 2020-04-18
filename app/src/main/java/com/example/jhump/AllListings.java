@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,18 +16,16 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 /**
@@ -40,7 +37,8 @@ public class AllListings extends Fragment {
 
     private ListView listingList;
     private Context context;
-    private FirebaseFirestore db;
+    private FirebaseDatabase db;
+    private DatabaseReference dbref;
     public AllListings() {
         // Required empty public constructor
     }
@@ -52,31 +50,30 @@ public class AllListings extends Fragment {
         final String TAG = "itemList";
         View view =  inflater.inflate(R.layout.fragment_all_listings, container, false);
         //this.setTitle("All Listings");
-        db = FirebaseFirestore.getInstance();
-        db.collection("items")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
+        db = FirebaseDatabase.getInstance();
+        dbref = db.getReference();
 
         listingList = (ListView)view.findViewById(R.id.all_listings_list);
         NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, NavigationDrawer.listingItem);
         listingList.setAdapter(NavigationDrawer.aa);
         registerForContextMenu(listingList);
 
-        //double price = 50;
-        //Item test = new Item("Listing Name", null, "Seller Name", "new", "Textbook", "", price, false);
-        //NavigationDrawer.listingItem.add(test);
-        NavigationDrawer.aa.notifyDataSetChanged();
+        dbref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                NavigationDrawer.listingItem.clear();
+                Iterable<DataSnapshot> items = dataSnapshot.child("items").getChildren();
+                for(DataSnapshot pair: items) {
+                    NavigationDrawer.listingItem.add(pair.getValue(Item.class));
+                }
+                NavigationDrawer.aa.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
 
         // program a short click on the list item
         listingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
