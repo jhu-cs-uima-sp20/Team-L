@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
+import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -97,30 +99,30 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         gallery = root.findViewById(R.id.pic);
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { 
-                if (ActivityCompat.checkSelfPermission(getActivity(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
-                    return;
-                }
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                intent.setType("image/*");
-                startActivityForResult(intent, 1);
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galleryIntent, 1);
             }
+//                if (ActivityCompat.checkSelfPermission(getActivity(),
+//                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+//                    return;
+//                }
+//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+//                intent.setType("image/*");
+//                startActivityForResult(intent, 1);
+//            }
         });
         post.setOnClickListener(this);
         cancel.setOnClickListener(this);
         return root;
     }
 
-    public boolean checkAllInput(EditText listingName, EditText price) {
+    public boolean checkAllInput() {
         String listing = listingName.getText().toString();
         String check_price = listingName.getText().toString();
-        //gallery idk how to do?
-        //Spinner
-        return (!listing.isEmpty() && !(check_price.isEmpty()));
-        //return true;
+        return (!listing.isEmpty() && !(check_price.isEmpty()) && (textCat.equals("N/A")) && textCon.equals("N/A"));
     }
 
     @Override
@@ -130,7 +132,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.post:
                 //seller is hardcoded for now!
-                if (!checkAllInput(listingName, price)) {
+                if (!checkAllInput()) {
                     CharSequence text = "Please complete all required fields.";
                     int duration = Toast.LENGTH_SHORT;
                     Toast toast = Toast.makeText(getActivity(), text, duration);
@@ -162,32 +164,33 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && requestCode == 1) {
-            pics = new ArrayList<>();
-            assert data != null;
-            ClipData clipData = data.getClipData();
-            if (clipData != null) {
-                for (int i = 0; i < clipData.getItemCount(); i++) {
-                    Uri imageURI = clipData.getItemAt(i).getUri();
-                    try {
-                        InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
-                        Bitmap bitmap = BitmapFactory.decodeStream(is);
-                        pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } else {
-                Uri imageURI = data.getData();
-                try {
-                    assert imageURI != null;
-                    InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
-                    Bitmap bitmap = BitmapFactory.decodeStream(is);
-                    pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        if(resultCode == RESULT_OK && requestCode == 1 && data != null && data.getData() != null) {
+            Uri imageURI = data.getData();
+            //Picasso.with(getContext()).load(imageURI).into
+//            pics = new ArrayList<>();
+////            ClipData clipData = data.getClipData();
+////            if (clipData != null) {
+////                for (int i = 0; i < clipData.getItemCount(); i++) {
+////                    Uri imageURI = clipData.getItemAt(i).getUri();
+////                    try {
+////                        InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
+////                        Bitmap bitmap = BitmapFactory.decodeStream(is);
+////                        pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
+////                    } catch (FileNotFoundException e) {
+////                        e.printStackTrace();
+////                    }
+////                }
+////            } else {
+////                Uri imageURI = data.getData();
+////                try {
+////                    assert imageURI != null;
+////                    InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
+////                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+////                    pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
+////                } catch (FileNotFoundException e) {
+////                    e.printStackTrace();
+////                }
+////            }
+          }
     }
 }
