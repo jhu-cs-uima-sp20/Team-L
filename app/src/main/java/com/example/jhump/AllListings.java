@@ -52,7 +52,6 @@ public class AllListings extends Fragment {
         //this.setTitle("All Listings");
         db = FirebaseDatabase.getInstance();
         dbref = db.getReference();
-
         listingList = (ListView)view.findViewById(R.id.all_listings_list);
         NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, NavigationDrawer.listingItem);
         listingList.setAdapter(NavigationDrawer.aa);

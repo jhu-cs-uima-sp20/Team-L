@@ -16,13 +16,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button button = findViewById(R.id.start_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NavigationDrawer.class);
-                startActivity(intent);
-            }
-        });
+
+        //this button goes to listings page
+        //TODO when finished sign in/sign up page implement on there
+//        Button button = findViewById(R.id.start_button);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, NavigationDrawer.class);
+//                startActivity(intent);
+//            }
+//        });
     }
 
 }

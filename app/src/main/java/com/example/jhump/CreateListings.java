@@ -141,7 +141,8 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 Item newItem = new Item(listingName.getText().toString(), pics,"John Doe",
                         textCon , textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
-                dbref.child("items").child(newItem.getName()).setValue(newItem);
+                //TODO fix firebase bug
+                //dbref.child("items").child(newItem.getName()).setValue(newItem);
                 NavigationDrawer.aa.add(newItem);
                 transaction.replace(R.id.fragment_container, new AllListings());
                 transaction.addToBackStack(null);
