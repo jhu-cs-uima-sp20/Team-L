@@ -17,6 +17,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.os.Build;
 import android.view.MenuItem;
@@ -155,5 +156,9 @@ public class NavigationDrawer extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+    }
 }

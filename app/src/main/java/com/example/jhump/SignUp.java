@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 
 public class SignUp extends AppCompatActivity {
@@ -21,6 +24,9 @@ public class SignUp extends AppCompatActivity {
     TextView number;
     Button signUp;
     SharedPreferences userLogin;
+    private FirebaseDatabase mdbase;
+    private DatabaseReference dbref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
