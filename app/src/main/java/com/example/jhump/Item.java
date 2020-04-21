@@ -15,6 +15,9 @@ public class Item implements Parcelable {
     private double price = 0.0;
     private String description = "";
     private boolean sold;
+    private String id;
+
+    private static long nextId = 0;
     //layout must say us.dollars
     //pass in user data
     //are all mandated? If not, store temp values
@@ -29,6 +32,7 @@ public class Item implements Parcelable {
         this.price = price;
         this.description = description;
         this.sold = sold;
+        this.id = Long.toString(++nextId);
     }
 
     protected Item(Parcel in) {
@@ -39,6 +43,7 @@ public class Item implements Parcelable {
         category = in.readString();
         price = in.readDouble();
         description = in.readString();
+        id = in.readString();
         sold = in.readByte() != 0;
     }
 
@@ -83,6 +88,8 @@ public class Item implements Parcelable {
     public List<Bitmap> getPicture() {
         return this.picture;
     }
+
+    public String getId() { return this.id; }
 
     public void setName(String name) {
         this.name = name;
@@ -132,6 +139,7 @@ public class Item implements Parcelable {
         dest.writeString(category);
         dest.writeDouble(price);
         dest.writeString(description);
+        dest.writeString(id);
         dest.writeByte((byte) (sold ? 1 : 0));
     }
 }
