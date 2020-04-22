@@ -38,6 +38,23 @@
         app:layout_constraintTop_toBottomOf="@+id/sign_up" />
 
     <EditText
+        android:id="@+id/name"
+        android:layout_width="125dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="59dp"
+        android:layout_marginLeft="59dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginRight="52dp"
+        android:ems="10"
+        android:fontFamily="@font/varela_round"
+        android:hint="@string/jsmith12_jhu_edu"
+        android:inputType="textEmailAddress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
         android:id="@+id/your_password"
         android:layout_width="300dp"
         android:layout_height="58dp"

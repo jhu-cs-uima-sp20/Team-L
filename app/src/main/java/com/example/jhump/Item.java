@@ -32,7 +32,7 @@ public class Item implements Parcelable {
         this.price = price;
         this.description = description;
         this.sold = sold;
-        this.id = Long.toString(++nextId);
+        this.id = String.format("%04d", ++nextId);
     }
 
     protected Item(Parcel in) {
