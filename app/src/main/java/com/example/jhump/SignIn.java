@@ -1,8 +1,12 @@
 package com.example.jhump;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,24 +20,24 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class SignIn extends AppCompatActivity {
     Button signIn;
     TextView email;
     TextView password;
     private FirebaseDatabase mdbase;
     private DatabaseReference dbref;
+    SharedPreferences userLogin;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-        //if email not in database, toast
-        //if email is in database, call password
-        //if password doesn't match, toast
-        //EVENTUALLY, forget password
+        //forget password?
         //delete account from database?
-        //back button also needed on this page, not in design doc
-
+        //should maybe include a back button in action bar?
         mdbase = FirebaseDatabase.getInstance();
         dbref = mdbase.getReference();
 
@@ -43,18 +47,6 @@ public class SignIn extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
-                if (!email.getText().toString().endsWith("@jhu.edu")
-                        || !email.getText().toString().endsWith("@jh.edu")) {
-                    Toast.makeText(getApplicationContext(), "Email does not exist", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                 */
-                /*if (!email.getText().toString() is not in User class) {
-                    Toast.makeText(getApplicationContext(), "Sign Up. Email does not exist.", Toast.LENGTH_SHORT).show();
-                    return;
-                }*/
                 // String of email up to but not including @
 
                 dbref.addValueEventListener(new ValueEventListener() {
@@ -68,6 +60,12 @@ public class SignIn extends AppCompatActivity {
                         if (dataSnapshot.child("users").hasChild(jhed)) {
                             String real_pass = dataSnapshot.child("users").child(jhed).child("password").getValue(String.class);
                             if (real_pass != null && real_pass.equals(str_password)) {
+                                //userLogin = getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
+                                //userLogin.edit().putBoolean("logged", true).apply();
+                                String userName = dataSnapshot.child("users").child(jhed).child("name").getValue(String.class);
+                                String id = dataSnapshot.child("users").child(jhed).getValue(String.class);
+                                //userLogin.edit().putString("name", userName).apply(); <-for item description chioma
+                                //userLogin.edit().putString("id", id).apply(); <-for item description/user profile
                                 Intent intent = new Intent(SignIn.this, NavigationDrawer.class);
                                 startActivity(intent);
                             }

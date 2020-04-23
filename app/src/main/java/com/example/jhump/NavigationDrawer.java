@@ -138,19 +138,20 @@ public class NavigationDrawer extends AppCompatActivity
         } else if (id == R.id.signOut) {
             SharedPreferences userInfo = getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
             userInfo.edit().putBoolean("logged", false).apply();
-            //upload all settings to database
             //clear all saved info up to this point
+
             Intent backToMain = new Intent(NavigationDrawer.this, MainActivity.class);
             startActivity(backToMain);
+            finishAffinity();
             //remove back button
         }
-        else if (id == R.id.profile) {
+      /*  else if (id == R.id.profile) {
             getSupportActionBar().setTitle("My Profile");
             transaction.replace(R.id.fragment_container, new MyProfile());
             transaction.addToBackStack(null);
             transaction.commit();
         }
-
+*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

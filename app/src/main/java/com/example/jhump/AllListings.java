@@ -51,17 +51,14 @@ public class AllListings extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_all_listings, container, false);
         //this.setTitle("All Listings");
         db = FirebaseDatabase.getInstance();
-        dbref = db.getReference();
+        dbref = db.getReference().child("items");
         listingList = (ListView)view.findViewById(R.id.all_listings_list);
-        NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, NavigationDrawer.listingItem);
-        listingList.setAdapter(NavigationDrawer.aa);
-        registerForContextMenu(listingList);
 
         dbref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 NavigationDrawer.listingItem.clear();
-                Iterable<DataSnapshot> items = dataSnapshot.child("items").getChildren();
+                Iterable<DataSnapshot> items = dataSnapshot.getChildren();
                 for(DataSnapshot pair: items) {
                     NavigationDrawer.listingItem.add(pair.getValue(Item.class));
                 }
@@ -73,7 +70,9 @@ public class AllListings extends Fragment {
                 Log.w(TAG, "Failed to read value.", databaseError.toException());
             }
         });
-
+        NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, NavigationDrawer.listingItem);
+        listingList.setAdapter(NavigationDrawer.aa);
+        registerForContextMenu(listingList);
         // program a short click on the list item
         listingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

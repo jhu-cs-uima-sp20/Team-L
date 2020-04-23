@@ -44,18 +44,16 @@ public class SignUp extends AppCompatActivity {
         confirmPassword = findViewById(R.id.check_password);
         name = findViewById(R.id.name);
         number = findViewById(R.id.number);
-
-    signUp.setOnClickListener(new View.OnClickListener() {
+        signUp.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            /*
+
             if (!email.getText().toString().endsWith("@jhu.edu")
-                    || !email.getText().toString().endsWith("@jh.edu")) {
+                    && !email.getText().toString().endsWith("@jh.edu")) {
                 Toast.makeText(getApplicationContext(), "Please enter a JHU email address", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-             */
 
             if (password.getText().toString().isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Please enter a password.", Toast.LENGTH_SHORT).show();
@@ -75,6 +73,7 @@ public class SignUp extends AppCompatActivity {
 
                     String jhed = (email.getText().toString().substring(0,email.getText().toString().indexOf('@')));
                     //Email already exists --> no sign up required
+
                     if (dataSnapshot.child("users").hasChild(jhed)) {
                         Toast.makeText(getApplicationContext(), "Email already exists", Toast.LENGTH_SHORT).show();
                     }
@@ -87,6 +86,10 @@ public class SignUp extends AppCompatActivity {
 
                         userLogin = getSharedPreferences("userInfo",Activity.MODE_PRIVATE);
                         userLogin.edit().putBoolean("logged", true).apply();
+                        userLogin.edit().putString("name", newUser.getName()).apply();
+                        userLogin.edit().putString("id", id).apply();
+                        //for ceatelisting/item description/user profile/contact
+                        //To create listing with user's name and to contact user when viewing item
 
                         //goes directly to all listings, but maybe go into landing page again?
                         Intent listings = new Intent(SignUp.this, NavigationDrawer.class);
@@ -101,9 +104,6 @@ public class SignUp extends AppCompatActivity {
                 }
             });
 
-            //how often should database be updated?
-            //should phone number contain a toast?
-            //back button also needed on this page, not in design doc
         }
     });
     }

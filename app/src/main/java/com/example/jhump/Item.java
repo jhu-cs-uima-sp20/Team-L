@@ -4,11 +4,11 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Item implements Parcelable {
     private String name = "";
-    private List<Bitmap> picture;
+    private ArrayList<Bitmap> picture;
     private String seller = "";
     private String condition = "";
     private String category = "";
@@ -22,7 +22,7 @@ public class Item implements Parcelable {
     //pass in user data
     //are all mandated? If not, store temp values
 
-    public Item(String name, List<Bitmap> picture, String seller, String condition,
+    public Item(String name, ArrayList<Bitmap> picture, String seller, String condition,
                 String category, String description, double price, boolean sold) {
         this.name = name;
         this.seller = seller;
@@ -85,7 +85,7 @@ public class Item implements Parcelable {
         return this.price;
     }
 
-    public List<Bitmap> getPicture() {
+    public ArrayList<Bitmap> getPicture() {
         return this.picture;
     }
 

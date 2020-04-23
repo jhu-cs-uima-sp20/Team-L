@@ -27,7 +27,7 @@ public class MyProfile extends Fragment {
     protected ItemAdapter itemAdapter;
     protected ArrayList<Item> items;
     ListView listView;
-    List<Bitmap> imageList;
+    ArrayList<Bitmap> imageList;
 
     public MyProfile() {
         // Required empty public constructor

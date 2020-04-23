@@ -1,8 +1,10 @@
 package com.example.jhump;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,7 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-import com.squareup.picasso.Picasso;
+//import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -52,11 +54,13 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     private String textCon;
     private String textCat;
     FirebaseDatabase db;
-    DatabaseReference dbref;
+    private DatabaseReference dbref;
+    SharedPreferences userLogin;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.activity_create_listings, container, false);
+        userLogin = getActivity().getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
         post = root.findViewById(R.id.post);
         cancel = root.findViewById(R.id.cancel);
         listingName = root.findViewById(R.id.listing);
@@ -100,19 +104,19 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         gallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(galleryIntent, 1);
+          //      Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            //    startActivityForResult(galleryIntent, 1);
+              //this section asks the user to use gallery
+                if (ActivityCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+                    return;
+                }
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                intent.setType("image/*");
+                startActivityForResult(intent, 1);
             }
-//                if (ActivityCompat.checkSelfPermission(getActivity(),
-//                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
-//                    return;
-//                }
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//                intent.setType("image/*");
-//                startActivityForResult(intent, 1);
-//            }
         });
         post.setOnClickListener(this);
         cancel.setOnClickListener(this);
@@ -121,39 +125,45 @@ public class CreateListings extends Fragment implements View.OnClickListener{
 
     public boolean checkAllInput() {
         String listing = listingName.getText().toString();
-        String check_price = listingName.getText().toString();
-        return (!listing.isEmpty() && !(check_price.isEmpty()) && (textCat.equals("N/A")) && textCon.equals("N/A"));
+        boolean isDouble = true;
+        try {
+            Double.parseDouble(price.getText().toString());
+        } catch (Exception e) {
+            isDouble = false;
+        }
+        return (!listing.isEmpty() && (!textCat.equals("N/A"))
+                && !textCon.equals("N/A") && pics.size() > 0 && isDouble);
     }
 
     @Override
     public void onClick(View view) {
-        final String TAG = "itemList";
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         switch (view.getId()) {
             case R.id.post:
                 //seller is hardcoded for now!
                 if (!checkAllInput()) {
                     CharSequence text = "Please complete all required fields.";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast toast = Toast.makeText(getActivity(), text, duration);
-                    toast.show();
+                    Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 db = FirebaseDatabase.getInstance();
-                Item newItem = new Item(listingName.getText().toString(), pics,"John Doe",
-                        textCon , textCat, description.getText().toString(),
+                dbref = db.getReference();
+                //pics
+                String name = userLogin.getString("name", "John Doe");
+                Item newItem = new Item(listingName.getText().toString(), new ArrayList<Bitmap>(), name,
+                        textCon, textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
-                //TODO fix firebase bug
-                //dbref.child("items").child(newItem.getName()).setValue(newItem);
+                dbref.child("items").child(newItem.getId()).setValue(newItem);
+                //add listing to user arraylist of items
                 NavigationDrawer.aa.add(newItem);
-                transaction.replace(R.id.fragment_container, new AllListings());
-                transaction.addToBackStack(null);
+                transaction.remove(new CreateListings());
                 transaction.commit();
+                getActivity().getSupportFragmentManager().popBackStack();
                 break;
             case R.id.cancel:
-                transaction.replace(R.id.fragment_container, new AllListings());
-                transaction.addToBackStack(null);
+                transaction.remove(new CreateListings());
                 transaction.commit();
+                getActivity().getSupportFragmentManager().popBackStack();
                 break;
         }
     }
@@ -165,32 +175,34 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK && requestCode == 1 && data != null && data.getData() != null) {
-            Uri imageURI = data.getData();
+            //Uri imageURI = data.getData();
             //Picasso.with(getContext()).load(imageURI).into
-//            pics = new ArrayList<>();
-////            ClipData clipData = data.getClipData();
-////            if (clipData != null) {
-////                for (int i = 0; i < clipData.getItemCount(); i++) {
-////                    Uri imageURI = clipData.getItemAt(i).getUri();
-////                    try {
-////                        InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
-////                        Bitmap bitmap = BitmapFactory.decodeStream(is);
-////                        pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
-////                    } catch (FileNotFoundException e) {
-////                        e.printStackTrace();
-////                    }
-////                }
-////            } else {
-////                Uri imageURI = data.getData();
-////                try {
-////                    assert imageURI != null;
-////                    InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
-////                    Bitmap bitmap = BitmapFactory.decodeStream(is);
-////                    pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
-////                } catch (FileNotFoundException e) {
-////                    e.printStackTrace();
-////                }
-////            }
+            pics = new ArrayList<>();
+            ClipData clipData = data.getClipData();
+            if (clipData != null) {
+                for (int i = 0; i < clipData.getItemCount(); i++) {
+                    Uri imageURI = clipData.getItemAt(i).getUri();
+                    try {
+                        InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
+                        Bitmap bitmap = BitmapFactory.decodeStream(is);
+                        pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                Uri imageURI = data.getData();
+                try {
+
+                    assert imageURI != null;
+                    InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
+                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+
+                    pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
           }
     }
 }

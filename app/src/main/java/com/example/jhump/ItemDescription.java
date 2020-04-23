@@ -1,5 +1,7 @@
 package com.example.jhump;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import java.io.FileInputStream;
@@ -61,10 +64,7 @@ public class ItemDescription extends AppCompatActivity {
         descriptionView.setText(desc);
         subjectView.setText(subject);
 
-        //ArrayList<Bitmap> pic = new ArrayList<>();
-        //byte[] bt = intent.getByteArrayExtra("pics");
-        //pic.add((BitmapFactory.decodeByteArray(bt, 0, bt.length)));
-        //ViewPageAdapter vpa = new ViewPageAdapter(ItemDescription.this, pic);
+
         String filename = getIntent().getStringExtra("pics");
         Bitmap bit = null;
         FileInputStream is = null;
@@ -81,9 +81,9 @@ public class ItemDescription extends AppCompatActivity {
         }
         viewPager.setImageBitmap(bit);
 
-
         //should we place a pic that shows only if this item is sold?
         contact.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Intent getUser = new Intent(ItemDescription.this, UserProfile.class);
