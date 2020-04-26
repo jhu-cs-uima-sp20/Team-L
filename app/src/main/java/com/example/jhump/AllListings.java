@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -59,7 +61,7 @@ public class AllListings extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 NavigationDrawer.listingItem.clear();
                 for(DataSnapshot pair: dataSnapshot.getChildren()) {
-                    NavigationDrawer.listingItem.add(pair.getValue(Item.class));
+                    //NavigationDrawer.listingItem.add(pair.getValue(Item.class));
                 }
             }
 
@@ -145,7 +147,13 @@ public class AllListings extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.options_menu_with_search, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 }

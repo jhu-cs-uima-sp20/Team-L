@@ -85,6 +85,7 @@ public class MyListings extends Fragment {
         inflater.inflate(R.menu.options_menu_with_search, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
+
 }
 
 class MyItemAdapter extends ArrayAdapter<Item> {
