@@ -10,8 +10,9 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        />
+        android:theme="@style/AppTheme.AppBarOverlay" >
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <ListView
         android:id="@+id/all_listings_list"
@@ -22,8 +23,8 @@
         android:layout_marginTop="100dp"
         android:layout_marginEnd="16dp"
         android:isScrollContainer="true"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
         android:paddingTop="50dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical"
         android:soundEffectsEnabled="true" />
 
