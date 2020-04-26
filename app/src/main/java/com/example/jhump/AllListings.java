@@ -1,5 +1,6 @@
 package com.example.jhump;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -7,12 +8,14 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -28,6 +31,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
@@ -41,6 +45,9 @@ public class AllListings extends Fragment {
     private Context context;
     private FirebaseDatabase db;
     private DatabaseReference dbref;
+    private SearchView searchView = null;
+    private SearchView.OnQueryTextListener queryTextListener;
+
     public AllListings() {
         // Required empty public constructor
     }
@@ -77,7 +84,6 @@ public class AllListings extends Fragment {
             }
         });
 
-        System.out.println("hi");
         System.out.println(NavigationDrawer.listingItem.size());
         for (int i = 0; i < NavigationDrawer.listingItem.size(); i++) {
 
@@ -164,6 +170,69 @@ public class AllListings extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.options_menu_with_search, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        /*
+        listingList = (ListView)view.findViewById(R.id.all_listings_list);
+        NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, NavigationDrawer.listingItem);
+        listingList.setAdapter(NavigationDraw
+
+         */
+
+        if (searchItem != null) {
+            searchView = (SearchView) searchItem.getActionView();
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+            queryTextListener = new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Log.i("onQueryTextChange", newText);
+
+                    return true;
+                }
+
+                //start searching after user submits their search key word(s)
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Log.i("onQueryTextSubmit", query);
+                    final String entry = query;
+
+                    dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            NavigationDrawer.listingItem.clear();
+                            ArrayList<Item> newList = new ArrayList<Item>();
+
+                            String[] tokens = entry.split(" ");
+
+                            for(DataSnapshot pair: dataSnapshot.getChildren()) {
+                                //NavigationDrawer.listingItem.add(pair.getValue(Item.class));
+                                for (DataSnapshot pair2: pair.getChildren()) {
+                                    for (String token: tokens) {
+                                        if (pair2.getValue() != null && pair2.getValue().equals(token)) {
+                                            newList.add(pair.getValue(Item.class));
+                                        }
+                                    }
+                                }
+                            }
+
+                            NavigationDrawer.listingItem.addAll(newList);
+                            NavigationDrawer.aa.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.w("Failed to read value.", databaseError.toException());
+                        }
+                    });
+                    return true;
+                }
+            };
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
