@@ -65,7 +65,8 @@ public class SignUp extends AppCompatActivity {
                 return;
             }
 
-            dbref.addValueEventListener(new ValueEventListener() {
+
+            dbref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // This method is called once with the initial value and again
@@ -76,9 +77,11 @@ public class SignUp extends AppCompatActivity {
 
                     if (dataSnapshot.child("users").hasChild(jhed)) {
                         Toast.makeText(getApplicationContext(), "Email already exists", Toast.LENGTH_SHORT).show();
+                        System.out.println("here");
                     }
                     //add new user to database
                     else {
+                        System.out.println("here2");
                         User newUser = new User(name.getText().toString(), email.getText().toString(),
                                 password.getText().toString(), number.getText().toString(), new ArrayList<Item>());
                         String id = email.getText().toString().substring(0, email.getText().toString().indexOf('@'));
@@ -103,7 +106,6 @@ public class SignUp extends AppCompatActivity {
                     Log.w("Error: ","Failed to read value.", error.toException());
                 }
             });
-
         }
     });
     }
