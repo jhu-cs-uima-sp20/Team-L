@@ -15,30 +15,32 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="201dp"
         android:layout_marginRight="201dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/varela_round"
         android:text="@string/sign_up"
         android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="297dp"
-        android:layout_height="42dp"
+        android:layout_width="303dp"
+        android:layout_height="47dp"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="52dp"
         android:layout_marginRight="52dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="16dp"
         android:ems="10"
         android:fontFamily="@font/varela_round"
         android:hint="@string/jsmith12_jhu_edu"
         android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/textView6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -58,9 +60,10 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.008"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.031" />
 
     <EditText
         android:id="@+id/your_password"
@@ -125,14 +128,12 @@
         android:layout_height="0dp"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="176dp"
+        android:layout_marginTop="184dp"
         android:layout_marginEnd="147dp"
         android:layout_marginRight="147dp"
-        android:layout_marginBottom="2dp"
         android:fontFamily="@font/varela_round"
         android:text="Your JHU Email *"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -194,6 +195,7 @@
         android:id="@+id/signup"
         android:layout_width="194dp"
         android:layout_height="64dp"
+        android:layout_marginTop="14dp"
         android:layout_marginBottom="60dp"
         android:background="#57AFE8"
         android:fontFamily="@font/varela_round"
@@ -202,6 +204,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/number" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
