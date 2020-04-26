@@ -48,7 +48,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         priceView.setText("$" + Double.toString(item.getPrice()) + "0");
         sellerView.setText(item.getSeller());
         //change width/height
-        imageView.setImageBitmap(Bitmap.createScaledBitmap(item.getPicture().get(0), 80, 100, false));
+        //imageView.setImageBitmap(Bitmap.createScaledBitmap(item.getPicture().get(0), 80, 100, false));
 
         return itemView;
     }

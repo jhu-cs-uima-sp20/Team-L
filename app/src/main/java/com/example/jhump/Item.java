@@ -23,6 +23,10 @@ public class Item implements Parcelable {
     //pass in user data
     //are all mandated? If not, store temp values
 
+    public Item() {
+        // for calls to DataSnapshot.getValue(Client.class)
+    }
+
     public Item(String name, ArrayList<Bitmap> picture, String seller, String sellerID, String condition,
                 String category, String description, double price, boolean sold) {
         this.name = name;

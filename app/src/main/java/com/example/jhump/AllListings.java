@@ -53,16 +53,22 @@ public class AllListings extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_all_listings, container, false);
         //this.setTitle("All Listings");
         db = FirebaseDatabase.getInstance();
-        dbref = db.getReference().child("items");
+        dbref = db.getReference().child("listings");
         listingList = (ListView)view.findViewById(R.id.all_listings_list);
+
+        NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, NavigationDrawer.listingItem);
+        listingList.setAdapter(NavigationDrawer.aa);
+        registerForContextMenu(listingList);
 
         dbref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 NavigationDrawer.listingItem.clear();
                 for(DataSnapshot pair: dataSnapshot.getChildren()) {
-                    //NavigationDrawer.listingItem.add(pair.getValue(Item.class));
+                    NavigationDrawer.listingItem.add(pair.getValue(Item.class));
                 }
+                System.out.println(dataSnapshot.getKey());
+                NavigationDrawer.aa.notifyDataSetChanged();
             }
 
             @Override
@@ -70,10 +76,15 @@ public class AllListings extends Fragment {
                 Log.w(TAG, "Failed to read value.", databaseError.toException());
             }
         });
-        NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, NavigationDrawer.listingItem);
-        listingList.setAdapter(NavigationDrawer.aa);
-        registerForContextMenu(listingList);
-        NavigationDrawer.aa.notifyDataSetChanged();
+
+        System.out.println("hi");
+        System.out.println(NavigationDrawer.listingItem.size());
+        for (int i = 0; i < NavigationDrawer.listingItem.size(); i++) {
+
+            System.out.println(NavigationDrawer.listingItem.get(i).getId());
+        }
+
+
         // program a short click on the list item
         listingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
