@@ -143,21 +143,19 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         switch (view.getId()) {
             case R.id.post:
-                //seller is hardcoded for now!
                 if (!checkAllInput()) {
                     CharSequence text = "Please complete all required fields.";
                     Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                db = FirebaseDatabase.getInstance();
-                dbref = db.getReference();
-                //pics
-                String name = userLogin.getString("name", "John Doe");
-                String sellerID = userLogin.getString("id", "John Doe");
-                Item newItem = new Item(listingName.getText().toString(), new ArrayList<Bitmap>(), name,
-                        sellerID, textCon, textCat, description.getText().toString(),
+//                db = FirebaseDatabase.getInstance();
+//                dbref = db.getReference();
+//                String name = userLogin.getString("name", "John Doe");
+//                String sellerID = userLogin.getString("id", "John Doe");
+                Item newItem = new Item(listingName.getText().toString(), new ArrayList<Bitmap>(), "John Doe",
+                        "John Doe", textCon, textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
-                dbref.child("items").child(newItem.getId()).setValue(newItem);
+                //dbref.child("items").child(newItem.getId()).setValue(newItem);
                 //add listing to user arraylist of items
                 NavigationDrawer.aa.add(newItem);
                 transaction.remove(new CreateListings());

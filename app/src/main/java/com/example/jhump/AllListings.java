@@ -115,13 +115,13 @@ public class AllListings extends Fragment {
                 }
 
                 //ByteArrayOutputStream bStream = new ByteArrayOutputStream();
-                item.getPicture().get(0).compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                item.getPicture().get(0).recycle();
+//                item.getPicture().get(0).compress(Bitmap.CompressFormat.JPEG, 100, stream);
+//                try {
+//                    stream.close();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+                //item.getPicture().get(0).recycle();
                 intent.putExtra("pics", filename /*bStream.toByteArray()*/);
 
                 startActivity(intent);
