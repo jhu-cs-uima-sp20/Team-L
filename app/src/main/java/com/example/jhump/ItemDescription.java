@@ -56,6 +56,7 @@ public class ItemDescription extends AppCompatActivity {
         String price = "Price: $" + intent.getDoubleExtra("price", 0.00);
         String desc = "Description: " + intent.getStringExtra("description");
         String subject = "Subject: " + intent.getStringExtra("subject");
+        final String sellerID = intent.getStringExtra("subject");
         sellerView.setText(seller);
         nameView.setText(intent.getStringExtra("listing"));
         conView.setText(condition);
@@ -87,6 +88,7 @@ public class ItemDescription extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent getUser = new Intent(ItemDescription.this, UserProfile.class);
+                getUser.putExtra("sellerID", sellerID);
                 startActivity(getUser);
             }
         });
