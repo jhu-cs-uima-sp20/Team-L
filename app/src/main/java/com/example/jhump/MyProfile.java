@@ -72,7 +72,7 @@ public class MyProfile extends Fragment {
         Bitmap itemPic = BitmapFactory.decodeResource(getResources(), R.drawable.discrete_math_cover);
         imageList = new ArrayList<>();
         imageList.add(itemPic);
-        Item newItem = new Item("Discrete Mathematics", imageList, "Sold by you", "Good",
+        Item newItem = new Item("Discrete Mathematics", new ArrayList<Bitmap>(), "Sold by you", "sellerID", "Good",
                 "Textbooks", "Discrete math textbook.", 20.0, false);
         itemAdapter.add(newItem);
         itemAdapter.notifyDataSetChanged();

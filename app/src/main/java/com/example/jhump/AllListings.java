@@ -49,9 +49,8 @@ public class AllListings extends Fragment {
                              Bundle savedInstanceState) {
         final String TAG = "itemList";
         View view =  inflater.inflate(R.layout.fragment_all_listings, container, false);
-        //this.setTitle("All Listings");
         db = FirebaseDatabase.getInstance();
-        dbref = db.getReference().child("items");
+        dbref = db.getReference("items");
         listingList = (ListView)view.findViewById(R.id.all_listings_list);
 
         dbref.addValueEventListener(new ValueEventListener() {
@@ -87,13 +86,8 @@ public class AllListings extends Fragment {
                 intent.putExtra("sold", item.isSold());
                 intent.putExtra("sellerID", item.getSellerID());
 
-                /*ArrayList<String> pics = new ArrayList<>();
-                for (int i = 0; i < item.getPicture().size(); i++) {
-                    pics.add(saveToInternalStorage(item.getPicture().get(i), i));
-                }
 
-                intent.putStringArrayListExtra("picLocation", pics);*/
-                String filename = "bitmap.jpg";
+                /*String filename = "bitmap.jpg";
                 FileOutputStream stream = null;
                 try {
                     stream = getActivity().openFileOutput(filename, Context.MODE_PRIVATE);
@@ -109,8 +103,8 @@ public class AllListings extends Fragment {
                     e.printStackTrace();
                 }
                 item.getPicture().get(0).recycle();
-                intent.putExtra("pics", filename /*bStream.toByteArray()*/);
-
+                intent.putExtra("pics", filename /*bStream.toByteArray());
+*/
                 startActivity(intent);
             }
         });
@@ -140,12 +134,6 @@ public class AllListings extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
     }
 
 }
