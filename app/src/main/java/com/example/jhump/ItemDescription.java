@@ -47,7 +47,7 @@ public class ItemDescription extends AppCompatActivity {
         TextView sellerView = findViewById(R.id.seller);
         TextView conView = findViewById(R.id.condition);
         TextView catView = findViewById(R.id.category);
-        TextView subjectView = findViewById(R.id.subject);
+        //TextView subjectView = findViewById(R.id.subject);
 
 
         String seller = "Seller: " + intent.getStringExtra("seller");
@@ -63,7 +63,7 @@ public class ItemDescription extends AppCompatActivity {
         catView.setText(category);
         priceView.setText(price);
         descriptionView.setText(desc);
-        subjectView.setText(subject);
+        //subjectView.setText(subject);
 
 
         String filename = getIntent().getStringExtra("pics");

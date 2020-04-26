@@ -148,4 +148,10 @@ public class Item implements Parcelable {
         dest.writeString(id);
         dest.writeByte((byte) (sold ? 1 : 0));
     }
+
+    @Override
+    public String toString() {
+        return "id: " + this.id + " name: " + this.name + " seller: " + this.seller + " condition: " + this.condition + " category: " + this.category +
+        " price: " + this.price + " description: " + this.description + " sold: " + sold;
+    }
 }
