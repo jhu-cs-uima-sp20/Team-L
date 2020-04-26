@@ -38,7 +38,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         } else {
             itemView = (LinearLayout) convertView;
         }
-        //add onclicklistener for edit mylistings
+
         TextView listingNameView = itemView.findViewById(R.id.listing_name);
         TextView priceView = itemView.findViewById(R.id.listing_price);
         TextView sellerView = itemView.findViewById(R.id.listing_seller);

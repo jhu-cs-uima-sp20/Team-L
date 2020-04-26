@@ -58,11 +58,9 @@ public class AllListings extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 NavigationDrawer.listingItem.clear();
-                Iterable<DataSnapshot> items = dataSnapshot.getChildren();
-                for(DataSnapshot pair: items) {
+                for(DataSnapshot pair: dataSnapshot.getChildren()) {
                     NavigationDrawer.listingItem.add(pair.getValue(Item.class));
                 }
-                NavigationDrawer.aa.notifyDataSetChanged();
             }
 
             @Override
@@ -73,6 +71,7 @@ public class AllListings extends Fragment {
         NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, NavigationDrawer.listingItem);
         listingList.setAdapter(NavigationDrawer.aa);
         registerForContextMenu(listingList);
+        NavigationDrawer.aa.notifyDataSetChanged();
         // program a short click on the list item
         listingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -86,6 +85,7 @@ public class AllListings extends Fragment {
                 intent.putExtra("description", item.getDescription());
                 intent.putExtra("price", item.getPrice());
                 intent.putExtra("sold", item.isSold());
+                intent.putExtra("sellerID", item.getSellerID());
 
                 /*ArrayList<String> pics = new ArrayList<>();
                 for (int i = 0; i < item.getPicture().size(); i++) {

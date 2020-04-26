@@ -150,8 +150,9 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 dbref = db.getReference();
                 //pics
                 String name = userLogin.getString("name", "John Doe");
+                String sellerID = userLogin.getString("id", "John Doe");
                 Item newItem = new Item(listingName.getText().toString(), new ArrayList<Bitmap>(), name,
-                        textCon, textCat, description.getText().toString(),
+                        sellerID, textCon, textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
                 dbref.child("items").child(newItem.getId()).setValue(newItem);
                 //add listing to user arraylist of items

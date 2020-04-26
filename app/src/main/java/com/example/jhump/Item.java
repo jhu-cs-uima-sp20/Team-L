@@ -16,13 +16,14 @@ public class Item implements Parcelable {
     private String description = "";
     private boolean sold;
     private String id;
+    private String sellerID;
 
     private static long nextId = 0;
     //layout must say us.dollars
     //pass in user data
     //are all mandated? If not, store temp values
 
-    public Item(String name, ArrayList<Bitmap> picture, String seller, String condition,
+    public Item(String name, ArrayList<Bitmap> picture, String seller, String sellerID, String condition,
                 String category, String description, double price, boolean sold) {
         this.name = name;
         this.seller = seller;
@@ -33,6 +34,7 @@ public class Item implements Parcelable {
         this.description = description;
         this.sold = sold;
         this.id = String.format("%04d", ++nextId);
+        this.sellerID = sellerID;
     }
 
     protected Item(Parcel in) {
@@ -85,11 +87,15 @@ public class Item implements Parcelable {
         return this.price;
     }
 
+    public String getSellerID() { return this.sellerID; }
+
     public ArrayList<Bitmap> getPicture() {
         return this.picture;
     }
 
     public String getId() { return this.id; }
+
+    public void setSellerID(String sellerID) { this.sellerID = sellerID; }
 
     public void setName(String name) {
         this.name = name;
