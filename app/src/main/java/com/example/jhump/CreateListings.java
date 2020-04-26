@@ -126,7 +126,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     public boolean checkAllInput() {
         String listing = listingName.getText().toString();
         String check_price = listingName.getText().toString();
-        return (!listing.isEmpty() && !(check_price.isEmpty()));// && textCat.equals("N/A") && textCon.equals("N/A"));
+        return (!listing.isEmpty() && !(check_price.isEmpty())) && !textCat.equals("N/A") && !textCon.equals("N/A");
 //        String listing = listingName.getText().toString();
 //        boolean isDouble = true;
 //        try {
