@@ -105,6 +105,9 @@ public class MyListings extends Fragment {
         db = FirebaseDatabase.getInstance();
         dbref = db.getReference().child("listings");
 
+        //to do
+        final String defaultname = "John Doe";
+
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
         }
@@ -115,6 +118,33 @@ public class MyListings extends Fragment {
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     Log.i("onQueryTextChange", newText);
+                    final String entry = newText;
+
+                    dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            ArrayList<Item> newList = new ArrayList<Item>();
+
+                            // If nothing put in search, reset to show all listings
+                            if (entry.isEmpty()) {
+                                myItems.clear();
+                                for(DataSnapshot pair: dataSnapshot.getChildren()) {
+                                    if(pair.child("seller").getValue() != null && pair.child("seller").getValue().equals(defaultname)) {
+                                        newList.add(pair.getValue(Item.class));
+                                    }
+
+                                }
+                                myItems.addAll(newList);
+                                adapter.notifyDataSetChanged();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.w("Failed to read value.", databaseError.toException());
+                        }
+                    });
 
                     return true;
                 }

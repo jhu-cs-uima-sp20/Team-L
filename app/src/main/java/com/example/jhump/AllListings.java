@@ -188,6 +188,30 @@ public class AllListings extends Fragment {
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     Log.i("onQueryTextChange", newText);
+                    final String entry = newText;
+
+                    dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            ArrayList<Item> newList = new ArrayList<Item>();
+
+                            // If nothing put in search, reset to show all listings
+                            if (entry.isEmpty()) {
+                                NavigationDrawer.listingItem.clear();
+                                for(DataSnapshot pair: dataSnapshot.getChildren()) {
+                                    newList.add(pair.getValue(Item.class));
+                                }
+                                NavigationDrawer.listingItem.addAll(newList);
+                                NavigationDrawer.aa.notifyDataSetChanged();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.w("Failed to read value.", databaseError.toException());
+                        }
+                    });
 
                     return true;
                 }
@@ -233,5 +257,21 @@ public class AllListings extends Fragment {
         }
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+    /*
+    @Override
+    public void setOnQueryTextListener(SearchView.OnQueryTextListener listener) {
+        super.setOnQueryTextListener(listener);
+        this.listener = listener;
+        mSearchSrcTextView = this.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        mSearchSrcTextView.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if (listener != null) {
+                listener.onQueryTextSubmit(getQuery().toString());
+            }
+            return true;
+        });
+    }
+
+     */
 
 }
