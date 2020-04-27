@@ -1,6 +1,7 @@
 package com.example.jhump;
 
 import android.app.Activity;
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -53,8 +54,9 @@ public class MyListings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        //SharedPreferences sharedPref = getContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         userLogin = this.getActivity().getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
+        String defaultName = userLogin.getString("name", "John Doe");
+        //SharedPreferences sharedPref = getContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         String username = userLogin.getString("name", "John Doe");
 
         View root = inflater.inflate(R.layout.fragment_my_listings, container, false);
@@ -97,7 +99,6 @@ public class MyListings extends Fragment {
     public void onResume() {
         super.onResume();
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -213,7 +214,6 @@ class MyItemAdapter extends ArrayAdapter<Item> {
         resource = res;
     }
 
-    Item item;
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
@@ -287,7 +287,7 @@ class MyItemAdapter extends ArrayAdapter<Item> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent edit = new Intent(parent.getContext(), EditListings.class);
+                Intent edit = new Intent(getContext(), EditListings.class);
                 edit.putExtra("listing", item.getName());
                 edit.putExtra("seller", item.getSeller());
                 edit.putExtra("category", item.getCategory());
@@ -296,7 +296,8 @@ class MyItemAdapter extends ArrayAdapter<Item> {
                 edit.putExtra("price", item.getPrice());
                 edit.putExtra("sold", item.isSold());
                 edit.putExtra("sellerID", item.getSellerID());
-                parent.getContext().startActivity(edit);
+                edit.putExtra("ID", item.getId());
+                getContext().startActivity(edit);
             }
         });
         listingNameView.setText(item.getName());

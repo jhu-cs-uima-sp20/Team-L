@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -47,7 +48,6 @@ public class ItemDescription extends AppCompatActivity {
         TextView sellerView = findViewById(R.id.seller);
         TextView conView = findViewById(R.id.condition);
         TextView catView = findViewById(R.id.category);
-        //TextView subjectView = findViewById(R.id.subject);
 
 
         String seller = "Seller: " + intent.getStringExtra("seller");
@@ -55,7 +55,7 @@ public class ItemDescription extends AppCompatActivity {
         String category = "Category: " + intent.getStringExtra("category");
         String price = "Price: $" + intent.getDoubleExtra("price", 0.00);
         String desc = "Description: " + intent.getStringExtra("description");
-        String subject = "Subject: " + intent.getStringExtra("subject");
+        //String subject = "Subject: " + intent.getStringExtra("subject");
         final String sellerID = intent.getStringExtra("subject");
         sellerView.setText(seller);
         nameView.setText(intent.getStringExtra("listing"));
@@ -63,6 +63,8 @@ public class ItemDescription extends AppCompatActivity {
         catView.setText(category);
         priceView.setText(price);
         descriptionView.setText(desc);
+        String link = intent.getStringExtra("picture");
+        viewPager.setImageURI(Uri.parse((link)));
         //subjectView.setText(subject);
 
 

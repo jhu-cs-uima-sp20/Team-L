@@ -110,7 +110,7 @@ public class AllListings extends Fragment {
                 intent.putExtra("price", item.getPrice());
                 intent.putExtra("sold", item.isSold());
                 intent.putExtra("sellerID", item.getSellerID());
-
+                intent.putExtra("picture", item.getPicture());
                 /*ArrayList<String> pics = new ArrayList<>();
                 for (int i = 0; i < item.getPicture().size(); i++) {
                     pics.add(saveToInternalStorage(item.getPicture().get(i), i));
