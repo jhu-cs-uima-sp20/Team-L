@@ -66,6 +66,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     private DatabaseReference dbref;
     SharedPreferences userLogin;
     public Uri imguri;
+    public String links = "";
     //private static final int KITKAT_VALUE = 1002;
 
 
@@ -120,7 +121,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
             public void onClick(View v) {
                 if (ActivityCompat.checkSelfPermission(getActivity(),
                         Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    //ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
                     return;
                 }
@@ -156,10 +157,10 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     public boolean checkAllInput() {
         String listing = listingName.getText().toString();
         String check_price = price.getText().toString();
-        /*
+
         return (!listing.isEmpty() && !(check_price.isEmpty()))
-                && !textCat.equals("N/A") && !textCon.equals("N/A") && !imguri.toString().equals("");
-        */
+                && !textCat.equals("N/A") && !textCon.equals("N/A") && !(links.isEmpty());
+
 //        String listing = listingName.getText().toString();
 //        boolean isDouble = true;
 //        try {
@@ -169,7 +170,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
 //        }
 //        return (!listing.isEmpty() && (!textCat.equals("N/A"))
 //                && !textCon.equals("N/A")  0 && isDouble);
-        return true;
+        //return true;
     }
 
     @Override
@@ -177,6 +178,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         switch (view.getId()) {
             case R.id.post:
+                links = imguri.toString();
                 if (!checkAllInput()) {
                     CharSequence text = "Please complete all required fields.";
                     Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
@@ -188,8 +190,8 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 String sellerID = userLogin.getString("id", "John Doe");
                 //ArrayList<String> linksOfPics = new ArrayList<>();
                 //linksOfPics.add(imguri.toString());
-//                String links = imguri.toString();
-                String links = "apple";
+                links = imguri.toString();
+                //String links = "apple";
                 //linksOfPics.add(getImageUri(getContext(), pics.get(0)).toString());
                 Item newItem = new Item(listingName.getText().toString(), links, name,
                          sellerID, textCon, textCat, description.getText().toString(),
