@@ -48,6 +48,11 @@ public class SignUp extends AppCompatActivity {
         @Override
         public void onClick(View v) {
 
+            if (name.getText().toString().isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Please enter a name.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             if (!email.getText().toString().endsWith("@jhu.edu")
                     && !email.getText().toString().endsWith("@jh.edu")) {
                 Toast.makeText(getApplicationContext(), "Please enter a JHU email address", Toast.LENGTH_SHORT).show();
