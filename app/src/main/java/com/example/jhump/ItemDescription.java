@@ -68,23 +68,6 @@ public class ItemDescription extends AppCompatActivity {
         //subjectView.setText(subject);
 
 
-       /* String filename = getIntent().getStringExtra("pics");
-        Bitmap bit = null;
-        FileInputStream is = null;
-        try {
-            is = this.openFileInput(filename);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        bit = BitmapFactory.decodeStream(is);
-        try {
-            is.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        viewPager.setImageBitmap(bit);
-*/
         //should we place a pic that shows only if this item is sold?
         contact.setOnClickListener(new View.OnClickListener() {
 

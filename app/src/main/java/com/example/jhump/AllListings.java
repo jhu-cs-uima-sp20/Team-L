@@ -62,7 +62,6 @@ public class AllListings extends Fragment {
                              Bundle savedInstanceState) {
         final String TAG = "itemList";
         View view =  inflater.inflate(R.layout.fragment_all_listings, container, false);
-        //this.setTitle("All Listings");
         db = FirebaseDatabase.getInstance();
         dbref = db.getReference().child("listings");
         listingList = (ListView)view.findViewById(R.id.all_listings_list);
@@ -120,12 +119,7 @@ public class AllListings extends Fragment {
                 intent.putExtra("sold", item.isSold());
                 intent.putExtra("sellerID", item.getSellerID());
                 intent.putExtra("picture", item.getPicture());
-                /*ArrayList<String> pics = new ArrayList<>();
-                for (int i = 0; i < item.getPicture().size(); i++) {
-                    pics.add(saveToInternalStorage(item.getPicture().get(i), i));
-                }
 
-                intent.putStringArrayListExtra("picLocation", pics);*/
                 String filename = "bitmap.jpg";
                 FileOutputStream stream = null;
                 try {

@@ -54,12 +54,9 @@ public class MyListings extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         userLogin = this.getActivity().getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
-        String defaultName = userLogin.getString("name", "John Doe");
-        //SharedPreferences sharedPref = getContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
         String username = userLogin.getString("name", "John Doe");
 
         View root = inflater.inflate(R.layout.fragment_my_listings, container, false);
-        //getActivity().getActionBar().setTitle("My Listings");
 
 
         myItems = new ArrayList<>();
@@ -243,6 +240,7 @@ class MyItemAdapter extends ArrayAdapter<Item> {
                 edit.putExtra("sold", item.isSold());
                 edit.putExtra("sellerID", item.getSellerID());
                 edit.putExtra("ID", item.getId());
+                edit.putExtra("picture", item.getPicture());
                 getContext().startActivity(edit);
             }
         });
