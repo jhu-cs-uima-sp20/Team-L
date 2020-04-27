@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +33,8 @@ public class Filters extends Fragment {
     private Button used;
     private Button reset;
     private Button apply;
-    ArrayList<Item> list;
-    ArrayList<Button> buttons;
+    public static ArrayList<Item> list;
+    private ArrayList<Button> buttons;
     private boolean[] lookingForClicked = new boolean[4];
     private boolean[] sortByClicked = new boolean[3];
     private boolean[] conditionClicked = new boolean[4];
@@ -265,52 +266,71 @@ public class Filters extends Fragment {
 
         apply.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Log.d("onclick", "here");
                 for (Item i : NavigationDrawer.listingItem) {
-                    if (lookingForClicked[0]) {
-                        if (i.getCategory().equals("Textbook"))
-                            list.add(i);
-                    }
-                    if (lookingForClicked[1]) {
-                        if (i.getCategory().equals("iClicker"))
-                            list.add(i);
-                    }
-                    if (lookingForClicked[2]) {
-                        if (i.getCategory().equals("Lab Equipment"))
-                            list.add(i);
-                    }
-                    if (lookingForClicked[3]) {
-                        if (i.getCategory().equals("Miscellaneous") || i.getCategory().equals("Misc"))
-                            list.add(i);
-                    }
-                    if (conditionClicked[0]) {
-                        if (i.getCondition().equals("New"))
-                            list.add(i);
-                    }
-                    if (conditionClicked[1]) {
-                        if (i.getCondition().equals("Good"))
-                            list.add(i);
-                    }
-                    if (conditionClicked[2]) {
-                        if (i.getCondition().equals("Fair"))
-                            list.add(i);
-                    }
-                    if (conditionClicked[3]) {
-                        if (i.getCondition().equals("Used"))
-                            list.add(i);
+                    Log.d("onclick", Integer.toString((int) i.getPrice()));
+                    Log.d("onclick", "in loop");
+                }
+                boolean allFalse = true;
+                for (int i = 0; i < 4; i++) {
+                    if (lookingForClicked[i])
+                        allFalse = false;
+                    if (conditionClicked[i])
+                        allFalse = false;
+                }
+                if (!allFalse) {
+                    for (Item i : NavigationDrawer.listingItem) {
+                        if (lookingForClicked[0]) {
+                            if (i.getCategory().equals("Textbook"))
+                                list.add(i);
+                        }
+                        if (lookingForClicked[1]) {
+                            if (i.getCategory().equals("iClicker"))
+                                list.add(i);
+                        }
+                        if (lookingForClicked[2]) {
+                            if (i.getCategory().equals("Lab Equipment"))
+                                list.add(i);
+                        }
+                        if (lookingForClicked[3]) {
+                            if (i.getCategory().equals("Miscellaneous") || i.getCategory().equals("Misc"))
+                                list.add(i);
+                        }
+                        if (conditionClicked[0]) {
+                            if (i.getCondition().equals("New"))
+                                list.add(i);
+                        }
+                        if (conditionClicked[1]) {
+                            if (i.getCondition().equals("Good"))
+                                list.add(i);
+                        }
+                        if (conditionClicked[2]) {
+                            if (i.getCondition().equals("Fair"))
+                                list.add(i);
+                        }
+                        if (conditionClicked[3]) {
+                            if (i.getCondition().equals("Used"))
+                                list.add(i);
+                        }
                     }
                 }
+                else {
+                    list.addAll(NavigationDrawer.listingItem);
+                }
+                Log.d("end", "here");
                 if (sortByClicked[0]) {
-                    Collections.sort(list, new SortLowToHigh());
+                    Collections.sort(list, new SortHighToLow());
+                    Log.d("end", "sorted");
                 }
                 if (sortByClicked[1]) {
-                    Collections.sort(list, new SortHighToLow());
+                    Collections.sort(list, new SortLowToHigh());
                 }
                 if (sortByClicked[2]) {
                     Collections.sort(list, new SortMostRecent());
                 }
-                NavigationDrawer.listingItem.clear();
-                NavigationDrawer.listingItem.addAll(list);
-                NavigationDrawer.aa.notifyDataSetChanged();
+                for (Item i : list) {
+                    Log.d("end", i.getSeller());
+                }
                 NavigationDrawer.fromFilters = true;
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, new AllListings());
@@ -326,20 +346,35 @@ public class Filters extends Fragment {
 class SortMostRecent implements Comparator<Item> {
     @Override
     public int compare(Item a, Item b) {
-        return a.getIDInt() - b.getIDInt();
+        if (a.getIDInt() == b.getIDInt())
+            return 0;
+        if (a.getIDInt() < b.getIDInt())
+            return 1;
+        else
+            return -1;
     }
 }
 
 class SortHighToLow implements Comparator<Item> {
     @Override
     public int compare(Item a, Item b) {
-        return (int) b.getPrice() - (int) a.getPrice();
+        if (a.getPrice() == b.getPrice())
+            return 0;
+        if (a.getPrice() < b.getPrice())
+            return 1;
+        else
+            return -1;
     }
 }
 
 class SortLowToHigh implements Comparator<Item> {
     @Override
     public int compare(Item a, Item b) {
-        return (int) a.getPrice() - (int) b.getPrice();
+        if (a.getPrice() == b.getPrice())
+            return 0;
+        if (a.getPrice() > b.getPrice())
+            return 1;
+        else
+            return -1;
     }
 }

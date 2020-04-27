@@ -71,21 +71,29 @@ public class AllListings extends Fragment {
         listingList.setAdapter(NavigationDrawer.aa);
         registerForContextMenu(listingList);
 
-        dbref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d("here", "got here");
-                NavigationDrawer.listingItem.clear();
-                for (DataSnapshot pair : dataSnapshot.getChildren()) {
-                    NavigationDrawer.listingItem.add(pair.getValue(Item.class));
+        if (NavigationDrawer.fromFilters) {
+            Log.d("here", "got here");
+            NavigationDrawer.listingItem.clear();
+            NavigationDrawer.listingItem.addAll(Filters.list);
+            NavigationDrawer.aa.notifyDataSetChanged();
+        }
+        else {
+            dbref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    NavigationDrawer.listingItem.clear();
+                    for (DataSnapshot pair : dataSnapshot.getChildren()) {
+                        NavigationDrawer.listingItem.add(pair.getValue(Item.class));
+                    }
+                    NavigationDrawer.aa.notifyDataSetChanged();
                 }
-                NavigationDrawer.aa.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "Failed to read value.", databaseError.toException());
-            }
-        });
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.w(TAG, "Failed to read value.", databaseError.toException());
+                }
+            });
+        }
 
         filtersButton = view.findViewById(R.id.filters_button);
         filtersButton.setOnClickListener(new View.OnClickListener() {
