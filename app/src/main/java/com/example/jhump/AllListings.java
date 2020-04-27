@@ -78,7 +78,6 @@ public class AllListings extends Fragment {
                 ArrayList<Item> temp = new ArrayList<Item>();
                 ArrayList<Item> sold_items = new ArrayList<Item>();
                 for (DataSnapshot pair : dataSnapshot.getChildren()) {
-                    //NavigationDrawer.listingItem.add(pair.getValue(Item.class));
                     temp.add(pair.getValue(Item.class));
                 }
                 for (int i = temp.size() - 1; i >= 0; i--) {
