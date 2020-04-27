@@ -42,11 +42,13 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         TextView listingNameView = itemView.findViewById(R.id.listing_name);
         TextView priceView = itemView.findViewById(R.id.listing_price);
         TextView sellerView = itemView.findViewById(R.id.listing_seller);
+        TextView conditionView = itemView.findViewById(R.id.listing_condition);
         ImageView imageView = itemView.findViewById(R.id.listing_image);
 
         listingNameView.setText(item.getName());
         priceView.setText("$" + Double.toString(item.getPrice()) + "0");
-        sellerView.setText(item.getSeller());
+        sellerView.setText("Sold by: " + item.getSeller());
+        conditionView.setText("Condition: " + item.getCondition());
         //change width/height
         //imageView.setImageBitmap(Bitmap.createScaledBitmap(item.getPicture().get(0), 80, 100, false));
 
