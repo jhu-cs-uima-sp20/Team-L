@@ -1,104 +1,241 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Filters">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/l"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:weightSum="2" >
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/looking_for"
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/varela"
+            android:text="Looking for..."
+            android:textSize="30sp" />
 
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content">
 
-            <TableLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:shrinkColumns="*" >
+                android:layout_height="match_parent">
 
-                <TableRow
-                    android:id="@+id/tags"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+                <Button
+                    android:id="@+id/textbooks_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/varela"
+                    android:text="Textbooks"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:theme="@style/AppTheme.Button.Unselected" />
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Button" />
+                <Button
+                    android:id="@+id/iclickers_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/varela"
+                    android:text="iClickers"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:theme="@style/AppTheme.Button.Unselected" />
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Button" />
+                <Button
+                    android:id="@+id/lab_equipment_filter"
+                    android:layout_width="109dp"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/varela"
+                    android:text="Lab equipment"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:theme="@style/AppTheme.Button.Unselected" />
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Button" />
+                <Button
+                    android:id="@+id/misc_filter"
+                    android:layout_width="100dp"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/varela"
+                    android:text="Miscellaneous"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:theme="@style/AppTheme.Button.Unselected" />
+            </TableRow>
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Button" />
+        </TableLayout>
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Button" />
-                </TableRow>
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/varela"
+            android:text="Sort by..."
+            android:textSize="30sp" />
 
-                <TableRow
-                    android:id="@+id/tags1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Button" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Button" />
+                <Button
+                    android:id="@+id/high_to_low"
+                    android:layout_width="111dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/varela"
+                    android:text="Price: high to low"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:theme="@style/AppTheme.Button.Unselected" />
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Button" />
+                <Button
+                    android:id="@+id/low_to_high"
+                    android:layout_width="111dp"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/varela"
+                    android:text="Price: low to high"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:theme="@style/AppTheme.Button.Unselected" />
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Button" />
+                <Button
+                    android:id="@+id/most_recent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/varela"
+                    android:text="Most recent"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:theme="@style/AppTheme.Button.Unselected" />
+            </TableRow>
 
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Button" />
-                </TableRow>
-            </TableLayout>
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/varela"
+            android:text="Condition"
+            android:textSize="30sp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/new_condition"
+                    android:layout_width="70dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/varela"
+                    android:text="New"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:theme="@style/AppTheme.Button.Unselected" />
+
+                <Button
+                    android:id="@+id/good_condition"
+                    android:layout_width="70dp"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/varela"
+                    android:text="Good"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:theme="@style/AppTheme.Button.Unselected" />
+
+                <Button
+                    android:id="@+id/fair_condition"
+                    android:layout_width="70dp"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/varela"
+                    android:text="Fair"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:theme="@style/AppTheme.Button.Unselected" />
+
+                <Button
+                    android:id="@+id/used_condition"
+                    android:layout_width="70dp"
+                    android:layout_height="37dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/button_border"
+                    android:fontFamily="@font/varela"
+                    android:text="Used"
+                    android:textAllCaps="false"
+                    android:textSize="12dp"
+                    android:theme="@style/AppTheme.Button.Unselected" />
+            </TableRow>
+
+        </TableLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center|bottom" >
+
+            <Button
+                android:id="@+id/reset_filters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reset filters"
+                android:layout_marginRight="30dp"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/light_blue"
+                android:fontFamily="@font/varela"/>
+
+            <Button
+                android:id="@+id/apply_filters"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apply filters"
+                android:textAllCaps="false"
+                android:backgroundTint="@color/light_blue"
+                android:fontFamily="@font/varela"/>
         </LinearLayout>
+
     </LinearLayout>
-    </LinearLayout>
+
 </FrameLayout>
