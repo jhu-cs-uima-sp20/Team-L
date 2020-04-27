@@ -1,6 +1,7 @@
 package com.example.jhump;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -139,7 +140,7 @@ public class Item implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        //dest.writeTypedList(picture);
+        //dest.writeString(picture);
         dest.writeString(seller);
         dest.writeString(condition);
         dest.writeString(category);

@@ -1,8 +1,12 @@
 package com.example.jhump;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +14,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import java.net.URI;
+import java.net.URL;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static androidx.core.app.ActivityCompat.startActivityForResult;
+
 public class ItemAdapter extends ArrayAdapter<Item> {
+
     private int resource;
 
     public ItemAdapter(Context ctx, int res, ArrayList<Item> items)
@@ -50,6 +60,9 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         priceView.setText("$" + Double.toString(item.getPrice()) + "0");
         sellerView.setText("Sold by: " + item.getSeller());
         conditionView.setText("Condition: " + item.getCondition());
+        Uri link = Uri.parse(item.getPicture().get(0));
+        //Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
+        imageView.setImageURI(link);
         if (item.isSold()) {
             soldView.setImageResource(R.drawable.sold);
             soldView.bringToFront();
