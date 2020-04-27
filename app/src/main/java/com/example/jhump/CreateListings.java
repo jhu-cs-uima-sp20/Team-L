@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Messenger;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -154,6 +155,9 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode ==1 && resultCode == RESULT_OK && data != null && data.getData() !=null){
             imguri = data.getData();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                getContext().getContentResolver().takePersistableUriPermission(imguri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
         }
     }
 
