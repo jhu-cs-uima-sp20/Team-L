@@ -76,13 +76,20 @@ public class AllListings extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 NavigationDrawer.listingItem.clear();
                 ArrayList<Item> temp = new ArrayList<Item>();
+                ArrayList<Item> sold_items = new ArrayList<Item>();
                 for (DataSnapshot pair : dataSnapshot.getChildren()) {
                     //NavigationDrawer.listingItem.add(pair.getValue(Item.class));
                     temp.add(pair.getValue(Item.class));
                 }
                 for (int i = temp.size() - 1; i >= 0; i--) {
-                    NavigationDrawer.listingItem.add(temp.get(i));
+                    if (!temp.get(i).isSold()) {
+                        NavigationDrawer.listingItem.add(temp.get(i));
+                    }
+                    else {
+                        sold_items.add(temp.get(i));
+                    }
                 }
+                NavigationDrawer.listingItem.addAll(sold_items);
                 NavigationDrawer.aa.notifyDataSetChanged();
             }
             @Override
