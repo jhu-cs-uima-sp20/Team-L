@@ -74,7 +74,6 @@ public class AllListings extends Fragment {
                 for(DataSnapshot pair: dataSnapshot.getChildren()) {
                     NavigationDrawer.listingItem.add(pair.getValue(Item.class));
                 }
-                System.out.println(dataSnapshot.getKey());
                 NavigationDrawer.aa.notifyDataSetChanged();
             }
 
@@ -83,13 +82,6 @@ public class AllListings extends Fragment {
                 Log.w(TAG, "Failed to read value.", databaseError.toException());
             }
         });
-
-        System.out.println(NavigationDrawer.listingItem.size());
-        for (int i = 0; i < NavigationDrawer.listingItem.size(); i++) {
-
-            System.out.println(NavigationDrawer.listingItem.get(i).getId());
-        }
-
 
         // program a short click on the list item
         listingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -172,13 +164,6 @@ public class AllListings extends Fragment {
         inflater.inflate(R.menu.options_menu_with_search, menu);
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-
-        /*
-        listingList = (ListView)view.findViewById(R.id.all_listings_list);
-        NavigationDrawer.aa = new ItemAdapter(getActivity(),R.layout.listing_item_layout, NavigationDrawer.listingItem);
-        listingList.setAdapter(NavigationDraw
-
-         */
 
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
