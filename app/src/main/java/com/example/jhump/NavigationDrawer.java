@@ -37,6 +37,7 @@ public class NavigationDrawer extends AppCompatActivity
 
     public static ItemAdapter aa;
     public static ArrayList<Item> listingItem;
+    public static boolean fromFilters = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

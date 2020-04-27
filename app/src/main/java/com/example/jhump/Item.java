@@ -88,6 +88,8 @@ public class Item implements Parcelable {
         return this.price;
     }
 
+    public int getIDInt() { return Integer.parseInt(this.id); }
+
     public String getSellerID() { return this.sellerID; }
 
     public ArrayList<String> getPicture() {

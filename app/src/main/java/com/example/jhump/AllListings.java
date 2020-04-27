@@ -50,6 +50,7 @@ public class AllListings extends Fragment {
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     private Button filtersButton;
+    boolean bundleInfo;
 
     public AllListings() {
         // Required empty public constructor
@@ -73,13 +74,13 @@ public class AllListings extends Fragment {
         dbref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.d("here", "got here");
                 NavigationDrawer.listingItem.clear();
-                for(DataSnapshot pair: dataSnapshot.getChildren()) {
+                for (DataSnapshot pair : dataSnapshot.getChildren()) {
                     NavigationDrawer.listingItem.add(pair.getValue(Item.class));
                 }
                 NavigationDrawer.aa.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(TAG, "Failed to read value.", databaseError.toException());
