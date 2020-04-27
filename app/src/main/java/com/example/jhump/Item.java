@@ -9,7 +9,8 @@ import java.util.ArrayList;
 
 public class Item implements Parcelable {
     private String name = "";
-    private ArrayList<String> picture;
+    //private ArrayList<String> picture;
+    private String picture;
     private String seller = "";
     private String condition = "";
     private String category = "";
@@ -24,7 +25,7 @@ public class Item implements Parcelable {
         // for calls to DataSnapshot.getValue(Client.class)
     }
 
-    public Item(String name, ArrayList<String> picture, String seller, String sellerID, String condition,
+    public Item(String name, String picture, String seller, String sellerID, String condition,
                 String category, String description, double price, boolean sold) {
         this.name = name;
         this.seller = seller;
@@ -92,7 +93,7 @@ public class Item implements Parcelable {
 
     public String getSellerID() { return this.sellerID; }
 
-    public ArrayList<String> getPicture() {
+    public String getPicture() {
         return this.picture;
     }
 

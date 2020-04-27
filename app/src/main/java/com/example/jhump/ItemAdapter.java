@@ -60,9 +60,12 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         priceView.setText("$" + Double.toString(item.getPrice()) + "0");
         sellerView.setText("Sold by: " + item.getSeller());
         conditionView.setText("Condition: " + item.getCondition());
-//        Uri link = Uri.parse(item.getPicture().get(0));
+        if (item.getPicture() != null) {
+            Uri link = Uri.parse(item.getPicture());
+            imageView.setImageURI(link);
+        }
         //Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
-//        imageView.setImageURI(link);
+        ;
         if (item.isSold()) {
             soldView.setImageResource(R.drawable.sold);
             soldView.bringToFront();

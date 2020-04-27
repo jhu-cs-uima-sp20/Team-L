@@ -51,7 +51,6 @@ public class CreateListings extends Fragment implements View.OnClickListener{
 
     private Button post;
     private Button cancel;
-    private List<Bitmap> pics;
     private ImageButton gallery;
     private Spinner category;
     private Spinner condition;
@@ -134,7 +133,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
 //                }
                 Intent intent = new Intent();
                 intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
                 startActivityForResult(intent, 1);
 //                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 //                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
@@ -187,10 +186,11 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 dbref = db.getReference();
                 String name = userLogin.getString("name", "John Doe");
                 String sellerID = userLogin.getString("id", "John Doe");
-                ArrayList<String> linksOfPics = new ArrayList<>();
+                //ArrayList<String> linksOfPics = new ArrayList<>();
                 //linksOfPics.add(imguri.toString());
+                String links = imguri.toString();
                 //linksOfPics.add(getImageUri(getContext(), pics.get(0)).toString());
-                Item newItem = new Item(listingName.getText().toString(), linksOfPics, name,
+                Item newItem = new Item(listingName.getText().toString(), links, name,
                          sellerID, textCon, textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
                 dbref.child("listings").child(newItem.getId()).setValue(newItem);
