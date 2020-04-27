@@ -62,7 +62,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         conditionView.setText("Condition: " + item.getCondition());
         if (item.getPicture() != null) {
             Uri link = Uri.parse(item.getPicture());
-            imageView.setImageURI(link);
+            //imageView.setImageURI(link);
         }
         //Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
         ;

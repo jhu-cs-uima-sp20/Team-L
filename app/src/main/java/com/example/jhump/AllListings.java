@@ -75,31 +75,47 @@ public class AllListings extends Fragment {
         listingList.setAdapter(NavigationDrawer.aa);
         registerForContextMenu(listingList);
 
-        dbref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                NavigationDrawer.listingItem.clear();
-                ArrayList<Item> temp = new ArrayList<Item>();
-                ArrayList<Item> sold_items = new ArrayList<Item>();
-                for (DataSnapshot pair : dataSnapshot.getChildren()) {
-                    temp.add(pair.getValue(Item.class));
+        if (NavigationDrawer.fromFilters) {
+            Log.d("here", "got here");
+            ArrayList<Item> temp = new ArrayList<Item>();
+            for (int i = 0; i < Filters.list.size(); i++) {
+                if (Filters.list.get(i).isSold()) {
+                    temp.add(Filters.list.get(i));
+                    Filters.list.remove(i);
                 }
-                for (int i = temp.size() - 1; i >= 0; i--) {
-                    if (!temp.get(i).isSold()) {
-                        NavigationDrawer.listingItem.add(temp.get(i));
+            }
+            Filters.list.addAll(temp);
+            NavigationDrawer.listingItem.clear();
+            NavigationDrawer.listingItem.addAll(Filters.list);
+            NavigationDrawer.aa.notifyDataSetChanged();
+        }
+        else {
+            dbref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    NavigationDrawer.listingItem.clear();
+                    ArrayList<Item> temp = new ArrayList<Item>();
+                    ArrayList<Item> sold_items = new ArrayList<Item>();
+                    for (DataSnapshot pair : dataSnapshot.getChildren()) {
+                        temp.add(pair.getValue(Item.class));
                     }
-                    else {
-                        sold_items.add(temp.get(i));
+                    for (int i = temp.size() - 1; i >= 0; i--) {
+                        if (!temp.get(i).isSold()) {
+                            NavigationDrawer.listingItem.add(temp.get(i));
+                        } else {
+                            sold_items.add(temp.get(i));
+                        }
                     }
+                    NavigationDrawer.listingItem.addAll(sold_items);
+                    NavigationDrawer.aa.notifyDataSetChanged();
                 }
-                NavigationDrawer.listingItem.addAll(sold_items);
-                NavigationDrawer.aa.notifyDataSetChanged();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "Failed to read value.", databaseError.toException());
-            }
-        });
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.w(TAG, "Failed to read value.", databaseError.toException());
+                }
+            });
+        }
 
         fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
