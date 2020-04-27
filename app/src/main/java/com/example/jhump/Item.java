@@ -23,6 +23,7 @@ public class Item implements Parcelable {
 
     public Item() {
         // for calls to DataSnapshot.getValue(Client.class)
+        this.id = String.format("%04d", ++nextId);
     }
 
     public Item(String name, String picture, String seller, String sellerID, String condition,

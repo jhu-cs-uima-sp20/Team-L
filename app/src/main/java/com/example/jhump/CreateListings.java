@@ -120,22 +120,10 @@ public class CreateListings extends Fragment implements View.OnClickListener{
             public void onClick(View v) {
                 if (ActivityCompat.checkSelfPermission(getActivity(),
                         Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+                    //ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
                     return;
                 }
-//                Intent intent;
-//                if (Build.VERSION.SDK_INT < 19) {
-//                    intent = new Intent();
-//                    intent.setAction(Intent.ACTION_GET_CONTENT);
-//                    intent.setType("*/*");
-//                    startActivityForResult(intent, KITKAT_VALUE);
-//                } else {
-//                    intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-//                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-//                    intent.setType("*/*");
-//                    startActivityForResult(intent, KITKAT_VALUE);
-//                }
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
@@ -158,7 +146,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         if (requestCode ==1 && resultCode == RESULT_OK && data != null && data.getData() !=null){
             imguri = data.getData();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                getContext().getContentResolver().takePersistableUriPermission(imguri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                getContext().getContentResolver().takePersistableUriPermission(imguri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
             }
         }
     }
