@@ -123,8 +123,6 @@ public class NavigationDrawer extends AppCompatActivity
             transaction.commit();
         } else if (id == R.id.createListings) {
             getSupportActionBar().setTitle("Create Listing");
-//            Intent intent = new Intent(this, CreateListings.class);
-//            startActivity(intent);
             transaction.replace(R.id.fragment_container, createListings);
             transaction.addToBackStack(null);
             transaction.commit();
@@ -142,6 +140,8 @@ public class NavigationDrawer extends AppCompatActivity
         } else if (id == R.id.signOut) {
             SharedPreferences userInfo = getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
             userInfo.edit().putBoolean("logged", false).apply();
+            userInfo.edit().putString("name", "").apply();
+            userInfo.edit().putString("id", "").apply();
             //clear all saved info up to this point
 
             Intent backToMain = new Intent(NavigationDrawer.this, MainActivity.class);

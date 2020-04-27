@@ -34,70 +34,75 @@
 
     <ImageView
         android:id="@+id/viewPager"
-        android:layout_width="286dp"
-        android:layout_height="378dp"
+        android:layout_width="267dp"
+        android:layout_height="325dp"
         android:layout_marginTop="72dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="@string/description"
-        app:layout_constraintBottom_toTopOf="@+id/contact"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.682"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/seller"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginLeft="144dp"
-        android:layout_marginTop="73dp"
-        android:text="@string/seller"
-        app:layout_constraintBottom_toTopOf="@+id/description"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/category"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginLeft="144dp"
-        android:text="@string/category"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="587dp" />
-
-    <TextView
-        android:id="@id/condition"
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
-        android:layout_marginLeft="144dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="259dp"
-        android:text="@string/condition"
-        app:layout_constraintBottom_toTopOf="@+id/contact"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seller"
-        app:layout_constraintVertical_bias="0.098" />
-
     <Button
         android:id="@+id/contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="124dp"
         android:background="#2196F3"
         android:text="@string/contact"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/category"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="19dp"
+        android:layout_marginBottom="39dp"
+        android:text="@string/category"
+        app:layout_constraintBottom_toTopOf="@+id/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/condition"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/seller"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="73dp"
+        android:text="@string/seller"
+        app:layout_constraintBottom_toTopOf="@+id/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:text="@string/description"
+        app:layout_constraintBottom_toTopOf="@+id/contact"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.616"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@id/condition"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="259dp"
+        android:text="@string/condition"
+        app:layout_constraintBottom_toTopOf="@+id/contact"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seller"
+        app:layout_constraintVertical_bias="0.444" />
 </androidx.constraintlayout.widget.ConstraintLayout>

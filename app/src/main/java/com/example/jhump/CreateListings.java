@@ -125,17 +125,10 @@ public class CreateListings extends Fragment implements View.OnClickListener{
 
     public boolean checkAllInput() {
         String listing = listingName.getText().toString();
-        String check_price = listingName.getText().toString();
-        return (!listing.isEmpty() && !(check_price.isEmpty())) && !textCat.equals("N/A") && !textCon.equals("N/A");
-//        String listing = listingName.getText().toString();
-//        boolean isDouble = true;
-//        try {
-//            Double.parseDouble(price.getText().toString());
-//        } catch (Exception e) {
-//            isDouble = false;
-//        }
-//        return (!listing.isEmpty() && (!textCat.equals("N/A"))
-//                && !textCon.equals("N/A") && pics.size() > 0 && isDouble);
+        String check_price = price.getText().toString();
+        //pics.size() checks if they chose a picture from the gallery.
+        //if they did not, the size will be 0, so this condition is not filled
+        return (!listing.isEmpty() && !(check_price.isEmpty())) && !textCat.equals("N/A") && !textCon.equals("N/A") && pics.size()>0;
     }
 
     @Override
@@ -156,7 +149,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                          sellerID, textCon, textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
                 dbref.child("listings").child(newItem.getId()).setValue(newItem);
-                //add listing to user arraylist of items
+                dbref.child("users").child(sellerID).child("listing").child(newItem.getId()).setValue(newItem);
                 NavigationDrawer.aa.add(newItem);
                 transaction.remove(new CreateListings());
                 transaction.commit();

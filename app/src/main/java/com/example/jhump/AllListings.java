@@ -71,9 +71,10 @@ public class AllListings extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 NavigationDrawer.listingItem.clear();
-                for(DataSnapshot pair: dataSnapshot.getChildren()) {
-                    NavigationDrawer.listingItem.add(pair.getValue(Item.class));
-                }
+                    for (DataSnapshot pair : dataSnapshot.getChildren()) {
+                        String id = pair.getValue().toString();
+                        NavigationDrawer.listingItem.add(pair.child(id).getValue(Item.class));
+                    }
                 NavigationDrawer.aa.notifyDataSetChanged();
             }
 
