@@ -31,6 +31,7 @@ public class MyProfile extends Fragment {
     ListView listView;
     ArrayList<Bitmap> imageList;
     SharedPreferences userLogin;
+    private ListView listingList;
 
     public MyProfile() {
         // Required empty public constructor
@@ -45,6 +46,21 @@ public class MyProfile extends Fragment {
         userLogin = this.getActivity().getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
         String name = userLogin.getString("name", "John Doe");
         String email = userLogin.getString("id", "JohnDoe") + "@jhu.edu";
+
+        listingList = (ListView)view.findViewById(R.id.my_profile_listings);
+
+        items = new ArrayList<>();
+        for(Item item: NavigationDrawer.listingItem) {
+            if(item.getSeller().compareTo(name) == 0) {
+                items.add(item);
+            }
+        }
+        System.out.println(items.toString());
+        itemAdapter = new ItemAdapter(getActivity(), R.layout.listing_item_layout, items);
+        listingList.setAdapter(itemAdapter);
+        registerForContextMenu(listingList);
+        itemAdapter.notifyDataSetChanged();
+
 
         TextView name_text = (TextView) view.findViewById(R.id.my_profile_name);
         TextView email_text = (TextView) view.findViewById(R.id.email);
@@ -75,11 +91,14 @@ public class MyProfile extends Fragment {
             }
         });
 
+/*
         items = new ArrayList<>();
         listView = view.findViewById(R.id.my_profile_listings);
         itemAdapter = new ItemAdapter(getActivity(), R.layout.listing_item_layout, items);
         listView.setAdapter(itemAdapter);
         registerForContextMenu(listView);
+
+ */
 
         //hard coded listing for speed demo.
         Bitmap itemPic = BitmapFactory.decodeResource(getResources(), R.drawable.discrete_math_cover);
@@ -91,9 +110,9 @@ public class MyProfile extends Fragment {
 
          */
         //itemAdapter.add(newItem);
-        itemAdapter.notifyDataSetChanged();
+        //itemAdapter.notifyDataSetChanged();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
                 if (pos >= 0) {

@@ -188,7 +188,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 String name = userLogin.getString("name", "John Doe");
                 String sellerID = userLogin.getString("id", "John Doe");
                 ArrayList<String> linksOfPics = new ArrayList<>();
-                linksOfPics.add(imguri.toString());
+                //linksOfPics.add(imguri.toString());
                 //linksOfPics.add(getImageUri(getContext(), pics.get(0)).toString());
                 Item newItem = new Item(listingName.getText().toString(), linksOfPics, name,
                          sellerID, textCon, textCat, description.getText().toString(),
