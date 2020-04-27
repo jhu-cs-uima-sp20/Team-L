@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,7 +51,7 @@ public class AllListings extends Fragment {
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     private Button filtersButton;
-    boolean bundleInfo;
+    private FloatingActionButton fab;
 
     public AllListings() {
         // Required empty public constructor
@@ -94,6 +95,17 @@ public class AllListings extends Fragment {
                 }
             });
         }
+
+        fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new CreateListings());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
         filtersButton = view.findViewById(R.id.filters_button);
         filtersButton.setOnClickListener(new View.OnClickListener() {
