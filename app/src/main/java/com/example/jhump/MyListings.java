@@ -278,7 +278,7 @@ class MyItemAdapter extends ArrayAdapter<Item> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent edit = new Intent(getContext(), EditListings.class);
+                Intent edit = new Intent(parent.getContext(), EditListings.class);
                 edit.putExtra("listing", item.getName());
                 edit.putExtra("seller", item.getSeller());
                 edit.putExtra("category", item.getCategory());
@@ -289,7 +289,7 @@ class MyItemAdapter extends ArrayAdapter<Item> {
                 edit.putExtra("sellerID", item.getSellerID());
                 edit.putExtra("ID", item.getId());
                 edit.putExtra("picture", item.getPicture());
-                getContext().startActivity(edit);
+                parent.getContext().startActivity(edit);
             }
         });
         listingNameView.setText(item.getName());
