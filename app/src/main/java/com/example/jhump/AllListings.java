@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -47,6 +49,8 @@ public class AllListings extends Fragment {
     private DatabaseReference dbref;
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
+    private Button filtersButton;
+    boolean bundleInfo;
 
     public AllListings() {
         // Required empty public constructor
@@ -67,20 +71,37 @@ public class AllListings extends Fragment {
         listingList.setAdapter(NavigationDrawer.aa);
         registerForContextMenu(listingList);
 
-        dbref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                NavigationDrawer.listingItem.clear();
+        if (NavigationDrawer.fromFilters) {
+            Log.d("here", "got here");
+            NavigationDrawer.listingItem.clear();
+            NavigationDrawer.listingItem.addAll(Filters.list);
+            NavigationDrawer.aa.notifyDataSetChanged();
+        }
+        else {
+            dbref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    NavigationDrawer.listingItem.clear();
                     for (DataSnapshot pair : dataSnapshot.getChildren()) {
-                        String id = pair.getValue().toString();
-                        NavigationDrawer.listingItem.add(pair.child(id).getValue(Item.class));
+                        NavigationDrawer.listingItem.add(pair.getValue(Item.class));
                     }
-                NavigationDrawer.aa.notifyDataSetChanged();
-            }
+                    NavigationDrawer.aa.notifyDataSetChanged();
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(TAG, "Failed to read value.", databaseError.toException());
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.w(TAG, "Failed to read value.", databaseError.toException());
+                }
+            });
+        }
+
+        filtersButton = view.findViewById(R.id.filters_button);
+        filtersButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new Filters());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
@@ -98,7 +119,7 @@ public class AllListings extends Fragment {
                 intent.putExtra("price", item.getPrice());
                 intent.putExtra("sold", item.isSold());
                 intent.putExtra("sellerID", item.getSellerID());
-
+                intent.putExtra("picture", item.getPicture());
                 /*ArrayList<String> pics = new ArrayList<>();
                 for (int i = 0; i < item.getPicture().size(); i++) {
                     pics.add(saveToInternalStorage(item.getPicture().get(i), i));
@@ -166,6 +187,7 @@ public class AllListings extends Fragment {
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
 
+
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
         }
@@ -176,6 +198,30 @@ public class AllListings extends Fragment {
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     Log.i("onQueryTextChange", newText);
+                    final String entry = newText;
+
+                    dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            ArrayList<Item> newList = new ArrayList<Item>();
+
+                            // If nothing put in search, reset to show all listings
+                            if (entry.isEmpty()) {
+                                NavigationDrawer.listingItem.clear();
+                                for(DataSnapshot pair: dataSnapshot.getChildren()) {
+                                    newList.add(pair.getValue(Item.class));
+                                }
+                                NavigationDrawer.listingItem.addAll(newList);
+                                NavigationDrawer.aa.notifyDataSetChanged();
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.w("Failed to read value.", databaseError.toException());
+                        }
+                    });
 
                     return true;
                 }
@@ -221,5 +267,21 @@ public class AllListings extends Fragment {
         }
         super.onCreateOptionsMenu(menu, inflater);
     }
+
+    /*
+    @Override
+    public void setOnQueryTextListener(SearchView.OnQueryTextListener listener) {
+        super.setOnQueryTextListener(listener);
+        this.listener = listener;
+        mSearchSrcTextView = this.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        mSearchSrcTextView.setOnEditorActionListener((textView, i, keyEvent) -> {
+            if (listener != null) {
+                listener.onQueryTextSubmit(getQuery().toString());
+            }
+            return true;
+        });
+    }
+
+     */
 
 }

@@ -30,6 +30,7 @@
     <string name="condition">Condition:</string>
     <string-array name="cat_spinner">
         <item>N/A</item>
+        <item>Misc</item>
         <item>Textbook</item>
         <item>I-Clicker</item>
         <item>Lab Equipment</item>
@@ -37,8 +38,8 @@
     <string-array name="con_spinner">
         <item>N/A</item>
         <item>New</item>
-        <item>Almost New</item>
-        <item>Gently Used</item>
+        <item>Good</item>
+        <item>Fair</item>
         <item>Used</item>
     </string-array>
     <string name="subject">Subject:</string>
@@ -48,4 +49,5 @@
     <string name="listed_price">Listed Price:</string>
     <string name="profile_picture">Profile Picture</string>
     <string name="item_name">Item Name</string>
+    <string name="your_name">Your Name *</string>
 </resources>

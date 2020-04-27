@@ -1,6 +1,7 @@
 package com.example.jhump;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -8,7 +9,8 @@ import java.util.ArrayList;
 
 public class Item implements Parcelable {
     private String name = "";
-    private ArrayList<String> picture;
+    //private ArrayList<String> picture;
+    private String picture;
     private String seller = "";
     private String condition = "";
     private String category = "";
@@ -23,7 +25,7 @@ public class Item implements Parcelable {
         // for calls to DataSnapshot.getValue(Client.class)
     }
 
-    public Item(String name, ArrayList<String> picture, String seller, String sellerID, String condition,
+    public Item(String name, String picture, String seller, String sellerID, String condition,
                 String category, String description, double price, boolean sold) {
         this.name = name;
         this.seller = seller;
@@ -87,9 +89,11 @@ public class Item implements Parcelable {
         return this.price;
     }
 
+    public int getIDInt() { return Integer.parseInt(this.id); }
+
     public String getSellerID() { return this.sellerID; }
 
-    public ArrayList<String> getPicture() {
+    public String getPicture() {
         return this.picture;
     }
 
@@ -139,7 +143,7 @@ public class Item implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        //dest.writeTypedList(picture);
+        //dest.writeString(picture);
         dest.writeString(seller);
         dest.writeString(condition);
         dest.writeString(category);

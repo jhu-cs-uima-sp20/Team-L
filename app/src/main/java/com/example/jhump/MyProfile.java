@@ -28,11 +28,11 @@ import java.util.List;
 public class MyProfile extends Fragment {
     protected ItemAdapter itemAdapter;
     protected ArrayList<Item> items;
-    private TextView profileName;
-    private TextView email;
     ListView listView;
-    private ArrayList<Bitmap> imageList;
-    private SharedPreferences userLogin;
+    ArrayList<Bitmap> imageList;
+    SharedPreferences userLogin;
+    private ListView listingList;
+
     public MyProfile() {
         // Required empty public constructor
     }
@@ -42,15 +42,34 @@ public class MyProfile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
-        userLogin = getContext().getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
+
+        userLogin = this.getActivity().getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
         String name = userLogin.getString("name", "John Doe");
-        String sellerID = userLogin.getString("id", "JohnDoe");
+        String email = userLogin.getString("id", "JohnDoe") + "@jhu.edu";
+
+        listingList = (ListView)view.findViewById(R.id.my_profile_listings);
+
+        items = new ArrayList<>();
+        for(Item item: NavigationDrawer.listingItem) {
+            if(item.getSeller().compareTo(name) == 0) {
+                items.add(item);
+            }
+        }
+        System.out.println(items.toString());
+        itemAdapter = new ItemAdapter(getActivity(), R.layout.listing_item_layout, items);
+        listingList.setAdapter(itemAdapter);
+        registerForContextMenu(listingList);
+        itemAdapter.notifyDataSetChanged();
+
+
+        TextView name_text = (TextView) view.findViewById(R.id.my_profile_name);
+        TextView email_text = (TextView) view.findViewById(R.id.email);
+
+        name_text.setText(name);
+        email_text.setText(email);
+
         //OnClickListener for Facebook icon, which opens URL to user's Facebook page.
         ImageView facebook = (ImageView) view.findViewById(R.id.facebook_my_profile);
-        profileName = view.findViewById(R.id.my_profile_name);
-        profileName.setText(name);
-        email = view.findViewById(R.id.email);
-        email.setText(sellerID + "@jhu.edu");
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,11 +91,14 @@ public class MyProfile extends Fragment {
             }
         });
 
+/*
         items = new ArrayList<>();
         listView = view.findViewById(R.id.my_profile_listings);
         itemAdapter = new ItemAdapter(getActivity(), R.layout.listing_item_layout, items);
         listView.setAdapter(itemAdapter);
         registerForContextMenu(listView);
+
+ */
 
         //hard coded listing for speed demo.
         Bitmap itemPic = BitmapFactory.decodeResource(getResources(), R.drawable.discrete_math_cover);
@@ -88,9 +110,9 @@ public class MyProfile extends Fragment {
 
          */
         //itemAdapter.add(newItem);
-        itemAdapter.notifyDataSetChanged();
+        //itemAdapter.notifyDataSetChanged();
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int pos, long arg3) {
                 if (pos >= 0) {

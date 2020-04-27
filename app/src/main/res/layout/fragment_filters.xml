@@ -9,7 +9,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="66dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
 
         <TextView
             android:id="@+id/looking_for"
@@ -25,14 +28,14 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <Button
                     android:id="@+id/textbooks_filter"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="37dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/button_border_unselected"
                     android:fontFamily="@font/varela"
                     android:text="Textbooks"
                     android:textAllCaps="false"
@@ -41,11 +44,11 @@
 
                 <Button
                     android:id="@+id/iclickers_filter"
-                    android:layout_width="wrap_content"
+                    android:layout_width="75dp"
                     android:layout_height="37dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/button_border_unselected"
                     android:fontFamily="@font/varela"
                     android:text="iClickers"
                     android:textAllCaps="false"
@@ -58,7 +61,7 @@
                     android:layout_height="37dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/button_border_unselected"
                     android:fontFamily="@font/varela"
                     android:text="Lab equipment"
                     android:textAllCaps="false"
@@ -71,7 +74,7 @@
                     android:layout_height="37dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/button_border_unselected"
                     android:fontFamily="@font/varela"
                     android:text="Miscellaneous"
                     android:textAllCaps="false"
@@ -103,7 +106,7 @@
                     android:layout_width="111dp"
                     android:layout_height="37dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/button_border_unselected"
                     android:fontFamily="@font/varela"
                     android:text="Price: high to low"
                     android:textAllCaps="false"
@@ -116,7 +119,7 @@
                     android:layout_height="37dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/button_border_unselected"
                     android:fontFamily="@font/varela"
                     android:text="Price: low to high"
                     android:textAllCaps="false"
@@ -129,7 +132,7 @@
                     android:layout_height="37dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/button_border_selected"
                     android:fontFamily="@font/varela"
                     android:text="Most recent"
                     android:textAllCaps="false"
@@ -161,7 +164,7 @@
                     android:layout_width="70dp"
                     android:layout_height="37dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/button_border_unselected"
                     android:fontFamily="@font/varela"
                     android:text="New"
                     android:textAllCaps="false"
@@ -174,7 +177,7 @@
                     android:layout_height="37dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/button_border_unselected"
                     android:fontFamily="@font/varela"
                     android:text="Good"
                     android:textAllCaps="false"
@@ -187,7 +190,7 @@
                     android:layout_height="37dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/button_border_unselected"
                     android:fontFamily="@font/varela"
                     android:text="Fair"
                     android:textAllCaps="false"
@@ -200,7 +203,7 @@
                     android:layout_height="37dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
-                    android:background="@drawable/button_border"
+                    android:background="@drawable/button_border_unselected"
                     android:fontFamily="@font/varela"
                     android:text="Used"
                     android:textAllCaps="false"
@@ -210,31 +213,38 @@
 
         </TableLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center|bottom" >
+            android:gravity="bottom"
+            android:layout_marginTop="200dp">
 
-            <Button
-                android:id="@+id/reset_filters"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Reset filters"
-                android:layout_marginRight="30dp"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/light_blue"
-                android:fontFamily="@font/varela"/>
+                android:gravity="center|bottom"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/apply_filters"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Apply filters"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/light_blue"
-                android:fontFamily="@font/varela"/>
-        </LinearLayout>
+                <Button
+                    android:id="@+id/reset_filters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:backgroundTint="@color/light_blue"
+                    android:fontFamily="@font/varela"
+                    android:text="Reset filters"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/apply_filters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_blue"
+                    android:fontFamily="@font/varela"
+                    android:text="Apply filters"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

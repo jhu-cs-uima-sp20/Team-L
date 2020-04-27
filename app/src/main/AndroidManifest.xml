@@ -13,7 +13,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".EditProfile" />
         <activity android:name=".ItemDescription" />
-        <activity android:name=".SignUp" />
+        <activity
+            android:name=".SignUp"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".SignIn"
             android:theme="@style/AppTheme.NoActionBar"/>
