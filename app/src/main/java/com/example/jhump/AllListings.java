@@ -75,8 +75,13 @@ public class AllListings extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 NavigationDrawer.listingItem.clear();
+                ArrayList<Item> temp = new ArrayList<Item>();
                 for (DataSnapshot pair : dataSnapshot.getChildren()) {
-                    NavigationDrawer.listingItem.add(pair.getValue(Item.class));
+                    //NavigationDrawer.listingItem.add(pair.getValue(Item.class));
+                    temp.add(pair.getValue(Item.class));
+                }
+                for (int i = temp.size() - 1; i >= 0; i--) {
+                    NavigationDrawer.listingItem.add(temp.get(i));
                 }
                 NavigationDrawer.aa.notifyDataSetChanged();
             }
