@@ -266,11 +266,6 @@ public class Filters extends Fragment {
 
         apply.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("onclick", "here");
-                for (Item i : NavigationDrawer.listingItem) {
-                    Log.d("onclick", Integer.toString((int) i.getPrice()));
-                    Log.d("onclick", "in loop");
-                }
                 boolean allFalse = true;
                 for (int i = 0; i < 4; i++) {
                     if (lookingForClicked[i])
@@ -317,10 +312,8 @@ public class Filters extends Fragment {
                 else {
                     list.addAll(NavigationDrawer.listingItem);
                 }
-                Log.d("end", "here");
                 if (sortByClicked[0]) {
                     Collections.sort(list, new SortHighToLow());
-                    Log.d("end", "sorted");
                 }
                 if (sortByClicked[1]) {
                     Collections.sort(list, new SortLowToHigh());
