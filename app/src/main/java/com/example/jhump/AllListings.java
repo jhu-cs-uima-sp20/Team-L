@@ -23,6 +23,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,7 +51,7 @@ public class AllListings extends Fragment {
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     private Button filtersButton;
-    boolean bundleInfo;
+    private FloatingActionButton fab;
 
     public AllListings() {
         // Required empty public constructor
@@ -62,7 +63,6 @@ public class AllListings extends Fragment {
                              Bundle savedInstanceState) {
         final String TAG = "itemList";
         View view =  inflater.inflate(R.layout.fragment_all_listings, container, false);
-        //this.setTitle("All Listings");
         db = FirebaseDatabase.getInstance();
         dbref = db.getReference().child("listings");
         listingList = (ListView)view.findViewById(R.id.all_listings_list);
@@ -83,6 +83,17 @@ public class AllListings extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
+
+        fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new CreateListings());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
@@ -111,12 +122,7 @@ public class AllListings extends Fragment {
                 intent.putExtra("sold", item.isSold());
                 intent.putExtra("sellerID", item.getSellerID());
                 intent.putExtra("picture", item.getPicture());
-                /*ArrayList<String> pics = new ArrayList<>();
-                for (int i = 0; i < item.getPicture().size(); i++) {
-                    pics.add(saveToInternalStorage(item.getPicture().get(i), i));
-                }
 
-                intent.putStringArrayListExtra("picLocation", pics);*/
                 String filename = "bitmap.jpg";
                 FileOutputStream stream = null;
                 try {
