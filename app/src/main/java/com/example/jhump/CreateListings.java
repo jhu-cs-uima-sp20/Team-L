@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Messenger;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -154,6 +155,9 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode ==1 && resultCode == RESULT_OK && data != null && data.getData() !=null){
             imguri = data.getData();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                getContext().getContentResolver().takePersistableUriPermission(imguri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            }
         }
     }
 
@@ -161,8 +165,9 @@ public class CreateListings extends Fragment implements View.OnClickListener{
 
     public boolean checkAllInput() {
         String listing = listingName.getText().toString();
-        String check_price = listingName.getText().toString();
-        return (!listing.isEmpty() && !(check_price.isEmpty())) && !textCat.equals("N/A") && !textCon.equals("N/A"); //&& pics.size() > 0;
+        String check_price = price.getText().toString();
+        return (!listing.isEmpty() && !(check_price.isEmpty()))
+                && !textCat.equals("N/A") && !textCon.equals("N/A") && !imguri.toString().equals("");
 //        String listing = listingName.getText().toString();
 //        boolean isDouble = true;
 //        try {

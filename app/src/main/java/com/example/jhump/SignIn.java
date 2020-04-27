@@ -61,11 +61,11 @@ public class SignIn extends AppCompatActivity {
                             String real_pass = dataSnapshot.child("users").child(jhed).child("password").getValue(String.class);
                             if (real_pass != null && real_pass.equals(str_password)) {
                                 userLogin = getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
-                                //userLogin.edit().putBoolean("logged", true).apply();
                                 String userName = dataSnapshot.child("users").child(jhed).child("name").getValue(String.class);
                                 String id = (email.getText().toString().substring(0,email.getText().toString().indexOf('@')));
                                 userLogin.edit().putString("name", userName).apply();
                                 userLogin.edit().putString("id", id).apply();
+                                userLogin.edit().putBoolean("logged", true).apply();
                                 Intent intent = new Intent(SignIn.this, NavigationDrawer.class);
                                 startActivity(intent);
                             }

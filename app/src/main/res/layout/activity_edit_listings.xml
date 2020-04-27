@@ -62,6 +62,21 @@
         app:layout_constraintTop_toBottomOf="@+id/price"
         app:layout_constraintVertical_bias="0.004" />
 
+    <Switch
+        android:id="@+id/soldSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:text="Sold"
+        app:layout_constraintBottom_toTopOf="@+id/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category"
+        app:layout_constraintVertical_bias="0.522" />
+
     <EditText
         android:id="@+id/price"
         android:layout_width="0dp"
@@ -83,6 +98,12 @@
         android:id="@+id/cancel"
         android:layout_width="88dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="84dp"
+        android:layout_marginLeft="84dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginRight="67dp"
+        android:layout_marginBottom="84dp"
         android:background="#57AFE8"
         android:text="CANCEL"
         android:textColor="#FFFFFF"
@@ -90,12 +111,18 @@
         app:layout_constraintEnd_toStartOf="@+id/post"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/description"
-        app:layout_constraintVertical_bias="0.165" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginLeft="67dp"
+        android:layout_marginTop="73dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginRight="84dp"
+        android:layout_marginBottom="84dp"
         android:background="#57AFE8"
         android:text="POST"
         android:textColor="#FFFFFF"
@@ -103,7 +130,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/cancel"
         app:layout_constraintTop_toBottomOf="@+id/description"
-        app:layout_constraintVertical_bias="0.166" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/description"
