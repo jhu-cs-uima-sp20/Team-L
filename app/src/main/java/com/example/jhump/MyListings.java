@@ -1,5 +1,6 @@
 package com.example.jhump;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -45,19 +46,23 @@ public class MyListings extends Fragment {
     private ListView listingList;
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
+    SharedPreferences userLogin;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //SharedPreferences sharedPref = getContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        String defaultName = "John Doe";
+        userLogin = this.getActivity().getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
+        String username = userLogin.getString("name", "John Doe");
+
         View root = inflater.inflate(R.layout.fragment_my_listings, container, false);
         //getActivity().getActionBar().setTitle("My Listings");
 
+
         myItems = new ArrayList<>();
         for(Item item: NavigationDrawer.listingItem) {
-            if(item.getSeller().compareTo(defaultName) == 0) {
+            if(item.getSeller().compareTo(username) == 0) {
                  myItems.add(item);
             }
         }
@@ -104,9 +109,8 @@ public class MyListings extends Fragment {
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
         db = FirebaseDatabase.getInstance();
         dbref = db.getReference().child("listings");
-
-        //to do
-        final String defaultname = "John Doe";
+        userLogin = this.getActivity().getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
+        final String username = userLogin.getString("name", "John Doe");
 
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
@@ -129,8 +133,10 @@ public class MyListings extends Fragment {
                             if (entry.isEmpty()) {
                                 myItems.clear();
                                 for(DataSnapshot pair: dataSnapshot.getChildren()) {
-                                    if(pair.child("seller").getValue() != null && pair.child("seller").getValue().equals(defaultname)) {
-                                        newList.add(pair.getValue(Item.class));
+                                    if (pair.hasChild("seller")) {
+                                        if (pair.child("seller").getValue() != null && pair.child("seller").getValue().equals(username)) {
+                                            newList.add(pair.getValue(Item.class));
+                                        }
                                     }
 
                                 }

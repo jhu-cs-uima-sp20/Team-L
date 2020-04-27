@@ -1,6 +1,8 @@
 package com.example.jhump;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -28,6 +30,7 @@ public class MyProfile extends Fragment {
     protected ArrayList<Item> items;
     ListView listView;
     ArrayList<Bitmap> imageList;
+    SharedPreferences userLogin;
 
     public MyProfile() {
         // Required empty public constructor
@@ -38,6 +41,16 @@ public class MyProfile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
+
+        userLogin = this.getActivity().getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
+        String name = userLogin.getString("name", "John Doe");
+        String email = userLogin.getString("id", "JohnDoe") + "@jhu.edu";
+
+        TextView name_text = (TextView) view.findViewById(R.id.my_profile_name);
+        TextView email_text = (TextView) view.findViewById(R.id.email);
+
+        name_text.setText(name);
+        email_text.setText(email);
 
         //OnClickListener for Facebook icon, which opens URL to user's Facebook page.
         ImageView facebook = (ImageView) view.findViewById(R.id.facebook_my_profile);

@@ -63,7 +63,7 @@ public class SignIn extends AppCompatActivity {
                                 userLogin = getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
                                 //userLogin.edit().putBoolean("logged", true).apply();
                                 String userName = dataSnapshot.child("users").child(jhed).child("name").getValue(String.class);
-                                String id = dataSnapshot.child("users").child(jhed).child("id").getValue(String.class);
+                                String id = (email.getText().toString().substring(0,email.getText().toString().indexOf('@')));
                                 userLogin.edit().putString("name", userName).apply();
                                 userLogin.edit().putString("id", id).apply();
                                 Intent intent = new Intent(SignIn.this, NavigationDrawer.class);
