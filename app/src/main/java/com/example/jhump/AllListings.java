@@ -75,29 +75,31 @@ public class AllListings extends Fragment {
         listingList.setAdapter(NavigationDrawer.aa);
         registerForContextMenu(listingList);
 
-        if (NavigationDrawer.fromFilters) {
-            Log.d("here", "got here");
-            NavigationDrawer.listingItem.clear();
-            NavigationDrawer.listingItem.addAll(Filters.list);
-            NavigationDrawer.aa.notifyDataSetChanged();
-        }
-        else {
-            dbref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    NavigationDrawer.listingItem.clear();
-                    for (DataSnapshot pair : dataSnapshot.getChildren()) {
-                        NavigationDrawer.listingItem.add(pair.getValue(Item.class));
+        dbref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                NavigationDrawer.listingItem.clear();
+                ArrayList<Item> temp = new ArrayList<Item>();
+                ArrayList<Item> sold_items = new ArrayList<Item>();
+                for (DataSnapshot pair : dataSnapshot.getChildren()) {
+                    temp.add(pair.getValue(Item.class));
+                }
+                for (int i = temp.size() - 1; i >= 0; i--) {
+                    if (!temp.get(i).isSold()) {
+                        NavigationDrawer.listingItem.add(temp.get(i));
                     }
-                    NavigationDrawer.aa.notifyDataSetChanged();
+                    else {
+                        sold_items.add(temp.get(i));
+                    }
                 }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.w(TAG, "Failed to read value.", databaseError.toException());
-                }
-            });
-        }
+                NavigationDrawer.listingItem.addAll(sold_items);
+                NavigationDrawer.aa.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
 
         fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

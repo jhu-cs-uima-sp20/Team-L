@@ -156,8 +156,10 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     public boolean checkAllInput() {
         String listing = listingName.getText().toString();
         String check_price = price.getText().toString();
+        /*
         return (!listing.isEmpty() && !(check_price.isEmpty()))
                 && !textCat.equals("N/A") && !textCon.equals("N/A") && !imguri.toString().equals("");
+        */
 //        String listing = listingName.getText().toString();
 //        boolean isDouble = true;
 //        try {
@@ -167,6 +169,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
 //        }
 //        return (!listing.isEmpty() && (!textCat.equals("N/A"))
 //                && !textCon.equals("N/A")  0 && isDouble);
+        return true;
     }
 
     @Override
@@ -185,7 +188,8 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 String sellerID = userLogin.getString("id", "John Doe");
                 //ArrayList<String> linksOfPics = new ArrayList<>();
                 //linksOfPics.add(imguri.toString());
-                String links = imguri.toString();
+//                String links = imguri.toString();
+                String links = "apple";
                 //linksOfPics.add(getImageUri(getContext(), pics.get(0)).toString());
                 Item newItem = new Item(listingName.getText().toString(), links, name,
                          sellerID, textCon, textCat, description.getText().toString(),
