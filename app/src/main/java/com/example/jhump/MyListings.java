@@ -1,17 +1,22 @@
 package com.example.jhump;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,13 +28,23 @@ import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 
 public class MyListings extends Fragment {
     public ArrayList<Item> myItems;
     public MyItemAdapter adapter;
+    private FirebaseDatabase db;
+    private DatabaseReference dbref;
     private ListView listingList;
+    private SearchView searchView = null;
+    private SearchView.OnQueryTextListener queryTextListener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +54,7 @@ public class MyListings extends Fragment {
         String defaultName = "John Doe";
         View root = inflater.inflate(R.layout.fragment_my_listings, container, false);
         //getActivity().getActionBar().setTitle("My Listings");
+
         myItems = new ArrayList<>();
         for(Item item: NavigationDrawer.listingItem) {
             if(item.getSeller().compareTo(defaultName) == 0) {
@@ -74,6 +90,7 @@ public class MyListings extends Fragment {
         super.onResume();
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +100,64 @@ public class MyListings extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.options_menu_with_search, menu);
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        db = FirebaseDatabase.getInstance();
+        dbref = db.getReference().child("listings");
+
+        if (searchItem != null) {
+            searchView = (SearchView) searchItem.getActionView();
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+            queryTextListener = new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Log.i("onQueryTextChange", newText);
+
+                    return true;
+                }
+
+                //start searching after user submits their search key word(s)
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Log.i("onQueryTextSubmit", query);
+                    final String entry = query;
+
+                    dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            myItems.clear();
+                            ArrayList<Item> newList = new ArrayList<Item>();
+
+                            String[] tokens = entry.split(" ");
+
+                            for(DataSnapshot pair: dataSnapshot.getChildren()) {
+                                //NavigationDrawer.listingItem.add(pair.getValue(Item.class));
+                                for (DataSnapshot pair2: pair.getChildren()) {
+                                    for (String token: tokens) {
+                                        if (pair2.getValue() != null && pair2.getValue().equals(token)) {
+                                            newList.add(pair.getValue(Item.class));
+                                        }
+                                    }
+                                }
+                            }
+
+                            myItems.addAll(newList);
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.w("Failed to read value.", databaseError.toException());
+                        }
+                    });
+                    return true;
+                }
+            };
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
