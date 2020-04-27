@@ -3,6 +3,7 @@ package com.example.jhump;
 import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -146,13 +147,14 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         return root;
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode ==1 && resultCode == RESULT_OK && data != null && data.getData() !=null){
-//            imguri = data.getData();
-//        }
-//    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode ==1 && resultCode == RESULT_OK && data != null && data.getData() !=null){
+            imguri = data.getData();
+        }
+    }
 
 
 
@@ -186,8 +188,8 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 String name = userLogin.getString("name", "John Doe");
                 String sellerID = userLogin.getString("id", "John Doe");
                 ArrayList<String> linksOfPics = new ArrayList<>();
-                //linksOfPics.add(imguri.toString());
-                linksOfPics.add(getImageUri(getContext(), pics.get(0)).toString());
+                linksOfPics.add(imguri.toString());
+                //linksOfPics.add(getImageUri(getContext(), pics.get(0)).toString());
                 Item newItem = new Item(listingName.getText().toString(), linksOfPics, name,
                          sellerID, textCon, textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
@@ -214,36 +216,36 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         return Uri.parse(path);
     }
 
-    @Override
-     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && requestCode == 1 && data != null && data.getData() != null) {
-            pics = new ArrayList<>();
-            ClipData clipData = data.getClipData();
-            if (clipData != null) {
-                for (int i = 0; i < clipData.getItemCount(); i++) {
-                    Uri imageURI = clipData.getItemAt(i).getUri();
-                    try {
-                        InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
-                        Bitmap bitmap = BitmapFactory.decodeStream(is);
-                        pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-            } else {
-                Uri imageURI = data.getData();
-                try {
-
-                    assert imageURI != null;
-                    InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
-                    Bitmap bitmap = BitmapFactory.decodeStream(is);
-
-                    pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-          }
-    }
+//    @Override
+//     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(resultCode == RESULT_OK && requestCode == 1 && data != null && data.getData() != null) {
+//            pics = new ArrayList<>();
+//            ClipData clipData = data.getClipData();
+//            if (clipData != null) {
+//                for (int i = 0; i < clipData.getItemCount(); i++) {
+//                    Uri imageURI = clipData.getItemAt(i).getUri();
+//                    try {
+//                        InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
+//                        Bitmap bitmap = BitmapFactory.decodeStream(is);
+//                        pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            } else {
+//                Uri imageURI = data.getData();
+//                try {
+//
+//                    assert imageURI != null;
+//                    InputStream is = getActivity().getContentResolver().openInputStream(imageURI);
+//                    Bitmap bitmap = BitmapFactory.decodeStream(is);
+//
+//                    pics.add(Bitmap.createScaledBitmap(bitmap, 80, 100, false));
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//          }
+//    }
 }
