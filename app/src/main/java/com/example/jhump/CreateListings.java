@@ -51,6 +51,7 @@ import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class CreateListings extends Fragment implements View.OnClickListener{
 
+    private static final int KITKAT_VALUE = 1002;
     private Button post;
     private Button cancel;
     private ImageButton gallery;
@@ -120,6 +121,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 if (ActivityCompat.checkSelfPermission(getActivity(),
                         Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
                     return;
                 }
 //                Intent intent;
@@ -137,13 +139,11 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivityForResult(intent, 1);
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//                intent.setType("image/*");
-//                startActivityForResult(intent, 1);
+
             }
         });
         post.setOnClickListener(this);

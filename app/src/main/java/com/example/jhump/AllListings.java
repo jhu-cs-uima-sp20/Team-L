@@ -1,5 +1,6 @@
 package com.example.jhump;
 
+import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -62,6 +64,8 @@ public class AllListings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final String TAG = "itemList";
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
         View view =  inflater.inflate(R.layout.fragment_all_listings, container, false);
         db = FirebaseDatabase.getInstance();
         dbref = db.getReference().child("listings");
