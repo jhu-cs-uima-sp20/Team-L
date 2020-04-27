@@ -1,5 +1,6 @@
 package com.example.jhump;
 
+import android.Manifest;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.ContextWrapper;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -23,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -50,7 +53,7 @@ public class AllListings extends Fragment {
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
     private Button filtersButton;
-    boolean bundleInfo;
+    private FloatingActionButton fab;
 
     public AllListings() {
         // Required empty public constructor
@@ -61,6 +64,8 @@ public class AllListings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final String TAG = "itemList";
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
         View view =  inflater.inflate(R.layout.fragment_all_listings, container, false);
         db = FirebaseDatabase.getInstance();
         dbref = db.getReference().child("listings");
@@ -70,29 +75,42 @@ public class AllListings extends Fragment {
         listingList.setAdapter(NavigationDrawer.aa);
         registerForContextMenu(listingList);
 
-        if (NavigationDrawer.fromFilters) {
-            Log.d("here", "got here");
-            NavigationDrawer.listingItem.clear();
-            NavigationDrawer.listingItem.addAll(Filters.list);
-            NavigationDrawer.aa.notifyDataSetChanged();
-        }
-        else {
-            dbref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    NavigationDrawer.listingItem.clear();
-                    for (DataSnapshot pair : dataSnapshot.getChildren()) {
-                        NavigationDrawer.listingItem.add(pair.getValue(Item.class));
+        dbref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                NavigationDrawer.listingItem.clear();
+                ArrayList<Item> temp = new ArrayList<Item>();
+                ArrayList<Item> sold_items = new ArrayList<Item>();
+                for (DataSnapshot pair : dataSnapshot.getChildren()) {
+                    temp.add(pair.getValue(Item.class));
+                }
+                for (int i = temp.size() - 1; i >= 0; i--) {
+                    if (!temp.get(i).isSold()) {
+                        NavigationDrawer.listingItem.add(temp.get(i));
                     }
-                    NavigationDrawer.aa.notifyDataSetChanged();
+                    else {
+                        sold_items.add(temp.get(i));
+                    }
                 }
+                NavigationDrawer.listingItem.addAll(sold_items);
+                NavigationDrawer.aa.notifyDataSetChanged();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.w(TAG, "Failed to read value.", databaseError.toException());
-                }
-            });
-        }
+        fab = view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new CreateListings());
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
         filtersButton = view.findViewById(R.id.filters_button);
         filtersButton.setOnClickListener(new View.OnClickListener() {

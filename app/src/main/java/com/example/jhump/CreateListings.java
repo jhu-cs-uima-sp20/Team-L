@@ -51,6 +51,7 @@ import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class CreateListings extends Fragment implements View.OnClickListener{
 
+    private static final int KITKAT_VALUE = 1002;
     private Button post;
     private Button cancel;
     private ImageButton gallery;
@@ -119,29 +120,18 @@ public class CreateListings extends Fragment implements View.OnClickListener{
             public void onClick(View v) {
                 if (ActivityCompat.checkSelfPermission(getActivity(),
                         Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+                    //ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 100);
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
                     return;
                 }
-//                Intent intent;
-//                if (Build.VERSION.SDK_INT < 19) {
-//                    intent = new Intent();
-//                    intent.setAction(Intent.ACTION_GET_CONTENT);
-//                    intent.setType("*/*");
-//                    startActivityForResult(intent, KITKAT_VALUE);
-//                } else {
-//                    intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-//                    intent.addCategory(Intent.CATEGORY_OPENABLE);
-//                    intent.setType("*/*");
-//                    startActivityForResult(intent, KITKAT_VALUE);
-//                }
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivityForResult(intent, 1);
-//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-//                intent.setType("image/*");
-//                startActivityForResult(intent, 1);
+
             }
         });
         post.setOnClickListener(this);
@@ -156,7 +146,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         if (requestCode ==1 && resultCode == RESULT_OK && data != null && data.getData() !=null){
             imguri = data.getData();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                getContext().getContentResolver().takePersistableUriPermission(imguri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                getContext().getContentResolver().takePersistableUriPermission(imguri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
             }
         }
     }
@@ -166,8 +156,10 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     public boolean checkAllInput() {
         String listing = listingName.getText().toString();
         String check_price = price.getText().toString();
+        /*
         return (!listing.isEmpty() && !(check_price.isEmpty()))
                 && !textCat.equals("N/A") && !textCon.equals("N/A") && !imguri.toString().equals("");
+        */
 //        String listing = listingName.getText().toString();
 //        boolean isDouble = true;
 //        try {
@@ -177,6 +169,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
 //        }
 //        return (!listing.isEmpty() && (!textCat.equals("N/A"))
 //                && !textCon.equals("N/A")  0 && isDouble);
+        return true;
     }
 
     @Override
@@ -195,7 +188,8 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 String sellerID = userLogin.getString("id", "John Doe");
                 //ArrayList<String> linksOfPics = new ArrayList<>();
                 //linksOfPics.add(imguri.toString());
-                String links = imguri.toString();
+//                String links = imguri.toString();
+                String links = "apple";
                 //linksOfPics.add(getImageUri(getContext(), pics.get(0)).toString());
                 Item newItem = new Item(listingName.getText().toString(), links, name,
                          sellerID, textCon, textCat, description.getText().toString(),
@@ -203,6 +197,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 dbref.child("listings").child(newItem.getId()).setValue(newItem);
                 //add listing to user arraylist of items
                 NavigationDrawer.aa.add(newItem);
+                //transaction.replace(R.id.createListings, new AllListings());
                 transaction.remove(new CreateListings());
                 transaction.commit();
                 getActivity().getSupportFragmentManager().popBackStack();

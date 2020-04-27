@@ -89,26 +89,9 @@ public class MyProfile extends Fragment {
             }
         });
 
-/*
-        items = new ArrayList<>();
-        listView = view.findViewById(R.id.my_profile_listings);
-        itemAdapter = new ItemAdapter(getActivity(), R.layout.listing_item_layout, items);
-        listView.setAdapter(itemAdapter);
-        registerForContextMenu(listView);
-
- */
-
-        //hard coded listing for speed demo.
         Bitmap itemPic = BitmapFactory.decodeResource(getResources(), R.drawable.discrete_math_cover);
         imageList = new ArrayList<>();
         imageList.add(itemPic);
-        /*
-        Item newItem = new Item("Discrete Mathematics", imageList, "Sold by you", "Good",
-                "Textbooks", "Discrete math textbook.", 20.0, false);
-
-         */
-        //itemAdapter.add(newItem);
-        //itemAdapter.notifyDataSetChanged();
 
         listingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

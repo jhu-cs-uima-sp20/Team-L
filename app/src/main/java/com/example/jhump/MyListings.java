@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -200,6 +201,8 @@ public class MyListings extends Fragment {
 
 class MyItemAdapter extends ArrayAdapter<Item> {
     private int resource;
+    private FirebaseDatabase db;
+    private DatabaseReference dbref;
 
     public MyItemAdapter(Context ctx, int res, ArrayList<Item> items)
     {
@@ -212,6 +215,8 @@ class MyItemAdapter extends ArrayAdapter<Item> {
     public View getView(final int position, View convertView, final ViewGroup parent) {
         LinearLayout itemView;
         final Item item = getItem(position);
+        db = FirebaseDatabase.getInstance();
+        dbref = db.getReference();
 
         if (convertView == null) {
             itemView = new LinearLayout(getContext());
@@ -222,8 +227,8 @@ class MyItemAdapter extends ArrayAdapter<Item> {
             itemView = (LinearLayout) convertView;
         }
         Button button = itemView.findViewById(R.id.edit);
-        Switch sold = itemView.findViewById(R.id.soldSwitch);
-        TextView listingNameView = itemView.findViewById(R.id.listing_name);
+        final Switch soldView = itemView.findViewById(R.id.soldSwitch);
+        final TextView listingNameView = itemView.findViewById(R.id.listing_name);
         TextView priceView = itemView.findViewById(R.id.listing_price);
         TextView sellerView = itemView.findViewById(R.id.listing_seller);
         ImageView imageView = itemView.findViewById(R.id.listing_image);
@@ -231,6 +236,45 @@ class MyItemAdapter extends ArrayAdapter<Item> {
             Uri link = Uri.parse(item.getPicture());
             imageView.setImageURI(link);
         }
+
+        final String id = item.getId();
+        dbref.child("listings").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Boolean sold = item.isSold();
+                if (listingNameView.getText().toString().equals(item.getName()) && sold) {
+                    soldView.setChecked(true);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("Failed to read value.", databaseError.toException());
+            }
+        });
+
+
+        soldView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // The toggle is enabled
+                    Item temp = getItem(position);
+                    if (temp != null) {
+                        String id = temp.getId();
+                        dbref.child("listings").child(id).child("sold").setValue(true);
+                        dbref.child("users").child(item.getSellerID()).child("listings").child(id).child("sold").setValue(true);
+                    }
+
+                } else {
+                    Item temp = getItem(position);
+                    if (temp != null) {
+                        String id = temp.getId();
+                        dbref.child("listings").child(id).child("sold").setValue(false);
+                        dbref.child("users").child(item.getSellerID()).child("listings").child(id).child("sold").setValue(false);
+                    }
+                }
+            }
+        });
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
