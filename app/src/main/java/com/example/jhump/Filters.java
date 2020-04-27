@@ -312,7 +312,6 @@ public class Filters extends Fragment {
                 NavigationDrawer.listingItem.addAll(list);
                 NavigationDrawer.aa.notifyDataSetChanged();
                 NavigationDrawer.fromFilters = true;
-
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, new AllListings());
                 transaction.addToBackStack(null);
