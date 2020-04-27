@@ -73,19 +73,6 @@
 
             </TextView>
 
-            <TextView
-                android:id="@+id/listing_condition"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
-                android:text="Condition: new"
-                android:textSize="20sp">
-
-            </TextView>
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -97,8 +84,8 @@
 
             <Button
                 android:id="@+id/edit"
-                android:layout_width="52dp"
-                android:layout_height="31dp"
+                android:layout_width="76dp"
+                android:layout_height="29dp"
                 android:layout_marginBottom="20dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
@@ -108,7 +95,7 @@
 
             <Switch
                 android:id="@+id/soldSwitch"
-                android:layout_width="wrap_content"
+                android:layout_width="122dp"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"
                 android:paddingTop="10dp"

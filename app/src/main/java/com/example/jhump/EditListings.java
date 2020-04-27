@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -33,6 +35,7 @@ class EditListings extends AppCompatActivity {
     private String textCon;
     private String textCat;
     private Switch sold;
+    public Uri imguri;
     FirebaseDatabase db;
     private DatabaseReference dbref;
     SharedPreferences userLogin;
@@ -55,12 +58,13 @@ class EditListings extends AppCompatActivity {
         condition = findViewById(R.id.condition);
         category = findViewById(R.id.category);
         sold = findViewById(R.id.soldSwitch);
+
         listingName.setText(edit.getStringExtra("listing"));
         String itemID = edit.getStringExtra("ID");
         //edit.getStringExtra("category");
         //edit.getStringExtra("condition");
         description.setText(edit.getStringExtra("description"));
-        price.setText(edit.getStringExtra("price"));
+        price.setText(Double.toString(edit.getDoubleExtra("price", 0.0)));
         sold.setChecked(edit.getBooleanExtra("sold", false));
         sold.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -68,9 +72,27 @@ class EditListings extends AppCompatActivity {
 
             }
         });
-        String sellerID = edit.getStringExtra("sellerID");
         //change picture
         //buttons
+    }
+
+
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.post:
+                db = FirebaseDatabase.getInstance();
+                dbref = db.getReference();
+                String name = userLogin.getString("name", "John Doe");
+                String sellerID = userLogin.getString("id", "John Doe");
+                String links = imguri.toString();
+                Item newItem = new Item(listingName.getText().toString(), links, name,
+                        sellerID, textCon, textCat, description.getText().toString(),
+                        Double.parseDouble(price.getText().toString()), false);
+                dbref.child("listings").child(newItem.getId()).setValue(newItem);
+                NavigationDrawer.aa.add(newItem);
+                break;
+        }
+
     }
 
 }

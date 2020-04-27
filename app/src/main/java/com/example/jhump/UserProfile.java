@@ -37,7 +37,7 @@ public class UserProfile extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         dbref = db.getReference("users");
         String seller = getIntent().getStringExtra("sellerID");
-       /* final User[] contact = new User[1];
+        final User[] contact = new User[1];
         dbref.child("sellerID").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -64,11 +64,10 @@ public class UserProfile extends AppCompatActivity {
         registerForContextMenu(listView);
 
         //pull user profile picture
-*/
         findViewById(R.id.facebook_user_profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "https://www.facebook.com/alison.lee.9440"; //Hardcoded Facebook link, for now.
+                String url = "https://www.facebook.com/"; //Hardcoded Facebook link, for now.
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);

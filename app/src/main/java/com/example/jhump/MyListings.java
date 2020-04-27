@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -226,7 +227,10 @@ class MyItemAdapter extends ArrayAdapter<Item> {
         TextView priceView = itemView.findViewById(R.id.listing_price);
         TextView sellerView = itemView.findViewById(R.id.listing_seller);
         ImageView imageView = itemView.findViewById(R.id.listing_image);
-
+        if (item.getPicture() != null) {
+            Uri link = Uri.parse(item.getPicture());
+            imageView.setImageURI(link);
+        }
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -247,6 +251,7 @@ class MyItemAdapter extends ArrayAdapter<Item> {
         listingNameView.setText(item.getName());
         priceView.setText("$" + Double.toString(item.getPrice()) + "0");
         sellerView.setText(item.getSeller());
+
         //change width/height
         //imageView.setImageBitmap(Bitmap.createScaledBitmap(item.getPicture().get(0), 80, 100, false));
 
