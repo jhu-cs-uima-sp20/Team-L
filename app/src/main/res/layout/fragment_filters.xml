@@ -9,7 +9,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="66dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp">
 
         <TextView
             android:id="@+id/looking_for"
@@ -25,11 +28,11 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <Button
                     android:id="@+id/textbooks_filter"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="37dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/button_border"
@@ -41,7 +44,7 @@
 
                 <Button
                     android:id="@+id/iclickers_filter"
-                    android:layout_width="wrap_content"
+                    android:layout_width="75dp"
                     android:layout_height="37dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginTop="8dp"
@@ -210,31 +213,38 @@
 
         </TableLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center|bottom" >
+            android:gravity="bottom"
+            android:layout_marginTop="200dp">
 
-            <Button
-                android:id="@+id/reset_filters"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Reset filters"
-                android:layout_marginRight="30dp"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/light_blue"
-                android:fontFamily="@font/varela"/>
+                android:gravity="center|bottom"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/apply_filters"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Apply filters"
-                android:textAllCaps="false"
-                android:backgroundTint="@color/light_blue"
-                android:fontFamily="@font/varela"/>
-        </LinearLayout>
+                <Button
+                    android:id="@+id/reset_filters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="30dp"
+                    android:backgroundTint="@color/light_blue"
+                    android:fontFamily="@font/varela"
+                    android:text="Reset filters"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/apply_filters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/light_blue"
+                    android:fontFamily="@font/varela"
+                    android:text="Apply filters"
+                    android:textAllCaps="false" />
+            </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

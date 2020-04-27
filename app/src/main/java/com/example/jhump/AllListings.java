@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -47,6 +49,7 @@ public class AllListings extends Fragment {
     private DatabaseReference dbref;
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
+    private Button filtersButton;
 
     public AllListings() {
         // Required empty public constructor
@@ -80,6 +83,16 @@ public class AllListings extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Log.w(TAG, "Failed to read value.", databaseError.toException());
+            }
+        });
+
+        filtersButton = view.findViewById(R.id.filters_button);
+        filtersButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.fragment_container, new Filters());
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
 
