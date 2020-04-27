@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Item implements Parcelable {
     private String name = "";
-    private ArrayList<Bitmap> picture;
+    private ArrayList<String> picture;
     private String seller = "";
     private String condition = "";
     private String category = "";
@@ -17,17 +17,13 @@ public class Item implements Parcelable {
     private boolean sold;
     private String id;
     private String sellerID;
-
     private static long nextId = 0;
-    //layout must say us.dollars
-    //pass in user data
-    //are all mandated? If not, store temp values
 
     public Item() {
         // for calls to DataSnapshot.getValue(Client.class)
     }
 
-    public Item(String name, ArrayList<Bitmap> picture, String seller, String sellerID, String condition,
+    public Item(String name, ArrayList<String> picture, String seller, String sellerID, String condition,
                 String category, String description, double price, boolean sold) {
         this.name = name;
         this.seller = seller;
@@ -43,7 +39,7 @@ public class Item implements Parcelable {
 
     protected Item(Parcel in) {
         name = in.readString();
-        picture = in.createTypedArrayList(Bitmap.CREATOR);
+        //picture = in.createTypedArrayList(Bitmap.CREATOR);
         seller = in.readString();
         condition = in.readString();
         category = in.readString();
@@ -93,7 +89,7 @@ public class Item implements Parcelable {
 
     public String getSellerID() { return this.sellerID; }
 
-    public ArrayList<Bitmap> getPicture() {
+    public ArrayList<String> getPicture() {
         return this.picture;
     }
 
@@ -130,9 +126,9 @@ public class Item implements Parcelable {
     //add only?
     //add and subtract pics?
     //subtract everytime and then add back
-    public void setPicture(Bitmap pic) {
-        this.picture.add(pic);
-    }
+//    public void setPicture(Bitmap pic) {
+//        this.picture.add(pic);
+//    }
 
 
     @Override
@@ -143,7 +139,7 @@ public class Item implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
-        dest.writeTypedList(picture);
+        //dest.writeTypedList(picture);
         dest.writeString(seller);
         dest.writeString(condition);
         dest.writeString(category);
