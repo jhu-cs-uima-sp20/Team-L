@@ -137,6 +137,8 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+                intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivityForResult(intent, 1);
 //                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 //                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
@@ -202,6 +204,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 dbref.child("listings").child(newItem.getId()).setValue(newItem);
                 //add listing to user arraylist of items
                 NavigationDrawer.aa.add(newItem);
+                //transaction.replace(R.id.createListings, new AllListings());
                 transaction.remove(new CreateListings());
                 transaction.commit();
                 getActivity().getSupportFragmentManager().popBackStack();
