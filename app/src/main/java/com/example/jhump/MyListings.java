@@ -230,38 +230,29 @@ class MyItemAdapter extends ArrayAdapter<Item> {
             itemView = (LinearLayout) convertView;
         }
         Button button = itemView.findViewById(R.id.edit);
-        Switch sold = itemView.findViewById(R.id.soldSwitch);
-        TextView listingNameView = itemView.findViewById(R.id.listing_name);
+        final Switch soldView = itemView.findViewById(R.id.soldSwitch);
+        final TextView listingNameView = itemView.findViewById(R.id.listing_name);
         TextView priceView = itemView.findViewById(R.id.listing_price);
         TextView sellerView = itemView.findViewById(R.id.listing_seller);
         ImageView imageView = itemView.findViewById(R.id.listing_image);
 
-        Switch sw = (Switch) itemView.findViewById(R.id.soldSwitch);
-        final LinearLayout itemView2 = itemView;
-
-        if (item != null) {
-            dbref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    Boolean sold = dataSnapshot.child(item.getId()).child("sold").getValue(Boolean.class);
-                    for (DataSnapshot pair: dataSnapshot.getChildren()) {
-                        if (sold != null && sold) {
-                            View temp = itemView2.getChildAt(position);
-                            if (temp != null) {
-                                Switch sw = temp.findViewById(R.id.soldSwitch);
-                                sw.setChecked(true);
-                            }
-                        }
-                    }
+        final String id = item.getId();
+        dbref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Boolean sold = item.isSold();
+                if (listingNameView.getText().toString().equals(item.getName()) && sold) {
+                    soldView.setChecked(true);
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    Log.w("Failed to read value.", databaseError.toException());
-                }
-            });
-        }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.w("Failed to read value.", databaseError.toException());
+            }
+        });
 
-        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        soldView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled
