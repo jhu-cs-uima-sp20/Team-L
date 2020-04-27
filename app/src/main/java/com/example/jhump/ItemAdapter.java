@@ -67,6 +67,9 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             soldView.setImageResource(R.drawable.sold);
             soldView.bringToFront();
         }
+        else {
+            soldView.setImageResource(R.drawable.blank);
+        }
         //change width/height
         //imageView.setImageBitmap(Bitmap.createScaledBitmap(item.getPicture().get(0), 80, 100, false));
 

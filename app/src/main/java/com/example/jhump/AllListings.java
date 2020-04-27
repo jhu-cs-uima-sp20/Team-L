@@ -179,6 +179,7 @@ public class AllListings extends Fragment {
         MenuItem searchItem = menu.findItem(R.id.action_search);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
 
+
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
         }
