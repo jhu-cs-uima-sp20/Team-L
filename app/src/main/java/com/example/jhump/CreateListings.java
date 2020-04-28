@@ -36,8 +36,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -64,6 +68,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     private String textCat;
     FirebaseDatabase db;
     private DatabaseReference dbref;
+    private StorageReference Ref;
     SharedPreferences userLogin;
     public Uri imguri;
     public String links = "";
@@ -195,6 +200,24 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 links = imguri.toString();
                 //String links = "apple";
                 //linksOfPics.add(getImageUri(getContext(), pics.get(0)).toString());
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+                Ref = storageRef.child(System.currentTimeMillis() + "." +links);
+                Ref.putFile(imguri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                // Get a URL to the uploaded content
+                                //Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+                                //Toast.makeText(getContext(), "uploaded!", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                // Handle unsuccessful uploads
+                                // ...
+                            }
+                        });
                 Item newItem = new Item(listingName.getText().toString(), links, name,
                          sellerID, textCon, textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
