@@ -43,7 +43,7 @@ import java.util.ArrayList;
 
 public class MyListings extends Fragment {
     public ArrayList<Item> myItems;
-    public MyItemAdapter adapter;
+    public static MyItemAdapter adapter;
     private FirebaseDatabase db;
     private DatabaseReference dbref;
     private ListView listingList;
@@ -88,7 +88,44 @@ public class MyListings extends Fragment {
                 startActivity(intent);
             }
         });
+
+       /* Button button = (Button) getView().findViewById(R.id.edit_listing_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                View parentRow = (View) view.getParent();
+                ListView listView = (ListView) parentRow.getParent();
+                int position = listView.getPositionForView(parentRow);
+                String[] attributes = adapter.getAttributes(position);
+                Intent edit = new Intent(getActivity(), EditListings.class);
+                edit.putExtra("listing", attributes[0]);
+                edit.putExtra("seller", attributes[1]);
+                edit.putExtra("category", attributes[2]);
+                edit.putExtra("condition", attributes[3]);
+                edit.putExtra("description", attributes[4]);
+                edit.putExtra("price", Double.parseDouble(attributes[5]));
+                edit.putExtra("sold", attributes[6]);
+                edit.putExtra("sellerID", attributes[7]);
+                edit.putExtra("ID", attributes[8]);
+                edit.putExtra("picture", attributes[9]);
+                startActivity(edit);
+            }
+        });*/
+
+
         return root;
+
+    }
+
+    public static MyItemAdapter getItemAdapter() {
+        return adapter;
+    }
+
+    public static int getPosition(View view) {
+        View parentRow = (View) view.getParent();
+        ListView listView = (ListView) parentRow.getParent();
+        int position = listView.getPositionForView(parentRow);
+        return position;
     }
 
     @Override
@@ -199,106 +236,3 @@ public class MyListings extends Fragment {
 
 }
 
-class MyItemAdapter extends ArrayAdapter<Item> {
-    private int resource;
-    private FirebaseDatabase db;
-    private DatabaseReference dbref;
-
-    public MyItemAdapter(Context ctx, int res, ArrayList<Item> items)
-    {
-        super(ctx, res, items);
-        resource = res;
-    }
-
-
-    @Override
-    public View getView(final int position, View convertView, final ViewGroup parent) {
-        LinearLayout itemView;
-        final Item item = getItem(position);
-        db = FirebaseDatabase.getInstance();
-        dbref = db.getReference();
-
-        if (convertView == null) {
-            itemView = new LinearLayout(getContext());
-            String inflater = Context.LAYOUT_INFLATER_SERVICE;
-            LayoutInflater vi = (LayoutInflater) getContext().getSystemService(inflater);
-            vi.inflate(resource, itemView, true);
-        } else {
-            itemView = (LinearLayout) convertView;
-        }
-        Button button = itemView.findViewById(R.id.edit);
-        final Switch soldView = itemView.findViewById(R.id.soldSwitch);
-        final TextView listingNameView = itemView.findViewById(R.id.listing_name);
-        TextView priceView = itemView.findViewById(R.id.listing_price);
-        TextView sellerView = itemView.findViewById(R.id.listing_seller);
-        ImageView imageView = itemView.findViewById(R.id.listing_image);
-        if (item.getPicture() != null) {
-            Uri link = Uri.parse(item.getPicture());
-            imageView.setImageURI(link);
-        }
-
-        final String id = item.getId();
-        dbref.child("listings").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Boolean sold = item.isSold();
-                if (listingNameView.getText().toString().equals(item.getName()) && sold) {
-                    soldView.setChecked(true);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w("Failed to read value.", databaseError.toException());
-            }
-        });
-
-
-        soldView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    // The toggle is enabled
-                    Item temp = getItem(position);
-                    if (temp != null) {
-                        String id = temp.getId();
-                        dbref.child("listings").child(id).child("sold").setValue(true);
-                        dbref.child("users").child(item.getSellerID()).child("listings").child(id).child("sold").setValue(true);
-                    }
-
-                } else {
-                    Item temp = getItem(position);
-                    if (temp != null) {
-                        String id = temp.getId();
-                        dbref.child("listings").child(id).child("sold").setValue(false);
-                        dbref.child("users").child(item.getSellerID()).child("listings").child(id).child("sold").setValue(false);
-                    }
-                }
-            }
-        });
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent edit = new Intent(parent.getContext(), EditListings.class);
-                edit.putExtra("listing", item.getName());
-                edit.putExtra("seller", item.getSeller());
-                edit.putExtra("category", item.getCategory());
-                edit.putExtra("condition", item.getCondition());
-                edit.putExtra("description", item.getDescription());
-                edit.putExtra("price", item.getPrice());
-                edit.putExtra("sold", item.isSold());
-                edit.putExtra("sellerID", item.getSellerID());
-                edit.putExtra("ID", item.getId());
-                edit.putExtra("picture", item.getPicture());
-                parent.getContext().startActivity(edit);
-            }
-        });
-        listingNameView.setText(item.getName());
-        priceView.setText("$" + Double.toString(item.getPrice()) + "0");
-        sellerView.setText(item.getSeller());
-
-        //change width/height
-        //imageView.setImageBitmap(Bitmap.createScaledBitmap(item.getPicture().get(0), 80, 100, false));
-
-        return itemView;
-    }
-}
