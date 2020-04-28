@@ -176,6 +176,8 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        userLogin = this.getActivity().getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
+        String id = userLogin.getString("id", "John Doe");
         switch (view.getId()) {
             case R.id.post:
                 links = imguri.toString();
@@ -197,6 +199,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                          sellerID, textCon, textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
                 dbref.child("listings").child(newItem.getId()).setValue(newItem);
+                dbref.child("users").child(id).child("listings").child(newItem.getId()).setValue(newItem);
                 //add listing to user arraylist of items
                 NavigationDrawer.aa.add(newItem);
                 //transaction.replace(R.id.createListings, new AllListings());
