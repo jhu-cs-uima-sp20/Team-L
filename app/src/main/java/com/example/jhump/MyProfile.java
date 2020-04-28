@@ -42,8 +42,9 @@ public class MyProfile extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
 
         userLogin = this.getActivity().getSharedPreferences("userInfo", Activity.MODE_PRIVATE);
-        String name = userLogin.getString("name", "John Doe");
-        String email = userLogin.getString("id", "JohnDoe") + "@jhu.edu";
+        final String name = userLogin.getString("name", "John Doe");
+        final String email = userLogin.getString("id", "JohnDoe") + "@jhu.edu";
+        final String number = userLogin.getString("number", "5555555555");
 
         listingList = (ListView)view.findViewById(R.id.my_profile_listings);
 
@@ -83,8 +84,10 @@ public class MyProfile extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditProfile.class);
                 TextView editButton = view.findViewById(R.id.email);
-                intent.putExtra("email", editButton.getText());
-                intent.putExtra("phone number", "");
+                intent.putExtra("email", email);
+                intent.putExtra("phone number", number);
+                intent.putExtra("name", name);
+                intent.putExtra("photo", R.id.profile_picture);
                 startActivity(intent);
             }
         });

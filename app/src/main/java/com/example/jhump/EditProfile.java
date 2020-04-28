@@ -33,7 +33,7 @@ public class EditProfile extends AppCompatActivity {
     private ImageView edit;
     private Button save;
     private Button cancel;
-    private EditText email;
+    private TextView email;
     private EditText phoneNumber;
     private List<Bitmap> pics;
     private static Context context;
@@ -52,10 +52,13 @@ public class EditProfile extends AppCompatActivity {
         context = getApplicationContext();
 
         Intent intent = getIntent();
-        email = findViewById(R.id.email_editText);
+        email = findViewById(R.id.user_email);
+        TextView userEmail = findViewById(R.id.email);
         phoneNumber = findViewById(R.id.phoneNum_editText);
+        TextView name = findViewById(R.id.edit_profile_name);
         email.setText(intent.getStringExtra("email"));
-        email.setText(intent.getStringExtra("phone number"));
+        phoneNumber.setText(intent.getStringExtra("number"));
+        name.setText(intent.getStringExtra("name"));
 
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
