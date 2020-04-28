@@ -16,30 +16,16 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <Button
-        android:id="@+id/filters_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/rounded_button_light_blue"
-        android:fontFamily="@font/varela"
-        android:text="Filters"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:layout_below="@id/app_bar_my_listings"
-        android:layout_marginTop="64dp"
-        android:layout_marginLeft="8dp"
-        android:layout_alignParentLeft="true"/>
-
     <ListView
         android:id="@+id/my_listings_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
         android:isScrollContainer="true"
         android:scrollbarAlwaysDrawVerticalTrack="true"
         android:scrollbars="vertical"
         android:paddingTop="8dp"
-        android:soundEffectsEnabled="true"
-        android:layout_below="@id/filters_button">
+        android:soundEffectsEnabled="true">
 
     </ListView>
 
