@@ -36,8 +36,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -184,15 +186,26 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 dbref = db.getReference();
                 String name = userLogin.getString("name", "John Doe");
                 String sellerID = userLogin.getString("id", "John Doe");
-                //links = imguri.toString();
-                links = "blank";
+                links = imguri.toString();
+                //links = "blank";
                 final Item newItem = new Item(listingName.getText().toString(), links, name,
                         sellerID, textCon, textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
                 StorageReference storageRef = FirebaseStorage.getInstance().getReference("uploads");
-//                if (imguri != null) {
-//                    Ref = storageRef.child(newItem.getId()+getExtension(imguri));
-//                    Ref.putFile(imguri)
+                if (imguri != null) {
+                    Ref = storageRef.child(newItem.getId()+getExtension(imguri));
+                    Ref.putFile(imguri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            Ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String url = uri.toString();
+                                    Log.d("download link",url);
+                                }
+                            });
+                        }
+                    });
 //                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 //                                @Override
 //                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -211,7 +224,7 @@ public class CreateListings extends Fragment implements View.OnClickListener{
 //                                    // ...
 //                                }
 //                            });
-//                }
+                }
 
                 dbref.child("listings").child(newItem.getId()).setValue(newItem);
                 dbref.child("users").child(id).child("listings").child(newItem.getId()).setValue(newItem);
@@ -231,11 +244,11 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     }
 
 
-//    private String getExtension(Uri uri) {
-//        ContentResolver cr = getContext().getContentResolver();
-//        MimeTypeMap mime = MimeTypeMap.getSingleton();
-//        return mime.getExtensionFromMimeType(cr.getType(uri));
-//    }
+    private String getExtension(Uri uri) {
+        ContentResolver cr = getContext().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(uri));
+    }
 //
 //    private Uri getImageUri(Context inContext, Bitmap inImage) {
 //        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
