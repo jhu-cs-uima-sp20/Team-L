@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -157,25 +158,13 @@ public class CreateListings extends Fragment implements View.OnClickListener{
         }
     }
 
-
-
+    // only listing name, price, condition and category are required
     public boolean checkAllInput() {
         String listing = listingName.getText().toString();
         String check_price = price.getText().toString();
 
         return (!listing.isEmpty() && !(check_price.isEmpty()))
-                && !textCat.equals("N/A") && !textCon.equals("N/A") && !(links.isEmpty());
-
-//        String listing = listingName.getText().toString();
-//        boolean isDouble = true;
-//        try {
-//            Double.parseDouble(price.getText().toString());
-//        } catch (Exception e) {
-//            isDouble = false;
-//        }
-//        return (!listing.isEmpty() && (!textCat.equals("N/A"))
-//                && !textCon.equals("N/A")  0 && isDouble);
-        //return true;
+                && !textCat.equals("N/A") && !textCon.equals("N/A");
     }
 
     @Override
@@ -195,32 +184,35 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 dbref = db.getReference();
                 String name = userLogin.getString("name", "John Doe");
                 String sellerID = userLogin.getString("id", "John Doe");
-                //ArrayList<String> linksOfPics = new ArrayList<>();
-                //linksOfPics.add(imguri.toString());
-                links = imguri.toString();
-                //String links = "apple";
-                //linksOfPics.add(getImageUri(getContext(), pics.get(0)).toString());
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-                Ref = storageRef.child(System.currentTimeMillis() + "." +links);
-                Ref.putFile(imguri)
-                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                            @Override
-                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                // Get a URL to the uploaded content
-                                //Uri downloadUrl = taskSnapshot.getUploadSessionUri();
-                                //Toast.makeText(getContext(), "uploaded!", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception exception) {
-                                // Handle unsuccessful uploads
-                                // ...
-                            }
-                        });
-                Item newItem = new Item(listingName.getText().toString(), links, name,
-                         sellerID, textCon, textCat, description.getText().toString(),
+                //links = imguri.toString();
+                links = "blank";
+                final Item newItem = new Item(listingName.getText().toString(), links, name,
+                        sellerID, textCon, textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference("uploads");
+//                if (imguri != null) {
+//                    Ref = storageRef.child(newItem.getId()+getExtension(imguri));
+//                    Ref.putFile(imguri)
+//                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                                @Override
+//                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                                    // Get a URL to the uploaded content
+//                                    //Uri downloadUrl = taskSnapshot.getUploadSessionUri();
+//                                    //Toast.makeText(getContext(), "uploaded!", Toast.LENGTH_LONG).show();
+//                                    Upload upload = new Upload(newItem.getId().toString(), taskSnapshot.getUploadSessionUri().toString());
+//                                    String uploadid = dbref.push().getKey();
+//                                    dbref.child(uploadid).setValue(upload);
+//                                }
+//                            })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception exception) {
+//                                    // Handle unsuccessful uploads
+//                                    // ...
+//                                }
+//                            });
+//                }
+
                 dbref.child("listings").child(newItem.getId()).setValue(newItem);
                 dbref.child("users").child(id).child("listings").child(newItem.getId()).setValue(newItem);
                 //add listing to user arraylist of items
@@ -239,12 +231,18 @@ public class CreateListings extends Fragment implements View.OnClickListener{
     }
 
 
-    private Uri getImageUri(Context inContext, Bitmap inImage) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
-        return Uri.parse(path);
-    }
+//    private String getExtension(Uri uri) {
+//        ContentResolver cr = getContext().getContentResolver();
+//        MimeTypeMap mime = MimeTypeMap.getSingleton();
+//        return mime.getExtensionFromMimeType(cr.getType(uri));
+//    }
+//
+//    private Uri getImageUri(Context inContext, Bitmap inImage) {
+//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+//        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+//        return Uri.parse(path);
+//    }
 
 //    @Override
 //     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

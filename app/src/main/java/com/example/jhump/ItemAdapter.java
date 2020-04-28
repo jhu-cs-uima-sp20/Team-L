@@ -1,5 +1,6 @@
 package com.example.jhump;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,6 +15,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.net.URI;
 import java.net.URL;
 
@@ -21,6 +30,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
 import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 public class ItemAdapter extends ArrayAdapter<Item> {
@@ -60,10 +70,28 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         priceView.setText("$" + Double.toString(item.getPrice()) + "0");
         sellerView.setText("Sold by: " + item.getSeller());
         conditionView.setText("Condition: " + item.getCondition());
-        if (item.getPicture() != null) {
-            Uri link = Uri.parse(item.getPicture());
-            imageView.setImageURI(link);
-        }
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference Ref = storageRef.child(item.getId());
+        //final String link = item.getPicture().toString();
+//        Ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//                // Successfully downloaded data to local file
+//                // ...
+//                String url = uri.toString();
+//                //downloadFiles(getContext(), link, ".jpeg", DIRECTORY_DOWNLOADS, url);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//                // Handle failed download
+//                // ...
+//            }
+//        });
+//        if (item.getPicture() != null) {
+//            Uri link = Uri.parse(item.getPicture());
+//            imageView.setImageURI(link);
+//        }
         //Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
         ;
         if (item.isSold()) {
@@ -73,10 +101,17 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         else {
             soldView.setImageResource(R.drawable.blank);
         }
-        //change width/height
-        //imageView.setImageBitmap(Bitmap.createScaledBitmap(item.getPicture().get(0), 80, 100, false));
-
         return itemView;
     }
+
+//    public void downloadFiles(Context context, String filename,
+//                              String fileExtension, String destinationDirectory, String url) {
+//        DownloadManager downloadManager = (DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+//        Uri uri = Uri.parse(url);
+//        DownloadManager.Request request = new DownloadManager.Request(uri);
+//        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+//        request.setDestinationInExternalFilesDir(context, destinationDirectory, filename + fileExtension);
+//        downloadManager.enqueue(request);
+//    }
 
 }
