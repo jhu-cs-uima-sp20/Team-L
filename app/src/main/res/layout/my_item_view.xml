@@ -96,13 +96,14 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/edit"
+                android:id="@+id/edit_listing_button"
                 android:layout_width="52dp"
                 android:layout_height="31dp"
                 android:layout_marginBottom="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="10dp"
+                android:onClick="goToActivity"
                 android:text="EDIT"
                 android:textSize="10dp" />
 
