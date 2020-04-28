@@ -10,13 +10,14 @@
         android:layout_width="match_parent"
         android:layout_height="295dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_picture"
             android:layout_width="105dp"
             android:layout_height="105dp"
             android:layout_marginTop="75dp"
             android:contentDescription="profile picture"
-            android:src="@drawable/anon_user"
+            android:src="@drawable/spongebob"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
