@@ -14,6 +14,10 @@ public class User implements Serializable {
     //TOASTS
     private ArrayList<Item> listing;
 
+    public User() {
+        //empty
+    }
+
     public User(String name, String email, String password, String number, ArrayList<Item> listing) {
         this.name = name;
         this.email = email;

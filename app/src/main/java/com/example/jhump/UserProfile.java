@@ -1,16 +1,26 @@
 package com.example.jhump;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.service.autofill.Dataset;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,36 +45,41 @@ public class UserProfile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Contact Information");
         db = FirebaseDatabase.getInstance();
-        dbref = db.getReference("users");
-        String seller = getIntent().getStringExtra("sellerID");
-        final User[] contact = new User[1];
-        dbref.child("sellerID").addValueEventListener(new ValueEventListener() {
+        dbref = db.getReference().child("users");
+        final String seller = getIntent().getStringExtra("sellerID");
+
+        dbref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               contact[0] = dataSnapshot.getValue(User.class);
-            }
+                for (DataSnapshot pair : dataSnapshot.getChildren()) {
+                    String email = pair.child("email").getValue(String.class);
+                    String jhed = email.substring(0, email.indexOf('@'));
+                    if (jhed.equals(seller)) {
+                        String name = pair.child("name").getValue(String.class);
+                        ArrayList<Item> items = new ArrayList<>();
+                        for (DataSnapshot listing: pair.child("listings").getChildren()) {
+                            items.add(listing.getValue(Item.class));
+                        }
 
+                        TextView email_view = findViewById(R.id.email);
+                        email_view.setText(email);
+                        TextView name_view = findViewById(R.id.my_profile_name);
+                        name_view.setText(name);
+                        listView = findViewById(R.id.my_profile_listings);
+                        itemAdapter = new ItemAdapter(getApplicationContext(), R.layout.listing_item_layout, items);
+                        listView.setAdapter(itemAdapter);
+                        registerForContextMenu(listView);
+                    }
+                }
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w("User Class", "Failed to read value.", databaseError.toException());
+                Log.w("Failed to read value.", databaseError.toException());
             }
         });
 
-        TextView email = findViewById(R.id.email);
-        email.setText(contact[0].getEmail());
-        TextView name = findViewById(R.id.name);
-        name.setText(contact[0].getName());
-        TextView number = findViewById(R.id.number);
-        number.setText(contact[0].getName());
-        items = new ArrayList<>();
-        items.addAll(contact[0].getListing());
-        listView = findViewById(R.id.my_profile_listings);
-        itemAdapter = new ItemAdapter(getApplicationContext(), R.layout.listing_item_layout, items);
-        listView.setAdapter(itemAdapter);
-        registerForContextMenu(listView);
-
         //pull user profile picture
-        findViewById(R.id.facebook_user_profile).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.facebook_my_profile).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String url = "https://www.facebook.com/"; //Hardcoded Facebook link, for now.
@@ -75,4 +90,15 @@ public class UserProfile extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
+

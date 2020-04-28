@@ -8,34 +8,32 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="295dp">
 
         <ImageView
             android:id="@+id/profile_picture"
             android:layout_width="105dp"
             android:layout_height="105dp"
-            android:layout_marginTop="100dp"
-            android:contentDescription="@string/profile_picture"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_marginTop="75dp"
+            android:contentDescription="profile picture"
+            android:src="@drawable/anon_user"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/anon_user" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/facebook_user_profile"
+            android:id="@+id/facebook_my_profile"
             android:layout_width="62dp"
             android:layout_height="62dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="100dp"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_marginTop="75dp"
+            android:src="@drawable/facebook_icon"
             app:layout_constraintEnd_toStartOf="@+id/profile_picture"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/facebook_icon" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/my_profile_name"
@@ -58,37 +56,19 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/my_profile_name" />
 
-        <TextView
-            android:id="@+id/number"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="123-456-789"
-            app:layout_constraintBottom_toTopOf="@+id/my_profile_listings"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/my_profile_name" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="97dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="@+id/my_profile_listings"
-            app:layout_constraintTop_toTopOf="@+id/my_profile_listings" />
-
-        <ListView
-            android:id="@+id/my_profile_listings"
-            android:layout_width="411dp"
-            android:layout_height="430dp"
-            android:layout_marginTop="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/email">
-
-        </ListView>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ListView
+        android:id="@+id/my_profile_listings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="260dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </ListView>
 
 </FrameLayout>
