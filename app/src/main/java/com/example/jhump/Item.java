@@ -126,6 +126,10 @@ public class Item implements Parcelable {
         this.sold = sold;
     }
 
+    public void setPicture(String link) {
+        this.picture = link;
+    }
+
     public void setPrice(double price) {this.price = price;}
 
     //add only?

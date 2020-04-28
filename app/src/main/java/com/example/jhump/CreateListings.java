@@ -188,12 +188,12 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                 String sellerID = userLogin.getString("id", "John Doe");
                 links = imguri.toString();
                 //links = "blank";
-                final Item newItem = new Item(listingName.getText().toString(), links, name,
+                Item newItem = new Item(listingName.getText().toString(), links, name,
                         sellerID, textCon, textCat, description.getText().toString(),
                         Double.parseDouble(price.getText().toString()), false );
-                StorageReference storageRef = FirebaseStorage.getInstance().getReference("uploads");
+                StorageReference storageRef = FirebaseStorage.getInstance().getReference();
                 if (imguri != null) {
-                    Ref = storageRef.child(newItem.getId()+getExtension(imguri));
+                    Ref = storageRef.child(newItem.getId());
                     Ref.putFile(imguri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -201,11 +201,14 @@ public class CreateListings extends Fragment implements View.OnClickListener{
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     String url = uri.toString();
-                                    Log.d("download link",url);
+                                    links = url;
+                                    //Log.d("download link",url);
                                 }
                             });
                         }
                     });
+                    newItem.setPicture(links);
+
 //                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 //                                @Override
 //                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

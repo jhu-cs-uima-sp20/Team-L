@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,12 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 
@@ -63,7 +67,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         TextView priceView = itemView.findViewById(R.id.listing_price);
         TextView sellerView = itemView.findViewById(R.id.listing_seller);
         TextView conditionView = itemView.findViewById(R.id.listing_condition);
-        ImageView imageView = itemView.findViewById(R.id.listing_image);
+        final ImageView imageView = itemView.findViewById(R.id.listing_image);
         ImageView soldView = itemView.findViewById(R.id.sold_image);
 
         listingNameView.setText(item.getName());
@@ -72,6 +76,21 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         conditionView.setText("Condition: " + item.getCondition());
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
         StorageReference Ref = storageRef.child(item.getId());
+        //Ref.getDownloadUrl()
+//        File localFile = null;
+//        try {
+//            localFile = File.createTempFile("images", "jpg");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        final File finalLocalFile = localFile;
+//        Ref.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+//            @Override
+//            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                Bitmap bitmap = BitmapFactory.decodeFile(finalLocalFile.getAbsolutePath());
+//                imageView.setImageBitmap(bitmap);
+//            }
+//        });
         //final String link = item.getPicture().toString();
 //        Ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
 //            @Override
@@ -79,6 +98,8 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 //                // Successfully downloaded data to local file
 //                // ...
 //                String url = uri.toString();
+//                Log.d("link", url);
+//                imageView.setImageURI(Uri.parse(url));
 //                //downloadFiles(getContext(), link, ".jpeg", DIRECTORY_DOWNLOADS, url);
 //            }
 //        }).addOnFailureListener(new OnFailureListener() {
@@ -88,10 +109,10 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 //                // ...
 //            }
 //        });
-//        if (item.getPicture() != null) {
-//            Uri link = Uri.parse(item.getPicture());
-//            imageView.setImageURI(link);
-//        }
+        if (item.getPicture() != null) {
+            Uri link = Uri.parse(item.getPicture());
+            imageView.setImageURI(link);
+        }
         //Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(),imageUri);
         ;
         if (item.isSold()) {
