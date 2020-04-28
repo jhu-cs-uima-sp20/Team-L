@@ -149,22 +149,4 @@ public class NavigationDrawer extends AppCompatActivity
         super.onResume();
 
     }
-
-    /*public void goToActivity(View view) {
-        Intent edit = new Intent(this, EditListings.class);
-        MyItemAdapter adapter = MyListings.getItemAdapter();
-        int position = MyListings.getPosition(view);
-        String[] attributes = adapter.getAttributes(position);
-        edit.putExtra("listing", attributes[0]);
-        edit.putExtra("seller", attributes[1]);
-        edit.putExtra("category", attributes[2]);
-        edit.putExtra("condition", attributes[3]);
-        edit.putExtra("description", attributes[4]);
-        edit.putExtra("price", Double.parseDouble(attributes[5]));
-        edit.putExtra("sold", attributes[6]);
-        edit.putExtra("sellerID", attributes[7]);
-        edit.putExtra("ID", attributes[8]);
-        edit.putExtra("picture", attributes[9]);
-        startActivity(edit);
-    }*/
 }

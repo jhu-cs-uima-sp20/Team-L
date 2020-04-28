@@ -22,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-class EditListings extends AppCompatActivity {
+public class EditListings extends AppCompatActivity {
     private Button post;
     private Button cancel;
     private List<Bitmap> pics;

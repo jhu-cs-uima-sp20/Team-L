@@ -1,5 +1,6 @@
 package com.example.jhump;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -29,11 +30,13 @@ public class MyItemAdapter extends ArrayAdapter<Item> {
     private int resource;
     private FirebaseDatabase db;
     private DatabaseReference dbref;
+    private Activity context;
 
     public MyItemAdapter(Context ctx, int res, ArrayList<Item> items)
     {
         super(ctx, res, items);
         resource = res;
+        context = (Activity) ctx;
     }
 
 
@@ -104,7 +107,7 @@ public class MyItemAdapter extends ArrayAdapter<Item> {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent edit = new Intent(getContext(), EditListings.class);
+                Intent edit = new Intent(context, EditListings.class);
                 edit.putExtra("listing", item.getName());
                 edit.putExtra("seller", item.getSeller());
                 edit.putExtra("category", item.getCategory());
@@ -115,7 +118,7 @@ public class MyItemAdapter extends ArrayAdapter<Item> {
                 edit.putExtra("sellerID", item.getSellerID());
                 edit.putExtra("ID", item.getId());
                 edit.putExtra("picture", item.getPicture());
-                getContext().startActivity(edit);
+                context.startActivity(edit);
             }
         });
 

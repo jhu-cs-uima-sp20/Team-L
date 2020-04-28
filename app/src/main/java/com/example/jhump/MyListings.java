@@ -88,33 +88,7 @@ public class MyListings extends Fragment {
                 startActivity(intent);
             }
         });
-
-       /* Button button = (Button) getView().findViewById(R.id.edit_listing_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                View parentRow = (View) view.getParent();
-                ListView listView = (ListView) parentRow.getParent();
-                int position = listView.getPositionForView(parentRow);
-                String[] attributes = adapter.getAttributes(position);
-                Intent edit = new Intent(getActivity(), EditListings.class);
-                edit.putExtra("listing", attributes[0]);
-                edit.putExtra("seller", attributes[1]);
-                edit.putExtra("category", attributes[2]);
-                edit.putExtra("condition", attributes[3]);
-                edit.putExtra("description", attributes[4]);
-                edit.putExtra("price", Double.parseDouble(attributes[5]));
-                edit.putExtra("sold", attributes[6]);
-                edit.putExtra("sellerID", attributes[7]);
-                edit.putExtra("ID", attributes[8]);
-                edit.putExtra("picture", attributes[9]);
-                startActivity(edit);
-            }
-        });*/
-
-
         return root;
-
     }
 
     public static MyItemAdapter getItemAdapter() {
